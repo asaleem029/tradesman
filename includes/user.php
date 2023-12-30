@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 require('../connect_db.php');
 include '../classes/user.php';
 include 'helper.php';

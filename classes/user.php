@@ -1,5 +1,5 @@
 <?php
-
+include 'verify_otp.php';
 class User
 {
     function checkEmail($db, $email)
@@ -21,9 +21,22 @@ class User
 
     function registerNewUser($db, $data)
     {
-        $query = "INSERT INTO `users` (`name`, `code`, `email`, `password`, `created_at`) 
-              VALUES ('{$data['name']}', rand(), '{$data['email']}', SHA1('{$data['password']}'), NOW() )";
+        $users_count = $this->getUsersCount($db);
+        $users_type_id = 3;
+
+        if ($users_count == 0) {
+            $users_type_id = 1;
+        }
+
+        $query = "INSERT INTO `users` (`name`, `code`, `email`, `user_type_id`, `password`, `created_at`) 
+              VALUES ('{$data['name']}', '{$this->random_digits(10)}', '{$data['email']}', '{$users_type_id}', SHA1('{$data['password']}'), NOW() )";
         $result = $db->query($query);
+        $id = $db->insert_id;
+
+        if ($result) {
+            $verify_otp_obj = new VerifyOTP();
+            $verify_otp_obj->getOTP($id, $data['email']);
+        }
 
         return $result;
     }
@@ -77,7 +90,6 @@ class User
 
     function updateUserDetails($db, $data)
     {
-
         $sql = "UPDATE `users` SET `name` = '{$data['name']}', `email` = '{$data['email']}', `hourly_rate` = '{$data['hourly_rate']}', `phone` = '{$data['phone']}', `city` = '{$data['city']}', `country` = '{$data['country']}', `user_type_id` = '{$data['user_type_id']}', `status` = '{$data['status']}', `summary` = '{$data['summary']}'  WHERE `id` = '{$data['id']}'";
 
         if ($db->query($sql) === TRUE) {
@@ -85,7 +97,13 @@ class User
         } else {
             return "Error updating record: " . $db->error;
         }
+    }
 
-        return true;
+    function getUsersCount($db)
+    {
+        $query = "SELECT * FROM `users`";
+        $response = $db->query($query);
+
+        return $response->num_rows;
     }
 }

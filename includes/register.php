@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 require('../connect_db.php');
 include '../classes/user.php';
 
@@ -45,12 +47,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST) && $_POST['action_type
     // check errors and insert data into database, otherwise throw error.
     if (empty($errors)) {
         $result = $user_obj->registerNewUser($db, $_POST);
-        
-        if ($result) {
-            echo "<h1>Registered!</h1>".
-	            "<p>You are now registered.</p>".
-	            "<p><a href='../login.php'>Login</a></p>";
-        }
 
         exit();
     } else {
