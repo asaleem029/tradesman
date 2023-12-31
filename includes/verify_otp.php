@@ -3,6 +3,7 @@ session_start();
 
 require('../connect_db.php');
 include '../classes/verify_otp.php';
+include '../includes/helper.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST) && $_POST['action'] == 'VERIFY_OTP') {
 

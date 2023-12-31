@@ -17,10 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST) && $_POST['action_type
 
 		load('../home.php');
 	} else {
-		$errors = $data;
+		myAlert($data, '../login.php');
 	}
 
 	$db->close();
-	echo "<h1 id='mainhead'>Innovative Multimedia Products and Services</h1>
-    <p>You are now logged in, {$_SESSION['name']} </p>";
 }

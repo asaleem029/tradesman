@@ -7,7 +7,6 @@ use PHPMailer\PHPMailer\Exception;
 require '../PHPMailer/src/PHPMailer.php';
 require '../PHPMailer/src/SMTP.php';
 require '../PHPMailer/src/Exception.php';
-include '../includes/helper.php';
 
 class VerifyOTP
 {
@@ -41,7 +40,7 @@ class VerifyOTP
             $mail->Body    = 'Your one time email verification code is: ' . $otp;
 
             if ($mail->send()) {
-                myAlert("OTP send to your email", '../verify_otp.php?action=VERIFY_OTP&id=' . $id);
+                myAlert("OTP send to your email", '../verify_otp.php?id=' . $id);
             }
         } catch (Exception $e) {
             return "Mail could not be sent. Mailer Error: {$mail->ErrorInfo}";
