@@ -11,11 +11,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST) && $_POST['action_type
 	list($check, $data) = $login->validate($db, $_POST['email'], $_POST['pass']);
 
 	if ($check) {
-		$_SESSION['id'] = $data['id'];
-		$_SESSION['name'] = $data['name'];
-		$_SESSION['email'] = $data['email'];
-
-		load('../home.php');
+		unset($_SESSION);
+		$_SESSION['user'] = $data;
+		myAlert("LoggedIn Successfully", '../home.php');
 	} else {
 		myAlert($data, '../login.php');
 	}

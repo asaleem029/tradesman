@@ -15,8 +15,9 @@
 
 	<div class="form-group">
 		<div class="col">
-			<small><a href="password.php">Reset Password?</a></small>
+			<small><a href="reset_password.php">Forgot Password?</a></small>
 		</div>
+		<br>
 		<div class="col">
 			<button class="btn btn-primary" name="submit" type="submit">Login</button>
 		</div>

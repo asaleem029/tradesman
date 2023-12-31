@@ -6,21 +6,20 @@ class Login
 {
     function validate($db, $email = '', $pwd = '')
     {
-        $errors = array();
         if (empty($email)) {
-            $errors[] = 'Enter your email address. Fool.';
+            $errors = 'Enter your email address.';
         } else {
             $e = $db->real_escape_string(trim($email));
         }
 
         if (empty($pwd)) {
-            $errors[] = 'Enter your password. Fool.';
+            $errors = 'Enter your password.';
         } else {
             $p = $db->real_escape_string(trim($pwd));
         }
 
         if (empty($errors)) {
-            $q = "SELECT `id`, `name`, `email`, `email_verified` FROM `users` WHERE `email`='$e' AND `password`=SHA1('$p')";
+            $q = "SELECT * FROM `users` WHERE `email` = '$e' AND `password` = SHA1('$p')";
             $r = $db->query($q);
 
             if ($r->num_rows == 1) {
@@ -33,7 +32,7 @@ class Login
                     $verify_otp_obj->getOTP($row['id'], $row['email']);
                 }
             } else {
-                $errors[] = 'Email and password not found';
+                $errors = 'Email and password not found';
                 return array(false, $errors);
             }
         }

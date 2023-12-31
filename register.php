@@ -17,35 +17,6 @@
 		</div>
 	</div>
 
-	<!-- <div class="form-group">
-		<div class="row">
-			<div class="col">
-				<input type="text" name="code" size="50" value="<?php if (isset($_POST['code'])) echo $_POST['code']; ?>" placeholder="Enter Code">
-			</div>
-
-			<div class="col">
-				<input type="text" name="phone" size="50" value="<?php if (isset($_POST['phone'])) echo $_POST['phone']; ?>" placeholder="Enter Phone No.">
-			</div>
-		</div>
-	</div> -->
-
-<!-- 
-	<div class="form-group">
-		<div class="row">
-			<div class="col">
-				<input type="text" name="city" size="50" value="<?php if (isset($_POST['city'])) echo $_POST['city']; ?>" placeholder="Enter City">
-			</div>
-
-			<div class="col">
-				<input type="text" name="country" size="50" value="<?php if (isset($_POST['country'])) echo $_POST['country']; ?>" placeholder="Enter Country">
-			</div>
-		</div>
-	</div>
-
-	<div class="form-group">
-		<input type="text" name="hourly_rate" size="50" value="<?php if (isset($_POST['hourly_rate'])) echo $_POST['hourly_rate']; ?>" placeholder="Enter Hourly Rate">
-	</div> -->
-
 	<div class="form-group">
 		<div class="row">
 			<div class="col">
@@ -57,10 +28,6 @@
 			</div>
 		</div>
 	</div>
-<!-- 
-	<div class="form-group">
-		<textarea name="summary" id="summary" cols="30" rows="10" placeholder="Write Summary"></textarea>
-	</div> -->
 
 	<button class="btn btn-primary" name="submit" type="submit">Register</button>
 </form>
