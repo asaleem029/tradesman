@@ -13,7 +13,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST) && $_POST['action_type
 	if ($check) {
 		unset($_SESSION['users']);
 		$_SESSION['user'] = $data;
-		myAlert("LoggedIn Successfully", '../home.php');
+
+		if (empty($data['phone']) && empty($data['hourly_rate']) && $data['user_type_id'] == 2) {
+			myAlert("LoggedIn Successfully", '../complete_signup.php');
+		} else {
+			myAlert("LoggedIn Successfully", '../home.php');
+		}
 	} else {
 		myAlert($data, '../login.php');
 	}

@@ -216,3 +216,43 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST) && $_POST['action_type
         exit;
     }
 }
+
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST) && $_POST['action_type'] == 'UPDATE_PROFILE') {
+    $errors = array();
+    $user_obj = new User();
+
+    //Phone
+    if (empty($_POST['phone'])) {
+        $errors[] = 'Enter your phone';
+    } else {
+        $phone = $db->real_escape_string(trim($_POST['phone']));
+    }
+
+    //hourly_rate
+    if (empty($_POST['hourly_rate'])) {
+        $errors[] = 'Enter your hourly_rate';
+    } else {
+        $hourly_rate = $db->real_escape_string(trim($_POST['hourly_rate']));
+    }
+
+    // check errors and insert data into database, otherwise throw error.
+    if (empty($errors)) {
+        $result = $user_obj->updateProfile($db, $_POST);
+
+        if ($result) {
+            myAlert($result, '../home.php');
+        }
+
+        exit();
+    } else {
+        echo '<h1>Error!</h1>
+                 <p id="err_msg">The following error(s) occurred:<br>';
+        foreach ($errors as $msg) {
+            echo " - $msg<br>";
+        }
+        echo 'Please try again.</p>'.
+        '<a class="btn btn-primary" href="../complete_signup.php">Back</a>';
+        exit;
+    }
+}

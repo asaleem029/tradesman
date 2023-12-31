@@ -100,6 +100,17 @@ class User
         }
     }
 
+    function updateProfile($db, $data)
+    {
+        $sql = "UPDATE `users` SET `hourly_rate` = '{$data['hourly_rate']}', `phone` = '{$data['phone']}', `city` = '{$data['city']}', `country` = '{$data['country']}', `summary` = '{$data['summary']}'  WHERE `id` = '{$_SESSION['user']['id']}'";
+
+        if ($db->query($sql) === TRUE) {
+            return "Profile Updated Successfully";
+        } else {
+            return "Error updating record: " . $db->error;
+        }
+    }
+
     function getUsersCount($db)
     {
         $query = "SELECT * FROM `users`";
