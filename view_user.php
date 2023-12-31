@@ -147,11 +147,11 @@ $user_detail = $user->getUser($db, $_GET['id']);
 							</li>
 
 							<li>
-								<div class="row" style="width: 82vw;">
-									<div class="col-md-2 col-2">
+								<div class="row">
+									<div class="col-md-3 col-3">
 										<strong class="margin-10px-left xs-margin-four-left text-pink">Summary:</strong>
 									</div>
-									<div class="col-md-7 col-7">
+									<div class="col-md-9 col-9">
 										<p><?= $user_detail['summary'] ? $user_detail['summary'] : '--' ?></p>
 									</div>
 								</div>
