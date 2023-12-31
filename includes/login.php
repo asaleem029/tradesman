@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST) && $_POST['action_type
 	list($check, $data) = $login->validate($db, $_POST['email'], $_POST['pass']);
 
 	if ($check) {
-		unset($_SESSION);
+		unset($_SESSION['users']);
 		$_SESSION['user'] = $data;
 		myAlert("LoggedIn Successfully", '../home.php');
 	} else {

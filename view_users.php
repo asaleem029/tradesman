@@ -12,9 +12,11 @@ $users = $user->getUsersList($db);
 		<h2>Users List</h2>
 	</div>
 
-	<div class="col inner-div-right">
-		<a href="add_new_user.php" class="inline-anchor btn btn-primary">Add New User</a>
-	</div>
+	<?php if ($_SESSION['user']['user_type_id'] == 1) { ?>
+		<div class="col inner-div-right">
+			<a href="add_new_user.php" class="inline-anchor btn btn-primary">Add New User</a>
+		</div>
+	<?php } ?>
 </div>
 
 <table>
@@ -22,10 +24,12 @@ $users = $user->getUsersList($db);
 		<th>id</th>
 		<th>Name</th>
 		<th>Email</th>
-		<th>Code</th>
+		<th>Status</th>
 		<th>View</th>
 		<th>Edit</th>
-		<th>Delete</th>
+		<?php if ($_SESSION['user']['user_type_id'] == 1) { ?>
+			<th>Delete</th>
+		<?php } ?>
 	</thead>
 	<tbody>
 		<?php foreach ($users as $user) { ?>
@@ -40,7 +44,7 @@ $users = $user->getUsersList($db);
 					<?= $user['email']; ?>
 				</td>
 				<td>
-					<?= $user['code']; ?>
+					<?= $user['status'] == 0 ? "Un-Block" : "Blocked"; ?>
 				</td>
 				<td>
 					<a href="view_user.php?id=<?= $user['id']; ?>">
@@ -52,11 +56,14 @@ $users = $user->getUsersList($db);
 						<i class="fas fa-edit"></i>
 					</a>
 				</td>
-				<td>
-					<a href="delete_user.php?id=<?= $user['id']; ?>" class=<?= $_SESSION['id'] == $user['id'] ? "disabled" : "" ?>>
-						<i class="fas fa-trash"></i>
-					</a>
-				</td>
+
+				<?php if ($_SESSION['user']['user_type_id'] == 1) { ?>
+					<td>
+						<a href="delete_user.php?id=<?= $user['id']; ?>" class=<?= $_SESSION['id'] == $user['id'] ? "disabled" : "" ?>>
+							<i class="fas fa-trash"></i>
+						</a>
+					</td>
+				<?php } ?>
 			</tr>
 		<?php } ?>
 	</tbody>

@@ -1,5 +1,4 @@
 <?php
-include 'verify_otp.php';
 class User
 {
     function checkEmail($db, $email)
@@ -22,7 +21,7 @@ class User
     function registerNewUser($db, $data)
     {
         $users_count = $this->getUsersCount($db);
-        $users_type_id = 3;
+        $users_type_id = 2;
 
         if ($users_count == 0) {
             $users_type_id = 1;
@@ -34,6 +33,8 @@ class User
         $id = $db->insert_id;
 
         if ($result) {
+            include 'verify_otp.php';
+
             $verify_otp_obj = new VerifyOTP();
             $verify_otp_obj->getOTP($id, $data['email']);
         }

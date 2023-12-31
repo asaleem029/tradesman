@@ -15,7 +15,7 @@ $role_name = $role->getRoleName($db, $user_detail['user_type_id']);
 
 <!-- Display body section with sticky form. -->
 <form action="includes/user.php" method="post" class="form-signin" role="form">
-	<h3 class="form-signin-heading">Update User Details</h3>
+	<h3 class="form-signin-heading">Update Details</h3>
 	<input type="hidden" id="action_type" name="action_type" value="UPDATE_USER_DETAILS">
 
 	<div class="form-group">
@@ -74,28 +74,30 @@ $role_name = $role->getRoleName($db, $user_detail['user_type_id']);
 		</div>
 	</div>
 
-	<div class="form-group">
-		<div class="row">
-			<div class="col">
-				<label for="user_type_id">User Type</label>
-				<select class="form-select" name="user_type_id" aria-label="Default select example">
-					<option>-- Select User Type --</option>
-					<?php foreach ($roles_list as $role) { ?>
-						<option <?= $user_detail['user_type_id'] == $role['id'] ? 'selected="selected"' : ''  ?> value="<?= $role['id'] ?>"><?= $role['name'] ?></option>
-					<?php } ?>
-				</select>
-			</div>
+	<?php if ($_SESSION['user']['user_type_id'] == 1) { ?>
+		<div class="form-group">
+			<div class="row">
+				<div class="col">
+					<label for="user_type_id">User Type</label>
+					<select class="form-select" name="user_type_id" aria-label="Default select example">
+						<option>-- Select User Type --</option>
+						<?php foreach ($roles_list as $role) { ?>
+							<option <?= $user_detail['user_type_id'] == $role['id'] ? 'selected="selected"' : ''  ?> value="<?= $role['id'] ?>"><?= $role['name'] ?></option>
+						<?php } ?>
+					</select>
+				</div>
 
-			<div class="col">
-				<label for="status">Status</label>
-				<select class="form-select" name="status" aria-label="Default select example">
-					<option>-- Select Status --</option>
-					<option <?= $user_detail['status'] == 1 ? 'selected="selected"' : '' ?> value="1">Block</option>
-					<option <?= $user_detail['status'] == 2 ? 'selected="selected"' : '' ?> value="2">Unblock</option>
-				</select>
+				<div class="col">
+					<label for="status">Status</label>
+					<select class="form-select" name="status" aria-label="Default select example">
+						<option>-- Select Status --</option>
+						<option <?= $user_detail['status'] == 0 ? 'selected="selected"' : '' ?> value="0">Un-Block</option>
+						<option <?= $user_detail['status'] == 1 ? 'selected="selected"' : '' ?> value="1">Block</option>
+					</select>
+				</div>
 			</div>
 		</div>
-	</div>
+	<?php } ?>
 
 	<br>
 

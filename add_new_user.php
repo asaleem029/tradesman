@@ -74,8 +74,8 @@ $roles_list = $role->getRolesList($db);
 			<div class="col">
 				<select class="form-select" name="status" aria-label="Default select example">
 					<option selected>-- Select Status --</option>
+					<option value="0">Un-Block</option>
 					<option value="1">Block</option>
-					<option value="2">Unblock</option>
 				</select>
 			</div>
 		</div>
