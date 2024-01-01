@@ -59,9 +59,9 @@
 }
 
 .back-button {
+  margin-top: 5px !important;
   margin-left: auto;
   margin-right: auto;
-  width: 50%;
 }
 
 .disabled {
@@ -80,4 +80,11 @@
 
 .inline-anchor {
   float: right;
+}
+
+.search-bar {
+  width: 50% !important;
+  float: right;
+  margin-top: 5px;
+  margin-bottom: 0 !important;
 }

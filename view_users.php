@@ -3,8 +3,18 @@ include 'home.php';
 include 'connect_db.php';
 include 'classes/user.php';
 
+if (!isset($_SESSION)) {
+	session_start();
+}
+
+$users = array();
 $user = new User();
-$users = $user->getUsersList($db);
+
+if (isset($_POST['search']) && !empty($_POST['search'])) {
+	$users = $user->getUsersList($db, $_POST['search']);
+} else {
+	$users = $user->getUsersList($db);
+}
 ?>
 
 <div class="row">
@@ -18,6 +28,23 @@ $users = $user->getUsersList($db);
 		</div>
 	<?php } ?>
 </div>
+
+<form action="view_users.php" method="post">
+	<div class="row">
+		<div class="col"></div>
+		<div class="col">
+			<div class="input-group search-bar">
+				<input type="text" class="form-control" style="width: 50%;" name="search" placeholder="Search..." value="<?= isset($_POST['search']) && !empty($_POST['search']) ? $_POST['search'] : '' ?>">
+
+				<div class="input-group-prepend">
+					<button class="btn btn-primary" name="submit" type="submit">
+						<i class="fas fa-search"></i>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
 
 <table>
 	<thead>
@@ -44,7 +71,7 @@ $users = $user->getUsersList($db);
 					<?= $user['email']; ?>
 				</td>
 				<td>
-					<?= $user['status'] == 0 ? "Un-Block" : "Blocked"; ?>
+					<?= $user['status'] == 1 ? "Un-Block" : "Blocked"; ?>
 				</td>
 				<td>
 					<a href="view_user.php?id=<?= $user['id']; ?>">
@@ -57,9 +84,9 @@ $users = $user->getUsersList($db);
 					</a>
 				</td>
 
-				<?php if ($_SESSION['user']['user_type_id'] == 1) { ?>
+				<?php  var_dump($_SESSION['user']); if ($_SESSION['user']['user_type_id'] == 1) { ?>
 					<td>
-						<a href="delete_user.php?id=<?= $user['id']; ?>" class=<?= $_SESSION['id'] == $user['id'] ? "disabled" : "" ?>>
+						<a href="delete_user.php?id=<?= $user['id']; ?>" class=<?= $_SESSION['user']['id'] == $user['id'] ? "disabled" : "" ?>>
 							<i class="fas fa-trash"></i>
 						</a>
 					</td>

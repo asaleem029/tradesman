@@ -31,4 +31,11 @@ $roles = $role->getRolesList($db);
 	</tbody>
 </table>
 
+<div class="center">
+	<a href="view_users.php" class="btn btn-primary">
+		<i class="fa fa-arrow-left" aria-hidden="true"></i>
+		Back
+	</a>
+</div>
+
 <?php include 'footer.php' ?>

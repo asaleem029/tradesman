@@ -1,7 +1,10 @@
 <?php
 include 'includes/helper.php';
 
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
+}
+
 unset($_SESSION);
 unset($_SESSION['users']);
 

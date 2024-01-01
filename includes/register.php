@@ -47,9 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST) && $_POST['action_type
 
     // check errors and insert data into database, otherwise throw error.
     if (empty($errors)) {
-        $result = $user_obj->registerNewUser($db, $_POST);
-
-        exit();
+        $user_obj->registerNewUser($db, $_POST);
     } else {
         echo '<h1>Error!</h1>
 	         <p id="err_msg">The following error(s) occurred:<br>';

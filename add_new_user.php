@@ -74,8 +74,8 @@ $roles_list = $role->getRolesList($db);
 			<div class="col">
 				<select class="form-select" name="status" aria-label="Default select example">
 					<option selected>-- Select Status --</option>
-					<option value="0">Un-Block</option>
-					<option value="1">Block</option>
+					<option value="1">Un-Block</option>
+					<option value="2">Block</option>
 				</select>
 			</div>
 		</div>
@@ -90,7 +90,7 @@ $roles_list = $role->getRolesList($db);
 	<br>
 
 	<a class="btn btn-primary" href="view_users.php">Back</a>
-	<button class="btn btn-primary" name="submit" type="submit">Register</button>
+	<button class="btn btn-primary" name="submit" type="submit">Save</button>
 </form>
 
 <?php include('footer.php') ?>

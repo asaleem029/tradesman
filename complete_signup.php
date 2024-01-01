@@ -41,7 +41,7 @@ include 'connect_db.php';
 	<div class="form-group">
 		<div class="row">
 			<div class="col">
-				<a class="btn btn-primary" style="float:right;" href="index.php">Skip</a>
+				<a class="btn btn-primary" style="float:right;" href="home.php">Skip</a>
 			</div>
 
 			<div class="col">

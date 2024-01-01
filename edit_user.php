@@ -91,8 +91,8 @@ $role_name = $role->getRoleName($db, $user_detail['user_type_id']);
 					<label for="status">Status</label>
 					<select class="form-select" name="status" aria-label="Default select example">
 						<option>-- Select Status --</option>
-						<option <?= $user_detail['status'] == 0 ? 'selected="selected"' : '' ?> value="0">Un-Block</option>
-						<option <?= $user_detail['status'] == 1 ? 'selected="selected"' : '' ?> value="1">Block</option>
+						<option <?= $user_detail['status'] == 1 ? 'selected="selected"' : '' ?> value="1">Un-Block</option>
+						<option <?= $user_detail['status'] == 2 ? 'selected="selected"' : '' ?> value="2">Block</option>
 					</select>
 				</div>
 			</div>
@@ -110,7 +110,10 @@ $role_name = $role->getRoleName($db, $user_detail['user_type_id']);
 
 	<br>
 
-	<a class="btn btn-primary" href="view_users.php">Back</a>
+	<a class="btn btn-primary" href="view_users.php">
+		<i class="fa fa-arrow-left" aria-hidden="true"></i>
+		Back
+	</a>
 	<button class="btn btn-primary" name="submit" type="submit">Update</button>
 </form>
 

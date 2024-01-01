@@ -42,9 +42,14 @@ class User
         return $result;
     }
 
-    function  getUsersList($db)
+    function  getUsersList($db, $search = '')
     {
-        $query = "SELECT * FROM `users`";
+        $where = '';
+        if (isset($search) && !empty($search)) {
+            $where = " WHERE `name` LIKE '%{$search}%' OR `code` LIKE '%{$search}%' OR `email` LIKE '%{$search}%' OR `phone` LIKE '%{$search}%' OR `city` LIKE '%{$search}%' OR `country` LIKE '%{$search}%' OR `hourly_rate` LIKE '%{$search}%' OR `summary` LIKE '%{$search}%'";
+        }
+
+        $query = "SELECT * FROM `users` $where";
         $response = $db->query($query);
         $result = $response->fetch_all(MYSQLI_ASSOC);
 

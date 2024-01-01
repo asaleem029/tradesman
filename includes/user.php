@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
+}
 
 require('../connect_db.php');
 include '../classes/user.php';
@@ -212,11 +214,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST) && $_POST['action_type
             echo " - $msg<br>";
         }
         echo 'Please try again.</p>' .
-            '<a href="../add_new_users.php">Back</a>';
+            '<a href="../edit_user.php?id=' . $_POST['id'] . '">Back</a>';
         exit;
     }
 }
-
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST) && $_POST['action_type'] == 'UPDATE_PROFILE') {
     $errors = array();
@@ -251,8 +252,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST) && $_POST['action_type
         foreach ($errors as $msg) {
             echo " - $msg<br>";
         }
-        echo 'Please try again.</p>'.
-        '<a class="btn btn-primary" href="../complete_signup.php">Back</a>';
+        echo 'Please try again.</p>' .
+            '<a class="btn btn-primary" href="../complete_signup.php">Back</a>';
         exit;
     }
 }

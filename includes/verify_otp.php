@@ -1,4 +1,7 @@
 <?php
+if (!isset($_SESSION)) {
+    session_start();
+}
 
 require('../connect_db.php');
 include '../classes/verify_otp.php';

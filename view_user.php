@@ -8,7 +8,18 @@ $user_detail = $user->getUser($db, $_GET['id']);
 
 ?>
 
-<h3 class="center"><?= $user_detail['name']; ?></h3>
+<div class="row">
+	<div class="col back-button">
+		<a href="view_users.php" class="btn btn-primary">
+			<i class="fa fa-arrow-left" aria-hidden="true"></i>
+			Back
+		</a>
+	</div>
+
+	<div class="col" style="position: relative; left: -21%;">
+		<h3><?= $user_detail['name']; ?></h3>
+	</div>
+</div>
 
 <div class="container">
 	<div class="team-single">
@@ -162,13 +173,6 @@ $user_detail = $user->getUser($db, $_GET['id']);
 			</div>
 		</div>
 	</div>
-</div>
-
-<div class="col back-button">
-	<a href="view_users.php">
-		<i class="fa fa-arrow-left" aria-hidden="true"></i>
-		Back
-	</a>
 </div>
 
 <?php include 'footer.php' ?>

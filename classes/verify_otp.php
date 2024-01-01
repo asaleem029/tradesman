@@ -61,7 +61,7 @@ class VerifyOTP
                 $message = "Error updating record: " . $db->error;
             }
 
-            myAlert($message, '../home.php');
+            myAlert($message, '../login.php');
         }
     }
 }

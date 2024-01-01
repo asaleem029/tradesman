@@ -1,5 +1,8 @@
 <?php
-session_start();
+if (!isset($_SESSION)) {
+	session_start();
+}
+
 require('../connect_db.php');
 require('../classes/login.php');
 include 'helper.php';
