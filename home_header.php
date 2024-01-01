@@ -1,4 +1,10 @@
 <!-- beginning of includes\home-header.html -->
+<?php
+if (!isset($_SESSION)) {
+    session_start();
+}
+?>
+
 <!doctype html>
 <html class="no-js" lang="en" dir="ltr">
 
@@ -27,12 +33,7 @@
                     <ul class="menu">
                         <li><a href="index.php">About Us</a></li>
 
-                        <?php
-                        if (!isset($_SESSION)) {
-                            session_start();
-                        }
-
-                        if ($_SESSION['user']['user_type_id'] == 1) { ?>
+                        <?php if ($_SESSION['user']['user_type_id'] == 1) { ?>
                             <li><a href="view_users.php">Users</a></li>
                             <li><a href="view_roles.php">User Types</a></li>
                         <?php } ?>
