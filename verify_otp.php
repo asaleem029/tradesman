@@ -1,7 +1,7 @@
 <?php include 'header.php' ?>
 
 <form action="includes/verify_otp.php" method="post" class="form-signin" role="form">
-    <input type="hidden" name="action" value="VERIFY_OTP">
+    <input type="hidden" name="action_type" value="VERIFY_OTP">
     <input type="hidden" name="id" value="<?= $_GET['id'] ?>" >
 
     <h3>Email Verification</h3>

@@ -84,7 +84,7 @@ if (isset($_POST['search']) && !empty($_POST['search'])) {
 					</a>
 				</td>
 
-				<?php  var_dump($_SESSION['user']); if ($_SESSION['user']['user_type_id'] == 1) { ?>
+				<?php if ($_SESSION['user']['user_type_id'] == 1) { ?>
 					<td>
 						<a href="delete_user.php?id=<?= $user['id']; ?>" class=<?= $_SESSION['user']['id'] == $user['id'] ? "disabled" : "" ?>>
 							<i class="fas fa-trash"></i>

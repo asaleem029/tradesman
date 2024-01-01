@@ -1,6 +1,10 @@
 <?php
 include('home_header.php');
 include 'connect_db.php';
+
+if (!isset($_SESSION)) {
+	session_start();
+}
 ?>
 
 <!-- Display body section with sticky form. -->
