@@ -36,9 +36,9 @@ if (!isset($_SESSION)) {
                         <?php if ($_SESSION['user']['user_type_id'] == 1) { ?>
                             <li><a href="view_users.php">Users</a></li>
                             <li><a href="view_roles.php">User Types</a></li>
+                            <li><a href="trades_list.php">Trades</a></li>
                         <?php } ?>
 
-                        <li><a href="view_user.php?id=<?= $_SESSION['user']['id'] ?>">Profile</a></li>
                         <li><a href="logout.php">Logout</a></li>
                         <li><a href="contact-us.php">Contact Us</a></li>
                     </ul>
