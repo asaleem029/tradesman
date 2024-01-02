@@ -26,34 +26,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST) && $_POST['action_type
         $email = $db->real_escape_string(trim($_POST['email']));
     }
 
-    //Phone
-    if (empty($_POST['phone'])) {
-        $errors[] = 'Enter your phone';
-    } else {
-        $phone = $db->real_escape_string(trim($_POST['phone']));
-    }
-
-    //hourly_rate
-    if (empty($_POST['hourly_rate'])) {
-        $errors[] = 'Enter your hourly_rate';
-    } else {
-        $hourly_rate = $db->real_escape_string(trim($_POST['hourly_rate']));
-    }
-
-    //city
-    if (empty($_POST['city'])) {
-        $errors[] = 'Enter your city';
-    } else {
-        $city = $db->real_escape_string(trim($_POST['city']));
-    }
-
-    //country
-    if (empty($_POST['country'])) {
-        $errors[] = 'Enter your country';
-    } else {
-        $country = $db->real_escape_string(trim($_POST['country']));
-    }
-
     //user_type_id
     if (empty($_POST['user_type_id'])) {
         $errors[] = 'Enter your user_type_id';
@@ -66,13 +38,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST) && $_POST['action_type
         $errors[] = 'Enter your status';
     } else {
         $status = $db->real_escape_string(trim($_POST['status']));
-    }
-
-    //summary
-    if (empty($_POST['summary'])) {
-        $errors[] = 'Enter your summary';
-    } else {
-        $summary = $db->real_escape_string(trim($_POST['summary']));
     }
 
     //Password1 and password2 check 
@@ -136,34 +101,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST) && $_POST['action_type
         $email = $db->real_escape_string(trim($_POST['email']));
     }
 
-    //Phone
-    if (empty($_POST['phone'])) {
-        $errors[] = 'Enter your phone';
-    } else {
-        $phone = $db->real_escape_string(trim($_POST['phone']));
-    }
-
-    //hourly_rate
-    if (empty($_POST['hourly_rate'])) {
-        $errors[] = 'Enter your hourly_rate';
-    } else {
-        $hourly_rate = $db->real_escape_string(trim($_POST['hourly_rate']));
-    }
-
-    //city
-    if (empty($_POST['city'])) {
-        $errors[] = 'Enter your city';
-    } else {
-        $city = $db->real_escape_string(trim($_POST['city']));
-    }
-
-    //country
-    if (empty($_POST['country'])) {
-        $errors[] = 'Enter your country';
-    } else {
-        $country = $db->real_escape_string(trim($_POST['country']));
-    }
-
     //user_type_id
     if (empty($_POST['user_type_id'])) {
         $errors[] = 'Enter your user_type_id';
@@ -176,13 +113,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST) && $_POST['action_type
         $errors[] = 'Enter your status';
     } else {
         $status = $db->real_escape_string(trim($_POST['status']));
-    }
-
-    //summary
-    if (empty($_POST['summary'])) {
-        $errors[] = 'Enter your summary';
-    } else {
-        $summary = $db->real_escape_string(trim($_POST['summary']));
     }
 
     //check errors and if email already exists
@@ -222,20 +152,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST) && $_POST['action_type
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST) && $_POST['action_type'] == 'UPDATE_PROFILE') {
     $errors = array();
     $user_obj = new User();
-
-    //Phone
-    if (empty($_POST['phone'])) {
-        $errors[] = 'Enter your phone';
-    } else {
-        $phone = $db->real_escape_string(trim($_POST['phone']));
-    }
-
-    //hourly_rate
-    if (empty($_POST['hourly_rate'])) {
-        $errors[] = 'Enter your hourly_rate';
-    } else {
-        $hourly_rate = $db->real_escape_string(trim($_POST['hourly_rate']));
-    }
 
     // check errors and insert data into database, otherwise throw error.
     if (empty($errors)) {

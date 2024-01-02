@@ -1,5 +1,5 @@
 <?php
-include('home_header.php');
+include('home.php');
 include 'connect_db.php';
 
 if (!isset($_SESSION)) {
