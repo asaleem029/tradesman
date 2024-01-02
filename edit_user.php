@@ -10,7 +10,6 @@ $user_detail = $user->getUser($db, $_GET['id']);
 
 $role = new Role();
 $roles_list = $role->getRolesList($db);
-$role_name = $role->getRoleName($db, $user_detail['user_type_id']);
 ?>
 
 <!-- Display body section with sticky form. -->

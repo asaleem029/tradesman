@@ -107,9 +107,32 @@ class User
 
     function updateProfile($db, $data)
     {
-        $sql = "UPDATE `users` SET `hourly_rate` = '{$data['hourly_rate']}', `phone` = '{$data['phone']}', `city` = '{$data['city']}', `country` = '{$data['country']}', `summary` = '{$data['summary']}'  WHERE `id` = '{$_SESSION['user']['id']}'";
+        $sql1 = "UPDATE `users` SET `phone` = '{$data['phone']}', `trade_id` = '{$data['trade_id']}', `city` = '{$data['city']}', `country` = '{$data['country']}', `summary` = '{$data['summary']}'  WHERE `id` = '{$_SESSION['user']['id']}'";
 
-        if ($db->query($sql) === TRUE) {
+        // USER SKILLS SECTON
+        foreach ($data['skills'] as $key => $skill) {
+            $query1 = "INSERT INTO `user_skills` (`name`, `time_acquired`, `user_id`) 
+            VALUES ('{$skill['name']}', '{$skill['skill_time']}', '{$_SESSION['user']['id']}')";
+            $db->query($query1);
+        }
+
+        // USER WORK HOSTORY SECTION
+        $work_images = implode(',', $_FILES['work_images']['name']);
+        $this->uploadWorkImages($_FILES['work_images'], 'work_images');
+
+        $query2 = "INSERT INTO `user_work_history` (`work_type`, `employer_name`, `work_details`, `user_id`, `images`) 
+            VALUES ('{$data['work_type']}', '{$data['employer_name']}', '{$data['work_details']}', '{$_SESSION['user']['id']}', '{$work_images}')";
+        $db->query($query2);
+
+        // USER CERTIFICATES SECTON
+        $certificates_images = implode(',', $_FILES['certificates_images']['name']);
+        $this->uploadWorkImages($_FILES['certificates_images'], 'certificates_images');
+
+        $query3 = "INSERT INTO `user_certifications` (`certification_name`, `valid_till`, `valid_from`, `user_id`, `images`) 
+            VALUES ('{$data['certification_name']}', '{$data['valid_till']}', '{$data['valid_from']}', '{$_SESSION['user']['id']}', '{$certificates_images}')";
+        $db->query($query3);
+
+        if ($db->query($sql1) === TRUE) {
             return "Profile Updated Successfully";
         } else {
             return "Error updating record: " . $db->error;
@@ -122,5 +145,42 @@ class User
         $response = $db->query($query);
 
         return $response->num_rows;
+    }
+
+    function  getUserSkills($db, $id)
+    {
+        $query = "SELECT * FROM `user_skills` WHERE `user_id` = '{$id}'";
+        $response = $db->query($query);
+        $result = $response->fetch_all(MYSQLI_ASSOC);
+
+        return $result;
+    }
+
+    function uploadWorkImages($files, $type)
+    {
+        // Count # of uploaded files in array
+        $total = count($files['name']);
+
+        // Loop through each file
+        for ($i = 0; $i < $total; $i++) {
+
+            //Get the temp file path
+            $tmpFilePath = $files['tmp_name'][$i];
+
+            //Make sure we have a file path
+            if ($tmpFilePath != "") {
+                //Setup our new file path
+                $newFilePath = "../uploads/" . $_SESSION['user']['id'] . "/" . $type . "/" . $files['name'][$i];
+
+                if (!file_exists("../uploads/" . $_SESSION['user']['id'] . "/" . $type)) {
+                    mkdir("../uploads/" . $_SESSION['user']['id'] . "/" . $type, 0777, true);
+                }
+
+                if (!file_exists($newFilePath)) {
+                    //Upload the file into the temp dir
+                    move_uploaded_file($tmpFilePath, $newFilePath);
+                }
+            }
+        }
     }
 }

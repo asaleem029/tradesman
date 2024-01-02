@@ -153,6 +153,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST) && $_POST['action_type
     $errors = array();
     $user_obj = new User();
 
+    // echo '<pre>' . print_r($_POST, true) . '</pre>';
+
     // check errors and insert data into database, otherwise throw error.
     if (empty($errors)) {
         $result = $user_obj->updateProfile($db, $_POST);
@@ -160,8 +162,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST) && $_POST['action_type
         if ($result) {
             myAlert($result, '../home.php');
         }
-
-        exit();
     } else {
         echo '<h1>Error!</h1>
                  <p id="err_msg">The following error(s) occurred:<br>';
@@ -169,7 +169,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST) && $_POST['action_type
             echo " - $msg<br>";
         }
         echo 'Please try again.</p>' .
-            '<a class="btn btn-primary" href="../complete_signup.php">Back</a>';
+            '<a class="btn btn-primary" href="../complete_profile.php">Back</a>';
         exit;
     }
 }
