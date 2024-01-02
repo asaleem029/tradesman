@@ -87,6 +87,15 @@ $trades_list = $trade->getTradesList($db);
 					</div>
 				</div>
 			</div>
+			
+			<div class="form-group">
+				<div class="row">
+					<div class="col">
+						<label for="hourly_rate">Hourly Rate</label>
+						<input class="form-control" type="number" name="hourly_rate" size="50" value="<?php if (isset($_POST['hourly_rate'])) echo $_POST['hourly_rate']; ?>" placeholder="Enter Hourly Rate">
+					</div>
+				</div>
+			</div>
 
 			<div class="form-group">
 				<label for="summary">Summary</label>

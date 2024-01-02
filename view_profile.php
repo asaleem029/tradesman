@@ -23,13 +23,14 @@ $user_skills = $user->getUserSkills($db, $_GET['id']);
 
 // USER WORK HISTORY
 $user_work_history = $user->getUserWorkHistory($db, $_GET['id']);
-if ($user_work_history['images']) {
+
+if (isset($user_work_history['images']) && !empty($user_work_history['images'])) {
 	$work_images = explode(",", $user_work_history['images']);
 }
 
 // USER CERTIFICATIONS
 $user_certifications = $user->getUserCertifications($db, $_GET['id']);
-if ($user_certifications['images']) {
+if (isset($user_certifications['images']) && !empty($user_certifications['images'])) {
 	$certifications_images = explode(",", $user_certifications['images']);
 }
 ?>
@@ -117,6 +118,15 @@ if ($user_certifications['images']) {
 					</div>
 				</div>
 			</div>
+			
+			<div class="form-group">
+				<div class="row">
+					<div class="col">
+						<label for="hourly_rate">Hourly Rate</label>
+						<input class="form-control" value="<?php if (isset($user_detail['hourly_rate'])) echo $user_detail['hourly_rate']; ?>" disabled>
+					</div>
+				</div>
+			</div>
 
 			<div class="form-group">
 				<label for="summary">Summary</label>
@@ -180,7 +190,7 @@ if ($user_certifications['images']) {
 			</textarea>
 			</div>
 
-			<?php if ($user_work_history['images']) { ?>
+			<?php if (isset($user_work_history['images']) && !empty($user_work_history['images'])) { ?>
 				<div class="form-group">
 					<div class="row">
 						<div class="field" align="left">
@@ -226,7 +236,7 @@ if ($user_certifications['images']) {
 				</div>
 			</div>
 
-			<?php if ($user_certifications['images']) { ?>
+			<?php if (isset($user_certifications['images']) && !empty($user_certifications['images'])) { ?>
 				<div class="form-group">
 					<div class="row">
 						<div class="field" align="left">

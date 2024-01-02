@@ -107,7 +107,7 @@ class User
 
     function updateProfile($db, $data)
     {
-        $sql1 = "UPDATE `users` SET `phone` = '{$data['phone']}', `trade_id` = '{$data['trade_id']}', `city` = '{$data['city']}', `country` = '{$data['country']}', `summary` = '{$data['summary']}'  WHERE `id` = '{$_SESSION['user']['id']}'";
+        $sql1 = "UPDATE `users` SET `phone` = '{$data['phone']}', `trade_id` = '{$data['trade_id']}', `city` = '{$data['city']}', `country` = '{$data['country']}', `hourly_rate` = '{$data['hourly_rate']}', `summary` = '{$data['summary']}'  WHERE `id` = '{$_SESSION['user']['id']}'";
 
         // USER SKILLS SECTON
         foreach ($data['skills'] as $key => $skill) {
