@@ -1,4 +1,13 @@
-<?php include 'header.php'; ?>
+<?php include 'header.php';
+
+if (!isset($_SESSION)) {
+	session_start();
+}
+
+if (isset($_SESSION['user']['id']) && !empty($_SESSION['user']['id'])) {
+    header("Location: home.php");
+}
+?>
 
 <!-- Display login form -->
 <form action="includes/login.php" method="post" class="form-signin" role="form">

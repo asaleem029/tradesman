@@ -5,7 +5,6 @@ if (!isset($_SESSION)) {
     session_start();
 }
 
-unset($_SESSION);
-unset($_SESSION['users']);
+session_unset();
 
 myAlert("You're logged out", "index.php");
