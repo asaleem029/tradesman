@@ -1,13 +1,16 @@
 <?php
+if (!isset($_SESSION)) {
+    session_start();
+}
 
 include '../connect_db.php';
 include '../classes/user.php';
-include '../classes/reset_password.php';
 include '../includes/helper.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST) && $_POST['action_type'] == 'RESET_PASSWORD') {
 
     $errors = array();
+    $user = '';
 
     if (empty($_POST['email'])) {
         $errors[] = 'You forgot to enter your email address.';
@@ -15,10 +18,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST) && $_POST['action_type
         $e = $db->real_escape_string(trim($_POST['email']));
 
         $user_obj = new User();
+        $user = $user_obj->checkEmail($db, $e);
 
-        $user_email = $user_obj->checkEmail($db, $e);
-
-        if (empty($user_email)) {
+        if (empty($user)) {
             myAlert("Email Not Found", '../reset_password.php');
         }
     }
@@ -34,8 +36,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST) && $_POST['action_type
     }
 
     if (empty($errors)) {
-        $reset_password_obj = new ResetPassword();
-        $reset_password_obj->reset_password($db, $_POST);
+        include '../classes/verify_otp.php';
+
+        $_SESSION['reset_password']['new_password'] = $_POST['new_password'];
+        $_SESSION['reset_password']['email'] = $_POST['email'];
+        $verify_otp_obj = new VerifyOTP();
+        $verify_otp_obj->getOTP($user, $_POST['email'], 'RESET_PASSWORD');
     } else {
         echo '<h1>Error!</h1>
     		<p class="error">The following error(s) occurred:<br />';

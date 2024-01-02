@@ -29,7 +29,7 @@ class Login
                 } else {
                     $data['error'] = 'Email not verified';
                     $verify_otp_obj = new VerifyOTP();
-                    $verify_otp_obj->getOTP($row['id'], $row['email']);
+                    $verify_otp_obj->getOTP($row['id'], $row['email'], 'EMAIL_VERIFICATION');
                 }
             } else {
                 $errors = 'Email and password not found';

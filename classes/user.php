@@ -36,7 +36,7 @@ class User
             include 'verify_otp.php';
 
             $verify_otp_obj = new VerifyOTP();
-            $verify_otp_obj->getOTP($id, $data['email']);
+            $verify_otp_obj->getOTP($id, $data['email'], 'EMAIL_VERIFICATION');
         }
 
         return $result;

@@ -3,6 +3,7 @@
 <form action="includes/verify_otp.php" method="post" class="form-signin" role="form">
     <input type="hidden" name="action_type" value="VERIFY_OTP">
     <input type="hidden" name="id" value="<?= $_GET['id'] ?>" >
+    <input type="hidden" name="mail_for" value="<?= $_GET['mail_for'] ?>" >
 
     <h3>Email Verification</h3>
 

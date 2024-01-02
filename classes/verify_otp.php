@@ -10,7 +10,7 @@ require '../PHPMailer/src/Exception.php';
 
 class VerifyOTP
 {
-    function getOTP($id, $email)
+    function getOTP($id, $email, $mail_for)
     {
         require '../vendor/autoload.php';
 
@@ -40,7 +40,7 @@ class VerifyOTP
             $mail->Body    = 'Your one time email verification code is: ' . $otp;
 
             if ($mail->send()) {
-                myAlert("OTP send to your email", '../verify_otp.php?id=' . $id);
+                myAlert("OTP send to your email", '../verify_otp.php?id=' . $id . '&mail_for=' . $mail_for);
             }
         } catch (Exception $e) {
             return "Mail could not be sent. Mailer Error: {$mail->ErrorInfo}";
@@ -52,16 +52,23 @@ class VerifyOTP
         if ($data['otp'] == $_SESSION['session_otp']) {
             unset($_SESSION['session_otp']);
 
-            $sql = "UPDATE `users` SET `email_verified` = 1 WHERE `id` = '{$data['id']}' ";
-
             $message = '';
-            if ($db->query($sql) === TRUE) {
-                $message = "Email Verified";
-            } else {
-                $message = "Error updating record: " . $db->error;
-            }
 
-            myAlert($message, '../login.php');
+            if ($data['mail_for'] == 'EMAIL_VERIFICATION') {
+                $sql = "UPDATE `users` SET `email_verified` = 1 WHERE `id` = '{$data['id']}' ";
+
+                if ($db->query($sql) === TRUE) {
+                    $message = "Email Verified";
+                } else {
+                    $message = "Error updating record: " . $db->error;
+                }
+                
+                myAlert($message, '../login.php');
+            } else {
+                include '../classes/reset_password.php';
+                $reset_password_obj = new ResetPassword();
+                $reset_password_obj->reset_password($db, $_SESSION['reset_password']);
+            }
         }
     }
 }
