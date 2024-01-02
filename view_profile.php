@@ -18,18 +18,42 @@ $user_skills = $user->getUserSkills($db, $_GET['id']);
 
 // USER WORK HISTORY
 $user_work_history = $user->getUserWorkHistory($db, $_GET['id']);
-$work_images = explode(",", $user_work_history['images']);
+if ($user_work_history['images']) {
+	$work_images = explode(",", $user_work_history['images']);
+}
 
 // USER CERTIFICATIONS
 $user_certifications = $user->getUserCertifications($db, $_GET['id']);
-$certifications_images = explode(",", $user_certifications['images']);
+if ($user_certifications['images']) {
+	$certifications_images = explode(",", $user_certifications['images']);
+}
 ?>
 <link rel="stylesheet" href="css/complete_profile.css">
-
 
 <!-- Display body section with sticky form. -->
 <div class="container">
 	<div class="form-signin">
+		<div class="form-group">
+			<div class="row">
+				<div class="col">
+					<a href="home.php" class="btn btn-primary center" style="float:right; width:31%">
+						<i class="fa fa-arrow-left" aria-hidden="true"></i>
+						Back
+					</a>
+				</div>
+
+				<div class="col">
+					<a href="edit_profile.php?id=<?= $user_detail['id'] ?>" class="btn btn-primary center" style="width:50%">
+						<i class="fas fa-edit" aria-hidden="true"></i>
+						Edit Profile
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<br>
+		<br>
+
 		<div id="profile-form">
 			<h3 class="form-signin-heading">Account Details</h3>
 
@@ -211,14 +235,9 @@ $certifications_images = explode(",", $user_certifications['images']);
 			</div>
 		</div>
 	</div>
-	
+
 	<br>
-
-	<a href="home.php" class="btn btn-primary center" style="width:10%" >
-		<i class="fa fa-arrow-left" aria-hidden="true"></i>
-		Back
-	</a>
-
+	<br>
 	<br>
 	<br>
 	<br>
