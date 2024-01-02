@@ -10,8 +10,13 @@ include 'classes/user.php';
 include 'classes/trade.php';
 
 $user = new User();
+$trade = new Trade();
+
 // USER DETAILS
 $user_detail = $user->getUser($db, $_GET['id']);
+
+// GET TRADE NAME
+$trade_info = $trade->getTrade($db, $user_detail['trade_id']);
 
 // USER SKILLS
 $user_skills = $user->getUserSkills($db, $_GET['id']);
@@ -94,7 +99,7 @@ if ($user_certifications['images']) {
 
 					<div class="col">
 						<label for="user_type_id">Trades</label>
-						<input class="form-control" value="<?php if (isset($user_detail['trade_id'])) echo $user_detail['trade_id']; ?>" disabled>
+						<input class="form-control" value="<?php if (isset($trade_info['name'])) echo $trade_info['name']; ?>" disabled>
 					</div>
 				</div>
 			</div>
@@ -116,7 +121,7 @@ if ($user_certifications['images']) {
 			<div class="form-group">
 				<label for="summary">Summary</label>
 				<textarea class="form-control" disabled>
-					<?php if (isset($user_detail['trade_id'])) echo $user_detail['trade_id']; ?>
+					<?php if (isset($user_detail['summary'])) echo $user_detail['summary']; ?>
 				</textarea>
 			</div>
 		</div>
@@ -175,20 +180,22 @@ if ($user_certifications['images']) {
 			</textarea>
 			</div>
 
-			<div class="form-group">
-				<div class="row">
-					<div class="field" align="left">
-						<h3>Work Images</h3>
-						<div style="display: flex;">
-							<?php foreach ($work_images as $img) { ?>
-								<div style="margin: 5px;">
-									<img style="marign: 5px;" src="uploads/<?= $user_detail['id'] ?>/work_images/<?= $img ?>" width="200" height="200">
-								</div>
-							<?php } ?>
+			<?php if ($work_images) { ?>
+				<div class="form-group">
+					<div class="row">
+						<div class="field" align="left">
+							<h3>Work Images</h3>
+							<div style="display: flex;">
+								<?php foreach ($work_images as $img) { ?>
+									<div style="margin: 5px;">
+										<img style="marign: 5px;" src="uploads/<?= $user_detail['id'] ?>/work_images/<?= $img ?>" width="200" height="200">
+									</div>
+								<?php } ?>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
+			<?php } ?>
 		</div>
 
 		<br>
@@ -219,20 +226,22 @@ if ($user_certifications['images']) {
 				</div>
 			</div>
 
-			<div class="form-group">
-				<div class="row">
-					<div class="field" align="left">
-						<h3>Certificate's Images</h3>
-						<div style="display: flex;">
-							<?php foreach ($certifications_images as $img) { ?>
-								<div style="margin: 5px;">
-									<img style="marign: 5px;" src="uploads/<?= $user_detail['id'] ?>/certificates_images/<?= $img ?>" width="200" height="200">
-								</div>
-							<?php } ?>
+			<?php if ($certifications_images) { ?>
+				<div class="form-group">
+					<div class="row">
+						<div class="field" align="left">
+							<h3>Certificate's Images</h3>
+							<div style="display: flex;">
+								<?php foreach ($certifications_images as $img) { ?>
+									<div style="margin: 5px;">
+										<img style="marign: 5px;" src="uploads/<?= $user_detail['id'] ?>/certificates_images/<?= $img ?>" width="200" height="200">
+									</div>
+								<?php } ?>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
+			<?php } ?>
 		</div>
 	</div>
 

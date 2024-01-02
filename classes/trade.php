@@ -44,7 +44,7 @@ class Trade
         }
     }
     
-    function  getTrade($db, $id)
+    function getTrade($db, $id)
     {
         $query = "SELECT * FROM `trades` WHERE `id` = '{$id}'";
         $response = $db->query($query);
