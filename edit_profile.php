@@ -98,6 +98,15 @@ $user_certifications = $user->getUserCertifications($db, $_GET['id']);
 					</div>
 				</div>
 			</div>
+			
+			<div class="form-group">
+				<div class="row">
+					<div class="col">
+						<label for="hourly_rate">Hourly Rate</label>
+						<input class="form-control" type="number" name="hourly_rate" size="50" value="<?php if (isset($user_detail['hourly_rate'])) echo $user_detail['hourly_rate']; ?>" placeholder="Enter Hourly Rate">
+					</div>
+				</div>
+			</div>
 
 			<div class="form-group">
 				<label for="summary">Summary</label>
