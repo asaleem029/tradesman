@@ -113,7 +113,7 @@ if ($user_certifications['images']) {
 
 					<div class="col">
 						<label for="country">Service Country</label>
-						<input class="form-control" value="<?php if (isset($user_detail['summary'])) echo $user_detail['summary']; ?>" disabled>
+						<input class="form-control" value="<?php if (isset($user_detail['country'])) echo $user_detail['country']; ?>" disabled>
 					</div>
 				</div>
 			</div>
@@ -180,7 +180,7 @@ if ($user_certifications['images']) {
 			</textarea>
 			</div>
 
-			<?php if ($work_images) { ?>
+			<?php if ($user_work_history['images']) { ?>
 				<div class="form-group">
 					<div class="row">
 						<div class="field" align="left">
@@ -226,7 +226,7 @@ if ($user_certifications['images']) {
 				</div>
 			</div>
 
-			<?php if ($certifications_images) { ?>
+			<?php if ($user_certifications['images']) { ?>
 				<div class="form-group">
 					<div class="row">
 						<div class="field" align="left">
