@@ -124,7 +124,10 @@ $trades_list = $trade->getTradesList($db);
 			<div class="form-group">
 				<div class="row">
 					<div class="col">
-						<button class="btn btn-primary" id="backToProfileSection">Back</button>
+						<button class="btn btn-primary" id="backToProfileSection">
+							<i class="fa fa-arrow-left" aria-hidden="true"></i>
+							Back
+						</button>
 						<button class="btn btn-primary" id="nextToWorkHistoryForm">Next</button>
 					</div>
 				</div>
@@ -147,7 +150,7 @@ $trades_list = $trade->getTradesList($db);
 					</div>
 
 					<div class="col">
-						<label for="employer_name"></label>
+						<label for="employer_name">Employer Name</label>
 						<input type="text" name="employer_name" id="employer_name" placeholder="Enter Employer Name">
 					</div>
 				</div>
@@ -172,7 +175,10 @@ $trades_list = $trade->getTradesList($db);
 			<div class="form-group">
 				<div class="row">
 					<div class="col">
-						<button class="btn btn-primary" id="backToSkillsForm">Back</button>
+						<button class="btn btn-primary" id="backToSkillsForm">
+							<i class="fa fa-arrow-left" aria-hidden="true"></i>
+							Back
+						</button>
 						<button class="btn btn-primary" id="nextToCertificationForm">Next</button>
 					</div>
 				</div>
@@ -184,8 +190,10 @@ $trades_list = $trade->getTradesList($db);
 
 			<div class="form-group">
 				<div class="row">
-					<label for="certification_name">Name of Certification</label>
-					<input type="text" name="certification_name" class="form-control" placeholder="Enter Certificate Name">
+					<div class="col">
+						<label for="certification_name">Name of Certification</label>
+						<input type="text" name="certification_name" class="form-control" placeholder="Enter Certificate Name">
+					</div>
 				</div>
 			</div>
 
@@ -217,7 +225,10 @@ $trades_list = $trade->getTradesList($db);
 			<div class="form-group">
 				<div class="row">
 					<div class="col">
-						<button class="btn btn-primary" id="backToWorkHistoryForm">Back</button>
+						<button class="btn btn-primary" id="backToWorkHistoryForm">
+							<i class="fa fa-arrow-left" aria-hidden="true"></i>
+							Back
+						</button>
 						<button class="btn btn-primary" type="submit">Submit</button>
 					</div>
 				</div>

@@ -89,7 +89,10 @@ $roles_list = $role->getRolesList($db);
 
 	<br>
 
-	<a class="btn btn-primary" href="view_users.php">Back</a>
+	<a class="btn btn-primary" href="view_users.php">
+		<i class="fa fa-arrow-left" aria-hidden="true"></i>
+		Back
+	</a>
 	<button class="btn btn-primary" name="submit" type="submit">Save</button>
 </form>
 

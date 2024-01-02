@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST) && $_POST['action_type
             echo " - $msg<br>";
         }
         echo 'Please try again.</p>' .
-            '<a href="../edit_trade.php?id=' . $_POST['id'] . '">Back</a>';
+            '<a href="../edit_trade.php?id=' . $_POST['id'] . '"><i class="fa fa-arrow-left" aria-hidden="true"></i>Back</a>';
         exit;
     }
 }

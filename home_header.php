@@ -39,6 +39,7 @@ if (!isset($_SESSION)) {
                             <li><a href="trades_list.php">Trades</a></li>
                         <?php } ?>
 
+                        <li><a href="view_profile.php?id=<?= $_SESSION['user']['id'] ?>">Profile</a></li>
                         <li><a href="logout.php">Logout</a></li>
                         <li><a href="contact-us.php">Contact Us</a></li>
                     </ul>

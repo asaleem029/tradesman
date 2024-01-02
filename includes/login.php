@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST) && $_POST['action_type
 		unset($_SESSION['users']);
 		$_SESSION['user'] = $data;
 
-		if (empty($data['phone']) && empty($data['hourly_rate']) && $data['user_type_id'] == 2) {
+		if ($data['user_type_id'] == 2) {
 			myAlert("LoggedIn Successfully", '../complete_profile.php?id=' . $data['id']);
 		} else {
 			myAlert("LoggedIn Successfully", '../home.php');

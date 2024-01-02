@@ -15,7 +15,10 @@ include('home.php');
 		</div>
 	</div>
 
-	<a class="btn btn-primary" href="trades_list.php">Back</a>
+	<a class="btn btn-primary" href="trades_list.php">
+		<i class="fa fa-arrow-left" aria-hidden="true"></i>
+		Back
+	</a>
 	<button class="btn btn-primary" name="submit" type="submit">Save</button>
 </form>
 

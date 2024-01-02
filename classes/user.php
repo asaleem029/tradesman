@@ -147,11 +147,29 @@ class User
         return $response->num_rows;
     }
 
-    function  getUserSkills($db, $id)
+    function getUserSkills($db, $id)
     {
         $query = "SELECT * FROM `user_skills` WHERE `user_id` = '{$id}'";
         $response = $db->query($query);
         $result = $response->fetch_all(MYSQLI_ASSOC);
+
+        return $result;
+    }
+
+    function getUserWorkHistory($db, $id)
+    {
+        $query = "SELECT * FROM `user_work_history` WHERE `user_id` = '{$id}'";
+        $response = $db->query($query);
+        $result = $response->fetch_assoc();
+
+        return $result;
+    }
+
+    function getUserCertifications($db, $id)
+    {
+        $query = "SELECT * FROM `user_certifications` WHERE `user_id` = '{$id}'";
+        $response = $db->query($query);
+        $result = $response->fetch_assoc();
 
         return $result;
     }

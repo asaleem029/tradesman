@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST) && $_POST['action_type
             echo " - $msg<br>";
         }
         echo 'Please try again.</p>' .
-            '<a href="../add_new_user.php">Back</a>';
+            '<a href="../add_new_user.php"><i class="fa fa-arrow-left" aria-hidden="true"></i>Back</a>';
         exit;
     }
 }
