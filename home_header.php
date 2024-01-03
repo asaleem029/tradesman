@@ -33,7 +33,7 @@ if (!isset($_SESSION)) {
                 <div class="top-bar-right">
                     <ul class="menu">
                         <li>
-                            <a href="" id="find_trademan">
+                            <a href="find_trademan.php" id="find_trademan">
                                 <i class="fas fa-search"></i>
                                 Find Trademan
                             </a>

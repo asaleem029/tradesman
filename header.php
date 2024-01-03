@@ -28,7 +28,7 @@
 				<div class="top-bar-right">
 					<ul class="menu">
 						<li>
-							<a href="" id="find_trademan">
+							<a href="find_trademan.php">
 								<i class="fas fa-search"></i>
 								Find Trademan
 							</a>

@@ -293,15 +293,27 @@ class User
         if (isset($user) && !empty($user)) {
 
             $sql = "UPDATE `users` SET `rating` = `rating` +  '{$data['rate']}', `rating_count` = `rating_count` +  1 WHERE `code` = '{$data['code']}'";
-            
+
             if ($db->query($sql) === TRUE) {
                 return "Rating Submitted";
             } else {
                 return "Error updating record: " . $db->error;
             }
-
         } else {
             return "Trademan Not Found";
         }
+    }
+
+    function getTradesman($db, $data)
+    {
+        $sql = "SELECT `name`, `phone`, `trade_id`, `hourly_rate` 
+        FROM `users` 
+        WHERE `city` = '{$data['city']}' OR `trade_id` = '{$data['trade_id']}'
+        ORDER BY MAX(`rating` / `rating_count`) DESC";
+
+        $response = $db->query($sql);
+        $result = $response->fetch_all(MYSQLI_ASSOC);
+
+        return $result;
     }
 }
