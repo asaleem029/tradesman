@@ -149,24 +149,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action_type']) && $_PO
     }
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action_type']) && $_POST['action_type'] == 'UPDATE_PROFILE') {
-    $user_obj = new User();
-
-    $result = $user_obj->completeProfile($db, $_POST);
-
-    if ($result) {
-        myAlert($result, '../home.php');
-    }
-}
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action_type']) && $_POST['action_type'] == 'EDIT_PROFILE') {
     $user_obj = new User();
-
     $result = $user_obj->updateProfile($db, $_POST);
 
     if ($result) {
         myAlert($result, '../home.php');
     }
+    exit;
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action_type']) && $_POST['action_type'] == 'UPDATE_USER_STATUS') {

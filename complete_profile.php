@@ -9,11 +9,22 @@ if (!isset($_SESSION)) {
 include 'classes/user.php';
 include 'classes/trade.php';
 
+// GET USER INFORMATION
 $user = new User();
 $user_detail = $user->getUser($db, $_GET['id']);
 
+// TRADES LIST
 $trade = new Trade();
 $trades_list = $trade->getTradesList($db);
+
+// USER SKILLS
+$user_skills = $user->getUserSkills($db, $_GET['id']);
+
+// USER WORK HISTORY
+$user_work_history = $user->getUserWorkHistory($db, $_GET['id']);
+
+// USER CERTIFICATIONS
+$user_certifications = $user->getUserCertifications($db, $_GET['id']);
 ?>
 <script src="js/jquery-min.js"></script>
 <link rel="stylesheet" href="css/complete_profile.css">
@@ -21,7 +32,7 @@ $trades_list = $trade->getTradesList($db);
 <!-- Display body section with sticky form. -->
 <div class="container">
 	<form action="includes/user.php" method="post" class="form-signin" role="form" enctype="multipart/form-data">
-		<input type="hidden" id="action_type" name="action_type" value="UPDATE_PROFILE">
+		<input type="hidden" id="action_type" name="action_type" value="EDIT_PROFILE">
 
 		<div id="profile-form">
 			<h3 class="form-signin-heading">Complete Your Profile</h3>
@@ -44,7 +55,7 @@ $trades_list = $trade->getTradesList($db);
 				<div class="row">
 					<div class="col">
 						<label for="name">Name</label>
-						<input class="form-control" type="text" name="name" size="20" value="<?php if (isset($user_detail['name'])) echo $user_detail['name']; ?>" placeholder="Enter Name" readonly>
+						<input class="form-control" type="text" name="name" size="20" value="<?php if (isset($user_detail['name'])) echo $user_detail['name']; ?>" placeholder="Enter Name">
 					</div>
 
 					<div class="col">
@@ -58,7 +69,7 @@ $trades_list = $trade->getTradesList($db);
 				<div class="row">
 					<div class="col">
 						<label for="user_type_id">Phone No.</label>
-						<input class="form-control" type="text" name="phone" size="50" value="<?php if (isset($_POST['phone'])) echo $_POST['phone']; ?>" placeholder="Enter Phone No.">
+						<input class="form-control" type="text" name="phone" size="50" value="<?php if (isset($user_detail['phone'])) echo $user_detail['phone']; ?>" placeholder="Enter Phone No.">
 					</div>
 
 					<div class="col">
@@ -77,12 +88,12 @@ $trades_list = $trade->getTradesList($db);
 				<div class="row">
 					<div class="col">
 						<label for="city">Service City</label>
-						<input class="form-control" type="text" name="city" size="50" value="<?php if (isset($_POST['city'])) echo $_POST['city']; ?>" placeholder="Enter Service City">
+						<input class="form-control" type="text" name="city" size="50" value="<?php if (isset($user_detail['city'])) echo $user_detail['city']; ?>" placeholder="Enter Service City">
 					</div>
 
 					<div class="col">
 						<label for="country">Service Country</label>
-						<input class="form-control" type="text" name="country" size="50" value="<?php if (isset($_POST['country'])) echo $_POST['country']; ?>" placeholder="Enter Service Country">
+						<input class="form-control" type="text" name="country" size="50" value="<?php if (isset($user_detail['country'])) echo $user_detail['country']; ?>" placeholder="Enter Service Country">
 					</div>
 				</div>
 			</div>
@@ -91,14 +102,14 @@ $trades_list = $trade->getTradesList($db);
 				<div class="row">
 					<div class="col">
 						<label for="hourly_rate">Hourly Rate</label>
-						<input class="form-control" type="number" name="hourly_rate" size="50" value="<?php if (isset($_POST['hourly_rate'])) echo $_POST['hourly_rate']; ?>" placeholder="Enter Hourly Rate">
+						<input class="form-control" type="number" name="hourly_rate" size="50" value="<?php if (isset($user_detail['hourly_rate'])) echo $user_detail['hourly_rate']; ?>" placeholder="Enter Hourly Rate">
 					</div>
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label for="summary">Summary</label>
-				<textarea class="form-control" name="summary" id="summary" cols="30" rows="10" placeholder="Write Summary"></textarea>
+				<textarea class="form-control" name="summary" id="summary" cols="30" rows="10" placeholder="Write Summary"><?= $user_detail['summary'] ?></textarea>
 			</div>
 
 			<br>
@@ -129,7 +140,25 @@ $trades_list = $trade->getTradesList($db);
 			</div>
 
 			<div class="skills-div">
+				<?php foreach ($user_skills as $skill) { ?>
+					<input type="hidden" name="skills[<?= $skill['id'] ?>][id]" value="<?= $skill['id'] ?>">
+					<div class="form-group">
+						<div class="row">
+							<div class="col">
+								<label for="id">Name</label>
+								<input class="form-control" name="skills[<?= $skill['id'] ?>][name]" value="<?php if (isset($skill['name'])) echo $skill['name']; ?>">
+							</div>
+
+							<div class="col">
+								<label for="code">Time Acquired</label>
+								<input class="form-control" name="skills[<?= $skill['id'] ?>][time_acquired]" value="<?php if (isset($skill['time_acquired'])) echo $skill['time_acquired']; ?>">
+							</div>
+						</div>
+					</div>
+				<?php } ?>
 			</div>
+
+			<br>
 
 			<div class="form-group">
 				<div class="row">
@@ -147,9 +176,12 @@ $trades_list = $trade->getTradesList($db);
 			</div>
 		</div>
 
+		<br>
 
 		<div id="work-history-form">
 			<h3 class="form-signin-heading">Work History</h3>
+
+			<input type="hidden" name="work_id" value="<?= $user_work_history['id'] ?>">
 
 			<div class="form-group">
 				<div class="row">
@@ -157,21 +189,21 @@ $trades_list = $trade->getTradesList($db);
 						<label for="work_type">Employement Type</label>
 						<select class="form-select" name="work_type" aria-label="Default select example">
 							<option>-- Please Select --</option>
-							<option value="part_time">Part Time</option>
-							<option value="full_time">Full Time</option>
+							<option value="part_time" <?= $user_work_history['work_type'] == "part_time" ? "selected=selected" : "" ?>>Part Time</option>
+							<option value="full_time" <?= $user_work_history['work_type'] == "full_time" ? "selected=selected" : "" ?>>Full Time</option>
 						</select>
 					</div>
 
 					<div class="col">
 						<label for="employer_name">Employer Name</label>
-						<input type="text" name="employer_name" id="employer_name" placeholder="Enter Employer Name">
+						<input type="text" name="employer_name" id="employer_name" placeholder="Enter Employer Name" value="<?php if (isset($user_work_history['employer_name'])) echo $user_work_history['employer_name']; ?>">
 					</div>
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label for="work_details">Work Details</label>
-				<textarea class="form-control" name="work_details" id="work_details" cols="30" rows="10" placeholder="Write Work Details"></textarea>
+				<textarea class="form-control" name="work_details" id="work_details" cols="30" rows="10" placeholder="Write Work Details"><?php if (isset($user_work_history['work_details'])) echo $user_work_history['work_details']; ?></textarea>
 			</div>
 
 			<div class="form-group">
@@ -203,12 +235,13 @@ $trades_list = $trade->getTradesList($db);
 
 		<div id="certification-form">
 			<h3 class="form-signin-heading">Cerification</h3>
+			<input type="hidden" name="certificate_id" value="<?= $user_certifications['id'] ?>">
 
 			<div class="form-group">
 				<div class="row">
 					<div class="col">
 						<label for="certification_name">Name of Certification</label>
-						<input type="text" name="certification_name" class="form-control" placeholder="Enter Certificate Name">
+						<input type="text" name="certification_name" class="form-control" placeholder="Enter Certificate Name" value="<?php if (isset($user_certifications['certification_name'])) echo $user_certifications['certification_name']; ?>">
 					</div>
 				</div>
 			</div>
@@ -217,12 +250,12 @@ $trades_list = $trade->getTradesList($db);
 				<div class="row">
 					<div class="col">
 						<label for="valid_till">Valid Till</label>
-						<input type="date" class="form-control" name="valid_till" id="valid_till">
+						<input type="date" class="form-control" name="valid_till" id="valid_till" value="<?php if (isset($user_certifications['valid_till'])) echo $user_certifications['valid_till']; ?>">
 					</div>
 
 					<div class="col">
 						<label for="valid_from">Valid From</label>
-						<input type="date" name="valid_from" id="valid_from">
+						<input type="date" name="valid_from" id="valid_from" value="<?php if (isset($user_certifications['valid_from'])) echo $user_certifications['valid_from']; ?>">
 					</div>
 				</div>
 			</div>
@@ -254,7 +287,8 @@ $trades_list = $trade->getTradesList($db);
 </div>
 
 <script>
-	var user_skills = 0;
+	var user_skills =
+		<?= count($user_skills) ?>
 </script>
 <script src="js/complete_profile.js"></script>
 

@@ -49,7 +49,7 @@ if (isset($user_certifications['images']) && !empty($user_certifications['images
 				</div>
 
 				<div class="col">
-					<a href="edit_profile.php?id=<?= $user_detail['id'] ?>" class="btn btn-primary center" style="width:50%">
+					<a href="complete_profile.php?id=<?= $user_detail['id'] ?>" class="btn btn-primary center" style="width:50%">
 						<i class="fas fa-edit" aria-hidden="true"></i>
 						Edit Profile
 					</a>
