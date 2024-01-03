@@ -198,6 +198,17 @@ class User
         }
     }
 
+    function updateUserStatus($db, $data)
+    {
+        $sql = "UPDATE `users` SET `status` = '{$data['status']}'  WHERE `id` = '{$data['id']}'";
+
+        if ($db->query($sql) === TRUE) {
+            return "Status Updated Successfully";
+        } else {
+            return "Error updating record: " . $db->error;
+        }
+    }
+
     function getUsersCount($db)
     {
         $query = "SELECT * FROM `users`";

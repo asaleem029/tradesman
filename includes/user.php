@@ -7,7 +7,7 @@ require('../connect_db.php');
 include '../classes/user.php';
 include 'helper.php';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST) && $_POST['action_type'] == 'ADD_NEW_USER') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action_type']) && $_POST['action_type'] == 'ADD_NEW_USER') {
 
     $errors = array();
     $user_obj = new User();
@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST) && $_POST['action_type
     }
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST) && $_POST['action_type'] == 'UPDATE_USER_DETAILS') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action_type']) && $_POST['action_type'] == 'UPDATE_USER_DETAILS') {
 
     $errors = array();
     $user_obj = new User();
@@ -149,7 +149,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST) && $_POST['action_type
     }
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST) && $_POST['action_type'] == 'UPDATE_PROFILE') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action_type']) && $_POST['action_type'] == 'UPDATE_PROFILE') {
     $user_obj = new User();
 
     $result = $user_obj->completeProfile($db, $_POST);
@@ -159,7 +159,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST) && $_POST['action_type
     }
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST) && $_POST['action_type'] == 'EDIT_PROFILE') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action_type']) && $_POST['action_type'] == 'EDIT_PROFILE') {
     $user_obj = new User();
 
     $result = $user_obj->updateProfile($db, $_POST);
@@ -167,4 +167,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST) && $_POST['action_type
     if ($result) {
         myAlert($result, '../home.php');
     }
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action_type']) && $_POST['action_type'] == 'UPDATE_USER_STATUS') {
+    $user_obj = new User();
+    $result = $user_obj->updateUserStatus($db, $_POST);
+
+    if ($result) {
+        echo $result;
+    }
+    exit;
 }
