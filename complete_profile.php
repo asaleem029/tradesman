@@ -189,8 +189,8 @@ $user_certifications = $user->getUserCertifications($db, $_GET['id']);
 						<label for="work_type">Employement Type</label>
 						<select class="form-select" name="work_type" aria-label="Default select example">
 							<option>-- Please Select --</option>
-							<option value="part_time" <?= $user_work_history['work_type'] == "part_time" ? "selected=selected" : "" ?>>Part Time</option>
-							<option value="full_time" <?= $user_work_history['work_type'] == "full_time" ? "selected=selected" : "" ?>>Full Time</option>
+							<option value="part_time" <?= isset($user_work_history['work_type']) && !empty($user_work_history['work_type']) == "part_time" ? "selected=selected" : "" ?>>Part Time</option>
+							<option value="full_time" <?= isset($user_work_history['work_type']) && !empty($user_work_history['work_type']) == "full_time" ? "selected=selected" : "" ?>>Full Time</option>
 						</select>
 					</div>
 
