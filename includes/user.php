@@ -150,49 +150,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST) && $_POST['action_type
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST) && $_POST['action_type'] == 'UPDATE_PROFILE') {
-    $errors = array();
     $user_obj = new User();
 
-    // check errors and insert data into database, otherwise throw error.
-    if (empty($errors)) {
-        $result = $user_obj->updateProfile($db, $_POST);
+    $result = $user_obj->completeProfile($db, $_POST);
 
-        if ($result) {
-            myAlert($result, '../home.php');
-        }
-    } else {
-        echo '<h1>Error!</h1>
-                 <p id="err_msg">The following error(s) occurred:<br>';
-        foreach ($errors as $msg) {
-            echo " - $msg<br>";
-        }
-        echo 'Please try again.</p>' .
-            '<a class="btn btn-primary" href="../complete_profile.php">Back</a>';
-        exit;
+    if ($result) {
+        myAlert($result, '../home.php');
     }
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST) && $_POST['action_type'] == 'EDIT_PROFILE') {
-    $errors = array();
     $user_obj = new User();
 
-    echo '<pre>' . print_r($_POST, true) . '</pre>';
+    $result = $user_obj->updateProfile($db, $_POST);
 
-    // // check errors and insert data into database, otherwise throw error.
-    // if (empty($errors)) {
-    //     $result = $user_obj->updateProfile($db, $_POST);
-
-    //     if ($result) {
-    //         myAlert($result, '../home.php');
-    //     }
-    // } else {
-    //     echo '<h1>Error!</h1>
-    //              <p id="err_msg">The following error(s) occurred:<br>';
-    //     foreach ($errors as $msg) {
-    //         echo " - $msg<br>";
-    //     }
-    //     echo 'Please try again.</p>' .
-    //         '<a class="btn btn-primary" href="../complete_profile.php">Back</a>';
-    //     exit;
-    // }
+    if ($result) {
+        myAlert($result, '../home.php');
+    }
 }

@@ -27,7 +27,6 @@ $user_work_history = $user->getUserWorkHistory($db, $_GET['id']);
 $user_certifications = $user->getUserCertifications($db, $_GET['id']);
 ?>
 <script src="js/jquery-min.js"></script>
-<script src="js/complete_profile.js"></script>
 <link rel="stylesheet" href="css/complete_profile.css">
 
 <!-- Display body section with sticky form. -->
@@ -98,7 +97,7 @@ $user_certifications = $user->getUserCertifications($db, $_GET['id']);
 					</div>
 				</div>
 			</div>
-			
+
 			<div class="form-group">
 				<div class="row">
 					<div class="col">
@@ -142,21 +141,24 @@ $user_certifications = $user->getUserCertifications($db, $_GET['id']);
 
 			<div class="skills-div">
 				<?php foreach ($user_skills as $skill) { ?>
+					<input type="hidden" name="skills[<?= $skill['id'] ?>][id]" value="<?= $skill['id'] ?>">
 					<div class="form-group">
 						<div class="row">
 							<div class="col">
 								<label for="id">Name</label>
-								<input class="form-control" value="<?php if (isset($skill['name'])) echo $skill['name']; ?>">
+								<input class="form-control" name="skills[<?= $skill['id'] ?>][name]" value="<?php if (isset($skill['name'])) echo $skill['name']; ?>">
 							</div>
 
 							<div class="col">
 								<label for="code">Time Acquired</label>
-								<input class="form-control" value="<?php if (isset($skill['time_acquired'])) echo $skill['time_acquired']; ?>">
+								<input class="form-control" name="skills[<?= $skill['id'] ?>][time_acquired]" value="<?php if (isset($skill['time_acquired'])) echo $skill['time_acquired']; ?>">
 							</div>
 						</div>
 					</div>
 				<?php } ?>
 			</div>
+
+			<br>
 
 			<div class="form-group">
 				<div class="row">
@@ -174,8 +176,12 @@ $user_certifications = $user->getUserCertifications($db, $_GET['id']);
 			</div>
 		</div>
 
+		<br>
+
 		<div id="work-history-form">
 			<h3 class="form-signin-heading">Work History</h3>
+
+			<input type="hidden" name="work_id" value="<?= $user_work_history['id'] ?>">
 
 			<div class="form-group">
 				<div class="row">
@@ -229,6 +235,7 @@ $user_certifications = $user->getUserCertifications($db, $_GET['id']);
 
 		<div id="certification-form">
 			<h3 class="form-signin-heading">Cerification</h3>
+			<input type="hidden" name="certificate_id" value="<?= $user_certifications['id'] ?>">
 
 			<div class="form-group">
 				<div class="row">
@@ -278,5 +285,11 @@ $user_certifications = $user->getUserCertifications($db, $_GET['id']);
 		</div>
 	</form>
 </div>
+
+<script>
+	var user_skills =
+		<?= count($user_skills) ?>
+</script>
+<script src="js/complete_profile.js"></script>
 
 <?php include('footer.php') ?>

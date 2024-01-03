@@ -16,7 +16,6 @@ $trade = new Trade();
 $trades_list = $trade->getTradesList($db);
 ?>
 <script src="js/jquery-min.js"></script>
-<script src="js/complete_profile.js"></script>
 <link rel="stylesheet" href="css/complete_profile.css">
 
 <!-- Display body section with sticky form. -->
@@ -87,7 +86,7 @@ $trades_list = $trade->getTradesList($db);
 					</div>
 				</div>
 			</div>
-			
+
 			<div class="form-group">
 				<div class="row">
 					<div class="col">
@@ -253,5 +252,10 @@ $trades_list = $trade->getTradesList($db);
 		</div>
 	</form>
 </div>
+
+<script>
+	var user_skills = 0;
+</script>
+<script src="js/complete_profile.js"></script>
 
 <?php include('footer.php') ?>
