@@ -24,15 +24,8 @@ $user_skills = $user->getUserSkills($db, $_GET['id']);
 // USER WORK HISTORY
 $user_work_history = $user->getUserWorkHistory($db, $_GET['id']);
 
-if (isset($user_work_history['images']) && !empty($user_work_history['images'])) {
-	$work_images = explode(",", $user_work_history['images']);
-}
-
 // USER CERTIFICATIONS
 $user_certifications = $user->getUserCertifications($db, $_GET['id']);
-if (isset($user_certifications['images']) && !empty($user_certifications['images'])) {
-	$certifications_images = explode(",", $user_certifications['images']);
-}
 ?>
 <link rel="stylesheet" href="css/complete_profile.css">
 
@@ -118,7 +111,7 @@ if (isset($user_certifications['images']) && !empty($user_certifications['images
 					</div>
 				</div>
 			</div>
-			
+
 			<div class="form-group">
 				<div class="row">
 					<div class="col">
@@ -190,7 +183,8 @@ if (isset($user_certifications['images']) && !empty($user_certifications['images
 			</textarea>
 			</div>
 
-			<?php if (isset($user_work_history['images']) && !empty($user_work_history['images'])) { ?>
+			<?php if (isset($user_work_history['images']) && !empty($user_work_history['images'])) {
+				$work_images = explode(",", $user_work_history['images']); ?>
 				<div class="form-group">
 					<div class="row">
 						<div class="field" align="left">
@@ -236,7 +230,9 @@ if (isset($user_certifications['images']) && !empty($user_certifications['images
 				</div>
 			</div>
 
-			<?php if (isset($user_certifications['images']) && !empty($user_certifications['images'])) { ?>
+			<?php if (isset($user_certifications['images']) && !empty($user_certifications['images'])) {
+				$certifications_images = explode(",", $user_certifications['images']);
+			?>
 				<div class="form-group">
 					<div class="row">
 						<div class="field" align="left">

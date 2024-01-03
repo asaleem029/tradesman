@@ -168,3 +168,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action_type']) && $_PO
     }
     exit;
 }
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action_type']) && $_POST['action_type'] == 'RATE_TRADEMAN') {
+    $user_obj = new User();
+    $result = $user_obj->addRating($db, $_POST);
+
+    if ($result) {
+        myAlert($result, '../home.php');
+    }
+    exit;
+}

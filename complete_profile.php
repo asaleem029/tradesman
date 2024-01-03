@@ -26,7 +26,6 @@ $user_work_history = $user->getUserWorkHistory($db, $_GET['id']);
 // USER CERTIFICATIONS
 $user_certifications = $user->getUserCertifications($db, $_GET['id']);
 ?>
-<script src="js/jquery-min.js"></script>
 <link rel="stylesheet" href="css/complete_profile.css">
 
 <!-- Display body section with sticky form. -->

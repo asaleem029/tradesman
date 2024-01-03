@@ -56,7 +56,7 @@ class User
         return $result;
     }
 
-    function  getUser($db, $id)
+    function getUser($db, $id)
     {
         $query = "SELECT * FROM `users` WHERE `id` = '{$id}'";
         $response = $db->query($query);
@@ -274,6 +274,34 @@ class User
                     move_uploaded_file($tmpFilePath, $newFilePath);
                 }
             }
+        }
+    }
+
+    function getUserByCode($db, $code)
+    {
+        $query = "SELECT `code` FROM `users` WHERE `code` = '{$code}'";
+        $response = $db->query($query);
+        $result = $response->fetch_assoc();
+
+        return $result;
+    }
+
+    function addRating($db, $data)
+    {
+        $user = $this->getUserByCode($db, $data['code']);
+
+        if (isset($user) && !empty($user)) {
+
+            $sql = "UPDATE `users` SET `rating` = `rating` +  '{$data['rate']}', `rating_count` = `rating_count` +  1 WHERE `code` = '{$data['code']}'";
+            
+            if ($db->query($sql) === TRUE) {
+                return "Rating Submitted";
+            } else {
+                return "Error updating record: " . $db->error;
+            }
+
+        } else {
+            return "Trademan Not Found";
         }
     }
 }

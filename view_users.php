@@ -100,7 +100,6 @@ if (isset($_POST['search']) && !empty($_POST['search'])) {
 	</tbody>
 </table>
 
-<script src="js/jquery-min.js"></script>
 <script>
 	$("#user-status").on("change", function(e) {
 		e.preventDefault();
