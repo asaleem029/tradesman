@@ -1,10 +1,4 @@
 <!-- beginning of includes\home-header.html -->
-<?php
-if (!isset($_SESSION)) {
-	session_start();
-}
-?>
-
 <!doctype html>
 <html class="no-js" lang="en" dir="ltr">
 
@@ -25,6 +19,11 @@ if (!isset($_SESSION)) {
 	<script src="js/find_trademan.js"></script>
 </head>
 
+<?php
+// if (!isset($_SESSION)) {
+	session_start();
+// }
+?>
 <body>
 	<div class="grid-container"> <!-- beginning of main container div -->
 		<div class="row column header"> <!-- beginning of top-of-page menu div -->
