@@ -10,11 +10,17 @@ if (!isset($_SESSION['user']['id'])) {
 
 include 'header.php';
 include 'connect_db.php';
+include 'classes/user.php';
 include 'classes/trade.php';
 
 $trades = array();
 $trade = new Trade();
-$trades = $trade->getTradesList($db);
+
+if (isset($_POST['search']) && !empty($_POST['search'])) {
+	$trades = $trade->getTradesList($db, $_POST['search']);
+} else {
+	$trades = $trade->getTradesList($db);
+}
 ?>
 
 <div class="row">
