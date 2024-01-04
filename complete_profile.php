@@ -181,7 +181,7 @@ $user_certifications = $user->getUserCertifications($db, $_GET['id']);
 		<div id="work-history-form">
 			<h3 class="form-signin-heading">Work History</h3>
 
-			<input type="hidden" name="work_id" value="<?= $user_work_history['id'] ?>">
+			<input type="hidden" name="work_id" value="<?= isset($user_work_history['id']) && !empty($user_work_history['id']) ? $user_work_history['id'] : '' ?>">
 
 			<div class="form-group">
 				<div class="row">
@@ -235,7 +235,7 @@ $user_certifications = $user->getUserCertifications($db, $_GET['id']);
 
 		<div id="certification-form">
 			<h3 class="form-signin-heading">Cerification</h3>
-			<input type="hidden" name="certificate_id" value="<?= $user_certifications['id'] ?>">
+			<input type="hidden" name="certificate_id" value="<?= isset($user_certifications['id']) && !empty($user_certifications['id']) ? $user_certifications['id'] : '' ?>">
 
 			<div class="form-group">
 				<div class="row">
