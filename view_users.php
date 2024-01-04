@@ -1,10 +1,6 @@
 <?php
 include 'header.php';
 
-if (!isset($_SESSION)) {
-	session_start();
-}
-
 if (!isset($_SESSION['user']['id'])) {
 	require('includes/helper.php');
 	load();
