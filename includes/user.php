@@ -1,8 +1,4 @@
 <?php
-if (!isset($_SESSION)) {
-    session_start();
-}
-
 include_once '../init.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action_type']) && $_POST['action_type'] == 'ADD_NEW_USER') {

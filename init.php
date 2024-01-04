@@ -1,5 +1,8 @@
 <?php
 
+ob_start();
+session_start();
+
 include_once 'connect_db.php';
 include_once 'classes/login.php';
 include_once 'classes/role.php';
