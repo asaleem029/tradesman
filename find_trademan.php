@@ -107,7 +107,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action_type']) && $_PO
 				</div>
 			</div>
 		</div>
-<?php }
-} ?>
+	<?php }
+} else { ?>
+	<div class="text-center text-danger">
+		<span>
+			Oops...No Trademan Found
+		</span>
+	</div>
+<?php } ?>
 
 <?php include 'footer.php' ?>

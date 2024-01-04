@@ -304,11 +304,12 @@ class User
 
     function getTradesman($db, $data)
     {
-        $sql = "SELECT `id`, `name`, `phone`, `trade_id`, `hourly_rate`, FORMAT(`rating` / `rating_count`, 2) AS `trademan_rating`
-        FROM `users` 
-        WHERE (`rating` != 0 AND `rating_count` != 0) 
-        AND (`city` = '{$data['city']}' 
-        AND `trade_id` = '{$data['trade_id']}')
+        $sql = "SELECT `u`.`id`, `u`.`name`, `u`.`phone`, `u`.`trade_id`, `u`.`hourly_rate`, FORMAT(`u`.`rating` / `u`.`rating_count`, 2) AS `trademan_rating`
+        FROM `users` AS `u`
+        INNER JOIN `user_skills` AS `us` ON (`u`.`id` = `us`.`user_id`) 
+        WHERE (`u`.`rating` != 0 AND `u`.`rating_count` != 0) 
+        AND (`u`.`city` = '{$data['city']}' 
+        AND `u`.`trade_id` = '{$data['trade_id']}')
         ORDER BY `trademan_rating` DESC";
 
         $response = $db->query($sql);
