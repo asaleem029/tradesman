@@ -1,3 +1,11 @@
+<?php
+ob_start();
+session_start(); //line 3
+
+// if (!isset($_SESSION['user'])) {
+// 	header('Location:../index.php'); //line 5
+// } 
+?>
 <!-- beginning of includes\home-header.html -->
 <!doctype html>
 <html class="no-js" lang="en" dir="ltr">
@@ -19,12 +27,6 @@
 	<script src="js/find_trademan.js"></script>
 </head>
 
-<?php
-// if (!isset($_SESSION)) {
-	ob_start();
-	session_start();
-// }
-?>
 <body>
 	<div class="grid-container"> <!-- beginning of main container div -->
 		<div class="row column header"> <!-- beginning of top-of-page menu div -->
