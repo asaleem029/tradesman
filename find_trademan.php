@@ -4,8 +4,6 @@ include_once 'connect_db.php';
 include_once 'classes/user.php';
 include_once 'classes/trade.php';
 
-$user = new User();
-
 $trade = new Trade();
 $trades = $trade->getTradesList($db);
 $tradesman_list = array();
@@ -44,12 +42,57 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action_type']) && $_PO
 	</div>
 </form>
 
-<?php
+<?php if (isset($tradesman_list) && !empty($tradesman_list)) {
+	foreach ($tradesman_list as $key => $trademan) {
+		$trade = new Trade();
+		$trade_name = $trade->getTrade($db, $trademan['trade_id']); ?>
 
-if (isset($tradesman_list) && !empty($tradesman_list)) {
-	echo '<pre>' . print_r($tradesman_list, true) . '</pre>';
-}
-?>
+		<div class="container mt-5">
+			<div class="row d-flex justify-content-center">
+				<div class="col-md-7">
+					<div class="card p-3 py-4">
 
+						<div class="text-center mt-3">
+							<h2 class="mt-2 mb-0">
+								<?= $trademan['name'] ?>
+							</h2>
+
+							<div class="row">
+								<div class="col">
+
+									<h4 class="mt-2 mb-0">
+										<?= $trademan['phone'] ? $trademan['phone'] : "--"  ?>
+									</h4>
+								</div>
+
+								<div class="col">
+									<h4 class="mt-2 mb-0">
+										<?= isset($trade_name['name']) && !empty(isset($trade_name['name'])) ? $trade_name['name'] : "--"  ?>
+									</h4>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col">
+									<h4 class="mt-2 mb-0">
+										<?= $trademan['hourly_rate'] ? $trademan['hourly_rate'] : "--"  ?>
+									</h4>
+								</div>
+
+								<div class="col">
+									<h4 class="mt-2 mb-0">
+										<?= $trademan['trademan_rating'] ? $trademan['trademan_rating'] : "--"  ?>
+									</h4>
+								</div>
+							</div>
+
+							<div id="rating_stars_<?= $key + 1 ?>" class="rating_stars" data-id="<?= $key + 1 ?>" data-rating="<?= $trademan['trademan_rating'] ?>"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+<?php }
+} ?>
 
 <?php include 'footer.php' ?>
