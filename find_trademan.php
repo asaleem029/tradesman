@@ -90,7 +90,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action_type']) && $_PO
 								</div>
 							</div>
 
-							<div id="rating_stars_<?= $key + 1 ?>" class="rating_stars" data-id="<?= $key + 1 ?>" data-rating="<?= $trademan['trademan_rating'] ?>"></div>
+							<div class="row">
+								<div class="col">
+									<div id="rating_stars_<?= $key + 1 ?>" class="rating_stars" data-id="<?= $key + 1 ?>" data-rating="<?= $trademan['trademan_rating'] ?>"></div>
+								</div>
+
+								<div class="col">
+									<a href="view_profile.php?id=<?= $trademan['id'] ?>">
+										View Profile
+										<i class="fa-solid fa-forward"></i>
+									</a>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
