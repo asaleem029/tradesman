@@ -308,7 +308,7 @@ class User
         FROM `users` 
         WHERE (`rating` != 0 AND `rating_count` != 0) 
         AND (`city` = '{$data['city']}' 
-        OR `trade_id` = '{$data['trade_id']}')
+        AND `trade_id` = '{$data['trade_id']}')
         ORDER BY `trademan_rating` DESC";
 
         $response = $db->query($sql);
