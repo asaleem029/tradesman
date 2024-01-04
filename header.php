@@ -1,4 +1,10 @@
-<!-- beginning of includes\header.php -->
+<!-- beginning of includes\home-header.html -->
+<?php
+if (!isset($_SESSION)) {
+	session_start();
+}
+?>
+
 <!doctype html>
 <html class="no-js" lang="en" dir="ltr">
 
@@ -6,7 +12,9 @@
 	<meta charset="utf-8">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>IWD PHP Application</title>
+	<title>
+		<?= !empty($_SESSION['user']) ? "Welcome " . $_SESSION['user']['name'] : "Innovation Center"; ?>
+	</title>
 	<link rel="stylesheet" href="css/foundation.min.css">
 	<link rel="stylesheet" href="css/app.css">
 	<link rel="stylesheet" href="css/signin.css">
@@ -17,31 +25,43 @@
 
 <body>
 	<div class="grid-container"> <!-- beginning of main container div -->
-		<div class="m-0 header"> <!-- beginning of top-of-page menu div -->
+		<div class="row column header"> <!-- beginning of top-of-page menu div -->
 			<div class="top-bar">
 				<div class="top-bar-left">
 					<ul class="menu">
 						<li class="menu-text"><a href="index.php"> Innovation Centre</a></li>
 					</ul>
 				</div>
-
 				<div class="top-bar-right">
 					<ul class="menu">
 						<li>
-							<a href="find_trademan.php">
+							<a href="find_trademan.php" id="find_trademan">
 								<i class="fas fa-search"></i>
 								Find Trademan
 							</a>
 						</li>
 						<li><a href="rate_trademan.php">Rate Trademan</a></li>
 						<li><a href="index.php">About Us</a></li>
-						<li><a href="register.php">Register</a></li>
-						<li><a href="login.php">Login</a></li>
+
+						<?php if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
+							if ($_SESSION['user']['user_type_id'] == 1) { ?>
+								<li><a href="view_users.php">Users</a></li>
+								<li><a href="view_roles.php">User Types</a></li>
+								<li><a href="trades_list.php">Trades</a></li>
+							<?php } ?>
+
+							<li><a href="view_profile.php?id=<?= $_SESSION['user']['id'] ?>">Profile</a></li>
+							<li><a href="logout.php">Logout</a></li>
+
+						<?php } else { ?>
+
+							<li><a href="register.php">Register</a></li>
+							<li><a href="login.php">Login</a></li>
+						<?php } ?>
 						<li><a href="contact-us.php">Contact Us</a></li>
 					</ul>
 				</div>
 			</div>
-		</div>
+		</div> <!-- end of top-of-page menu div -->
 
-		<!-- end of top-of-page menu div -->
-		<!-- end of includes\header.php -->
+		<!-- end of includes\header.html -->

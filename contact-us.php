@@ -1,11 +1,4 @@
-<?php
-session_start();
-if (isset($_SESSION['user_id'])) { 		// if the SESSION 'user_id' is  set...
-	include('includes/home_header.php');
-} else {
-	include('header.php');
-}
-?>
+<?php include('header.php'); ?>
 
 <div class="form">
 	<h3>Contact Innovation Centre</h3>

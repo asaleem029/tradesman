@@ -1,11 +1,15 @@
 <?php
-include('home.php');
-include 'connect_db.php';
 
 if (!isset($_SESSION)) {
 	session_start();
 }
 
+if (!isset($_SESSION['user']['id'])) {
+	require('includes/helper.php');
+	load();
+}
+include 'header.php';
+include 'connect_db.php';
 include 'classes/user.php';
 include 'classes/trade.php';
 
@@ -35,7 +39,7 @@ $user_certifications = $user->getUserCertifications($db, $_GET['id']);
 		<div class="form-group">
 			<div class="row">
 				<div class="col">
-					<a href="home.php" class="btn btn-primary center" style="float:right; width:31%">
+					<a href="index.php" class="btn btn-primary center" style="float:right; width:31%">
 						<i class="fa fa-arrow-left" aria-hidden="true"></i>
 						Back
 					</a>

@@ -152,7 +152,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action_type']) && $_PO
     $result = $user_obj->updateProfile($db, $_POST);
 
     if ($result) {
-        myAlert($result, '../home.php');
+        myAlert($result, '../index.php');
     }
     exit;
 }
@@ -172,7 +172,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action_type']) && $_PO
     $result = $user_obj->addRating($db, $_POST);
 
     if ($result) {
-        myAlert($result, '../home.php');
+        myAlert($result, '../index.php');
     }
     exit;
 }

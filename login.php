@@ -5,7 +5,7 @@ if (!isset($_SESSION)) {
 }
 
 if (isset($_SESSION['user']['id']) && !empty($_SESSION['user']['id'])) {
-    header("Location: home.php");
+    header("Location: index.php");
 }
 ?>
 

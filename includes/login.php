@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST) && $_POST['action_type
 		if ($data['user_type_id'] == 2) {
 			myAlert("LoggedIn Successfully", '../complete_profile.php?id=' . $data['id']);
 		} else {
-			myAlert("LoggedIn Successfully", '../home.php');
+			myAlert("LoggedIn Successfully", '../index.php');
 		}
 	} else {
 		myAlert($data, '../login.php');

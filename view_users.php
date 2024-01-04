@@ -1,11 +1,16 @@
 <?php
-include 'home.php';
-include 'connect_db.php';
-include 'classes/user.php';
-
 if (!isset($_SESSION)) {
 	session_start();
 }
+
+if (!isset($_SESSION['user']['id'])) {
+	require('includes/helper.php');
+	load();
+}
+
+include 'header.php';
+include 'connect_db.php';
+include 'classes/user.php';
 
 $users = array();
 $user = new User();

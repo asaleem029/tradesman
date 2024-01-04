@@ -1,19 +1,8 @@
 <?php
-
-if (!isset($_SESSION)) {
-	session_start();
-}
-
-if (!isset($_SESSION['user']['id'])) {
-	include 'header.php';
-} else {
-	$page_title = "Welcome {$_SESSION['user']['name']}";
-	include('home_header.php');
-}
-
-include 'connect_db.php';
-include 'classes/trade.php';
-include 'classes/user.php';
+include_once 'header.php';
+include_once 'connect_db.php';
+include_once 'classes/user.php';
+include_once 'classes/trade.php';
 
 $user = new User();
 
