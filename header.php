@@ -1,10 +1,6 @@
 <?php
 ob_start();
-session_start(); //line 3
-
-// if (!isset($_SESSION['user'])) {
-// 	header('Location:../index.php'); //line 5
-// } 
+session_start();
 ?>
 <!-- beginning of includes\home-header.html -->
 <!doctype html>
