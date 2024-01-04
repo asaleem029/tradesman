@@ -3,9 +3,7 @@ if (!isset($_SESSION)) {
     session_start();
 }
 
-require('../connect_db.php');
-include '../classes/user.php';
-include 'helper.php';
+include_once '../init.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action_type']) && $_POST['action_type'] == 'ADD_NEW_USER') {
 

@@ -1,7 +1,5 @@
 <?php
 
-include 'verify_otp.php';
-
 class Login
 {
     function validate($db, $email = '', $pwd = '')

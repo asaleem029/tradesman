@@ -3,9 +3,7 @@ if (!isset($_SESSION)) {
     session_start();
 }
 
-include '../connect_db.php';
-include '../classes/user.php';
-include '../includes/helper.php';
+include_once '../init.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST) && $_POST['action_type'] == 'RESET_PASSWORD') {
 
@@ -36,8 +34,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST) && $_POST['action_type
     }
 
     if (empty($errors)) {
-        include '../classes/verify_otp.php';
-
         $_SESSION['reset_password']['new_password'] = $_POST['new_password'];
         $_SESSION['reset_password']['email'] = $_POST['email'];
         $verify_otp_obj = new VerifyOTP();

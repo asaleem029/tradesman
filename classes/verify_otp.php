@@ -4,9 +4,9 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-require '../PHPMailer/src/PHPMailer.php';
-require '../PHPMailer/src/SMTP.php';
-require '../PHPMailer/src/Exception.php';
+require_once '../PHPMailer/src/PHPMailer.php';
+require_once '../PHPMailer/src/SMTP.php';
+require_once '../PHPMailer/src/Exception.php';
 
 class VerifyOTP
 {
@@ -65,7 +65,6 @@ class VerifyOTP
                 
                 myAlert($message, '../login.php');
             } else {
-                include '../classes/reset_password.php';
                 $reset_password_obj = new ResetPassword();
                 $reset_password_obj->reset_password($db, $_SESSION['reset_password']);
             }

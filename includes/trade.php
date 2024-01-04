@@ -3,9 +3,7 @@ if (!isset($_SESSION)) {
     session_start();
 }
 
-require('../connect_db.php');
-include '../classes/trade.php';
-include 'helper.php';
+include_once '../init.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST) && $_POST['action_type'] == 'ADD_NEW_TRADE') {
 

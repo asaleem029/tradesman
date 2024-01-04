@@ -1,9 +1,9 @@
 <?php
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
+}
 
-require('../connect_db.php');
-include '../classes/user.php';
-include '../includes/helper.php';
+include_once '../init.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST) && $_POST['action_type'] == 'REGISTER_NEW_USER') {
 
