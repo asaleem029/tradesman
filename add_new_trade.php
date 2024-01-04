@@ -1,4 +1,6 @@
 <?php
+include 'header.php';
+
 if (!isset($_SESSION)) {
 	session_start();
 }
@@ -8,7 +10,6 @@ if (!isset($_SESSION['user']['id'])) {
 	load();
 }
 
-include 'header.php';
 ?>
 
 <!-- Display body section with sticky form. -->

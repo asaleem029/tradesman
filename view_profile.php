@@ -1,4 +1,5 @@
 <?php
+include 'header.php';
 
 if (!isset($_SESSION)) {
 	session_start();
@@ -8,7 +9,7 @@ if (!isset($_SESSION['user']['id'])) {
 	require('includes/helper.php');
 	load();
 }
-include 'header.php';
+
 include 'connect_db.php';
 include 'classes/user.php';
 include 'classes/trade.php';
