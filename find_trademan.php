@@ -61,12 +61,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action_type']) && $_PO
 								<div class="col">
 
 									<h4 class="mt-2 mb-0">
+										<label for="">Phone No.</label>
 										<?= $trademan['phone'] ? $trademan['phone'] : "--"  ?>
 									</h4>
 								</div>
 
 								<div class="col">
 									<h4 class="mt-2 mb-0">
+										<label for="">Trade</label>
 										<?= isset($trade_name['name']) && !empty(isset($trade_name['name'])) ? $trade_name['name'] : "--"  ?>
 									</h4>
 								</div>
@@ -75,12 +77,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action_type']) && $_PO
 							<div class="row">
 								<div class="col">
 									<h4 class="mt-2 mb-0">
+										<label for="">Hourly Rate</label>
 										<?= $trademan['hourly_rate'] ? $trademan['hourly_rate'] : "--"  ?>
 									</h4>
 								</div>
 
 								<div class="col">
 									<h4 class="mt-2 mb-0">
+										<label for="">Rating</label>
 										<?= $trademan['trademan_rating'] ? $trademan['trademan_rating'] : "--"  ?>
 									</h4>
 								</div>
