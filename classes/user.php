@@ -105,7 +105,7 @@ class User
 
     function updateProfile($db, $data)
     {
-        $sql1 = "UPDATE `users` SET `name` = '{$data['name']}', `phone` = '{$data['phone']}', `trade_id` = '{$data['trade_id']}', `city` = '{$data['city']}', `country` = '{$data['country']}', `hourly_rate` = '{$data['hourly_rate']}', `summary` = '{$data['summary']}'  WHERE `id` = '{$data['id']}'";
+        $sql1 = "UPDATE `users` SET `name` = '{$data['name']}', `phone` = '{$data['phone']}', `trade_id` = '{$data['trade_id']}', `city` = '{$data['city']}', `country` = '{$data['country']}', `hourly_rate` = '{$data['hourly_rate']}', `summary` = '{$data['summary']}', `available_to` = '{$data['available_to']}', `available_from` = '{$data['available_from']}'  WHERE `id` = '{$data['id']}'";
 
         // USER SKILLS SECTON STARTS
         if (isset($data['skills']) && !empty($data['skills'])) {
@@ -304,17 +304,25 @@ class User
 
     function getTradesman($db, $data)
     {
-        $sql = "SELECT `u`.`id`, `u`.`name`, `u`.`phone`, `u`.`trade_id`, `u`.`hourly_rate`, FORMAT(`u`.`rating` / `u`.`rating_count`, 2) AS `trademan_rating`
+        $array = array();
+
+        $sql = "SELECT `u`.`id`, `u`.`name`, `u`.`phone`, `u`.`trade_id`, `u`.`hourly_rate`, FORMAT(IFNULL(`u`.`rating` / `u`.`rating_count`, 0), 2) AS `trademan_rating`, `available_to`,`available_from`, COUNT(`uc`.`user_id`) AS `certificate_count`
         FROM `users` AS `u`
-        INNER JOIN `user_skills` AS `us` ON (`u`.`id` = `us`.`user_id`) 
-        WHERE (`u`.`rating` != 0 AND `u`.`rating_count` != 0) 
-        AND (`u`.`city` = '{$data['city']}' 
-        AND `u`.`trade_id` = '{$data['trade_id']}')
+        INNER JOIN `user_certifications` AS `uc` ON (`u`.`id` = `uc`.`user_id`) 
+        WHERE `u`.`city` = '{$data['city']}' 
+        AND `u`.`trade_id` = '{$data['trade_id']}'
+        GROUP BY `uc`.`user_id`
         ORDER BY `trademan_rating` DESC";
 
         $response = $db->query($sql);
         $result = $response->fetch_all(MYSQLI_ASSOC);
 
-        return $result;
+        foreach ($result as $res) {
+            if ($res['available_to'] >= $data['date'] && $res['available_from'] <= $data['date']) {
+                array_push($array, $res);
+            }
+        }
+
+        return $array;
     }
 }

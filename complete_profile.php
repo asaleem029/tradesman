@@ -151,7 +151,7 @@ $user_certifications = $user->getUserCertifications($db, $_GET['id']);
 
 							<div class="col">
 								<label for="code">Time Acquired</label>
-								<input class="form-control" name="skills[<?= $skill['id'] ?>][time_acquired]" value="<?php if (isset($skill['time_acquired'])) echo $skill['time_acquired']; ?>">
+								<input class="form-control" id="time_acquired" type="date" name="skills[<?= $skill['id'] ?>][time_acquired]" value="<?php if (isset($skill['time_acquired'])) echo $skill['time_acquired']; ?>">
 							</div>
 						</div>
 					</div>
@@ -249,13 +249,13 @@ $user_certifications = $user->getUserCertifications($db, $_GET['id']);
 			<div class="form-group">
 				<div class="row">
 					<div class="col">
-						<label for="valid_till">Valid Till</label>
-						<input type="date" class="form-control" name="valid_till" id="valid_till" value="<?php if (isset($user_certifications['valid_till'])) echo $user_certifications['valid_till']; ?>">
+						<label for="valid_from">Valid From</label>
+						<input type="date" name="valid_from" id="valid_from" value="<?php if (isset($user_certifications['valid_from'])) echo $user_certifications['valid_from']; ?>">
 					</div>
 
 					<div class="col">
-						<label for="valid_from">Valid From</label>
-						<input type="date" name="valid_from" id="valid_from" value="<?php if (isset($user_certifications['valid_from'])) echo $user_certifications['valid_from']; ?>">
+						<label for="valid_till">Valid Till</label>
+						<input type="date" class="form-control" name="valid_till" id="valid_till" value="<?php if (isset($user_certifications['valid_till'])) echo $user_certifications['valid_till']; ?>">
 					</div>
 				</div>
 			</div>
@@ -278,11 +278,51 @@ $user_certifications = $user->getUserCertifications($db, $_GET['id']);
 							<i class="fa fa-arrow-left" aria-hidden="true"></i>
 							Back
 						</button>
-						<button class="btn btn-primary" type="submit">Submit</button>
+						<button class="btn btn-primary" id="nextToAvailabilityForm">
+							Next
+							<i class="fa fa-arrow-right" aria-hidden="true"></i>
+						</button>
 					</div>
 				</div>
 			</div>
 		</div>
+
+		<br>
+
+		<div id="availability-form">
+			<h3 class="form-signin-heading">Availablity</h3>
+
+			<div class="form-group">
+				<div class="row">
+					<div class="col">
+						<label for="available_from">Available From</label>
+						<input type="date" name="available_from">
+					</div>
+
+					<div class="col">
+						<label for="available_to">Available To</label>
+						<input type="date" name="available_to">
+					</div>
+				</div>
+			</div>
+
+			<br>
+
+			<div class="form-group">
+				<div class="row">
+					<div class="col">
+						<button class="btn btn-primary" id="backToCertificationForm">
+							<i class="fa fa-arrow-left" aria-hidden="true"></i>
+							Back
+						</button>
+						<button class="btn btn-primary" type="submit">
+							Submit
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
 	</form>
 </div>
 

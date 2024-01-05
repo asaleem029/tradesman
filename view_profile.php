@@ -1,11 +1,5 @@
 <?php
 include 'header.php';
-
-if (!isset($_SESSION['user']['id'])) {
-	require('includes/helper.php');
-	load();
-}
-
 include 'connect_db.php';
 include 'classes/user.php';
 include 'classes/trade.php';
@@ -31,28 +25,33 @@ $user_certifications = $user->getUserCertifications($db, $_GET['id']);
 <link rel="stylesheet" href="css/complete_profile.css">
 
 <!-- Display body section with sticky form. -->
+
+
+
 <div class="container">
 	<div class="form-signin">
-		<div class="form-group">
-			<div class="row">
-				<div class="col">
-					<a href="index.php" class="btn btn-primary center" style="float:right; width:31%">
-						<i class="fa fa-arrow-left" aria-hidden="true"></i>
-						Back
-					</a>
-				</div>
+		<?php if (isset($_SESSION['user']) && !empty($_SESSION['user'])) { ?>
+			<div class="form-group">
+				<div class="row">
+					<div class="col">
+						<a href="index.php" class="btn btn-primary center" style="float:right; width:31%">
+							<i class="fa fa-arrow-left" aria-hidden="true"></i>
+							Back
+						</a>
+					</div>
 
-				<div class="col">
-					<a href="complete_profile.php?id=<?= $user_detail['id'] ?>" class="btn btn-primary center" style="width:50%">
-						<i class="fas fa-edit" aria-hidden="true"></i>
-						Edit Profile
-					</a>
+					<div class="col">
+						<a href="complete_profile.php?id=<?= $user_detail['id'] ?>" class="btn btn-primary center" style="width:50%">
+							<i class="fas fa-edit" aria-hidden="true"></i>
+							Edit Profile
+						</a>
+					</div>
 				</div>
 			</div>
-		</div>
 
-		<br>
-		<br>
+			<br>
+			<br>
+		<?php } ?>
 
 		<div id="profile-form">
 			<h3 class="form-signin-heading">Account Details</h3>

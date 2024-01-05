@@ -21,16 +21,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action_type']) && $_PO
 	<div class="form-group">
 		<div class="row">
 			<div class="input-group tm-search-bar">
-				<input type="text" class="form-control m-1" name="city" placeholder="City...">
+				<input type="text" class="form-control m-1" name="city" placeholder="City..." value="<?= isset($_POST['city']) && !empty($_POST['city']) ? $_POST['city'] : ''  ?>">
 
 				<select class="form-control m-1" name="trade_id" id="">
 					<option value="">-- Select Trade --</option>
 					<?php foreach ($trades as $trade) { ?>
-						<option value="<?= $trade['id'] ?>"><?= $trade['name'] ?></option>
+						<option <?= isset($_POST['trade_id']) && !empty($_POST['trade_id']) && $_POST['trade_id'] == $trade['id'] ? "selected=selected" : '' ?> value="<?= $trade['id'] ?>"><?= $trade['name'] ?></option>
 					<?php } ?>
 				</select>
 
-				<input type="date" class="form-control m-1" name="date" placeholder="Search...">
+				<input type="date" class="form-control m-1" name="date" value="<?= isset($_POST['date']) && !empty($_POST['date']) ? $_POST['date'] : '' ?>">
 
 				<div class="input-group-prepend m-1">
 					<button class="btn btn-primary" type="submit">
