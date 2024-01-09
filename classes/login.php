@@ -17,7 +17,7 @@ class Login
         }
 
         if (empty($errors)) {
-            $q = "SELECT * FROM `users` WHERE `email` = '$e' AND `password` = SHA1('$p')";
+            $q = "SELECT * FROM `users` WHERE `status` = 1 AND `email` = '$e' AND `password` = SHA1('$p')";
             $r = $db->query($q);
 
             if ($r->num_rows == 1) {
