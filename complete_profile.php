@@ -278,43 +278,6 @@ $user_certifications = $user->getUserCertifications($db, $_GET['id']);
 							<i class="fa fa-arrow-left" aria-hidden="true"></i>
 							Back
 						</button>
-						<button class="btn btn-primary" id="nextToAvailabilityForm">
-							Next
-							<i class="fa fa-arrow-right" aria-hidden="true"></i>
-						</button>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<br>
-
-		<div id="availability-form">
-			<h3 class="form-signin-heading">Availablity</h3>
-
-			<div class="form-group">
-				<div class="row">
-					<div class="col">
-						<label for="available_from">Available From</label>
-						<input type="date" name="available_from">
-					</div>
-
-					<div class="col">
-						<label for="available_to">Available To</label>
-						<input type="date" name="available_to">
-					</div>
-				</div>
-			</div>
-
-			<br>
-
-			<div class="form-group">
-				<div class="row">
-					<div class="col">
-						<button class="btn btn-primary" id="backToCertificationForm">
-							<i class="fa fa-arrow-left" aria-hidden="true"></i>
-							Back
-						</button>
 						<button class="btn btn-primary" type="submit">
 							Submit
 						</button>
@@ -322,7 +285,6 @@ $user_certifications = $user->getUserCertifications($db, $_GET['id']);
 				</div>
 			</div>
 		</div>
-
 	</form>
 </div>
 

@@ -3,14 +3,12 @@ $(document).ready(function () {
     $("#skills-form").hide();
     $("#work-history-form").hide();
     $("#certification-form").hide();
-    $("#availability-form").hide();
 
     $("#nextToSkillsForm").click(function (e) {
         e.preventDefault();
         $("#profile-form").hide();
         $("#work-history-form").hide();
         $("#certification-form").hide();
-        $("#availability-form").hide();
         $("#skills-form").show();
     });
 
@@ -19,7 +17,6 @@ $(document).ready(function () {
         $("#skills-form").hide();
         $("#work-history-form").hide();
         $("#certification-form").hide();
-        $("#availability-form").hide();
         $("#profile-form").show();
     });
 
@@ -34,7 +31,6 @@ $(document).ready(function () {
         $("#skills-form").hide();
         $("#profile-form").hide();
         $("#certification-form").hide();
-        $("#availability-form").hide();
         $("#work-history-form").show();
     });
 
@@ -44,7 +40,6 @@ $(document).ready(function () {
         $("#profile-form").hide();
         $("#work-history-form").hide();
         $("#certification-form").hide();
-        $("#availability-form").hide();
         $("#skills-form").show();
     });
 
@@ -54,7 +49,6 @@ $(document).ready(function () {
         $("#profile-form").hide();
         $("#work-history-form").hide();
         $("#skills-form").hide();
-        $("#availability-form").hide();
         $("#certification-form").show();
     });
 
@@ -65,26 +59,6 @@ $(document).ready(function () {
         $("#profile-form").hide();
         $("#certification-form").hide();
         $("#work-history-form").show();
-    });
-
-    $("#nextToAvailabilityForm").click(function (e) {
-        e.preventDefault();
-
-        $("#profile-form").hide();
-        $("#work-history-form").hide();
-        $("#skills-form").hide();
-        $("#certification-form").hide();
-        $("#availability-form").show();
-    });
-
-    $("#backToCertificationForm").click(function (e) {
-        e.preventDefault();
-
-        $("#profile-form").hide();
-        $("#work-history-form").hide();
-        $("#skills-form").hide();
-        $("#availability-form").hide();
-        $("#certification-form").show();
     });
 
     $("#work_images").on("change", function (e) {
@@ -173,7 +147,16 @@ $(document).ready(function () {
 
         if (!checkDate($(this).val())) {
             alert("Selected Date Must Be Less Than Today's Date");
-            $(this).val(null)
+            $(this).val(null);
         }
-    })
+    });
+
+    $("#valid_till").on("change", function (e) {
+        e.preventDefault();
+
+        if ($(this).val() <= $("#valid_from").val()) {
+            alert("Valid Till Date Must Be Greater Than Valid From Date");
+            $(this).val(null);
+        }
+    });
 });
