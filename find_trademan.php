@@ -7,11 +7,16 @@ include_once 'classes/trade.php';
 $trade = new Trade();
 $trades = $trade->getTradesList($db);
 $tradesman_list = array();
+$error_msg = '';
 
 // FIND TRADESMAN
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action_type']) && $_POST['action_type'] == 'FIND_TRADEMAN') {
 	$user_obj = new User();
 	$tradesman_list = $user_obj->getTradesman($db, $_POST);
+
+	if (empty($tradesman_list)) {
+		$error_msg = 'Oops...No Trademan Found';
+	}
 }
 ?>
 
@@ -107,11 +112,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action_type']) && $_PO
 				</div>
 			</div>
 		</div>
-	<?php }
-} else { ?>
+<?php }
+} ?>
+
+<?php if (!empty($error_msg)) { ?>
 	<div class="text-center text-danger">
 		<span>
-			Oops...No Trademan Found
+			<?= $error_msg ?>
 		</span>
 	</div>
 <?php } ?>
