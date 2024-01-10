@@ -14,6 +14,8 @@ $(document).ready(function (e) {
             stars += '<i class="fas fa-star" style="color:gold"></i>';
         }
 
+        trademan_rating = Number(trademan_rating).toFixed(4).replace(/\.0+$/, '')
+
         //check if there is `.` in number..means .5 
         if (trademan_rating.toString().indexOf('.') != -1) {
             //half star 
