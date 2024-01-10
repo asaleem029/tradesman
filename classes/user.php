@@ -325,8 +325,6 @@ class User
             $where = "WHERE `u`.`city` = '{$data['city']}' AND `u`.`trade_id` = '{$data['trade_id']}' ";
         }
 
-        echo '<pre>' . print_r($where, true) . '</pre>';
-
         $array = array();
 
         $sql = "SELECT `u`.`id`, `u`.`name`, `u`.`phone`, `u`.`trade_id`, `u`.`hourly_rate`, FORMAT(IFNULL(`u`.`rating` / `u`.`rating_count`, 0), 2) AS `trademan_rating`, `available_to`,`available_from`, COUNT(`uc`.`user_id`) AS `certificate_count`
