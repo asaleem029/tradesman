@@ -3,6 +3,7 @@ include_once 'header.php';
 include_once 'connect_db.php';
 include_once 'classes/user.php';
 include_once 'classes/trade.php';
+include_once 'includes/helper.php';
 
 $trade = new Trade();
 $trades = $trade->getTradesList($db);
@@ -11,11 +12,15 @@ $error_msg = '';
 
 // FIND TRADESMAN
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action_type']) && $_POST['action_type'] == 'FIND_TRADEMAN') {
-	$user_obj = new User();
-	$tradesman_list = $user_obj->getTradesman($db, $_POST);
+	if (isset($_POST['trade_id']) && !empty($_POST['trade_id'])) {
+		$user_obj = new User();
+		$tradesman_list = $user_obj->getTradesman($db, $_POST);
 
-	if (empty($tradesman_list)) {
-		$error_msg = 'Oops...No Trademan Found';
+		if (empty($tradesman_list)) {
+			$error_msg = 'Oops...No Trademan Found';
+		}
+	} else {
+		myAlert("Please Select Trade", 'find_trademan.php');
 	}
 }
 ?>
