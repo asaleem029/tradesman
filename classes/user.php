@@ -105,7 +105,7 @@ class User
 
     function updateProfile($db, $data)
     {
-        $sql1 = "UPDATE `users` SET `name` = '{$data['name']}', `phone` = '{$data['phone']}', `trade_id` = '{$data['trade_id']}', `city` = '{$data['city']}', `country` = '{$data['country']}', `hourly_rate` = '{$data['hourly_rate']}', `summary` = '{$data['summary']}', `available_to` = '{$data['available_to']}', `available_from` = '{$data['available_from']}'  WHERE `id` = '{$data['id']}'";
+        $sql1 = "UPDATE `users` SET `name` = '{$data['name']}', `phone` = '{$data['phone']}', `trade_id` = '{$data['trade_id']}', `city` = '{$data['city']}', `country` = '{$data['country']}', `hourly_rate` = '{$data['hourly_rate']}', `summary` = '{$data['summary']}' WHERE `id` = '{$data['id']}'";
 
         // USER SKILLS SECTON STARTS
         if (isset($data['skills']) && !empty($data['skills'])) {
@@ -304,23 +304,38 @@ class User
 
     function getTradesman($db, $data)
     {
+        $where = '';
+
+        if (!empty($data['city']) && empty($data['trade_id'])) {
+            $where = "WHERE `u`.`city` = '{$data['city']}' ";
+        } else if (!empty($data['trade_id']) && empty($data['city'])) {
+            $where = "WHERE `u`.`trade_id` = '{$data['trade_id']}' ";
+        } else if (!empty($data['trade_id']) && !empty($data['city'])) {
+            $where = "WHERE `u`.`city` = '{$data['city']}' AND `u`.`trade_id` = '{$data['trade_id']}' ";
+        }
+
+        echo '<pre>' . print_r($where, true) . '</pre>';
+
         $array = array();
 
         $sql = "SELECT `u`.`id`, `u`.`name`, `u`.`phone`, `u`.`trade_id`, `u`.`hourly_rate`, FORMAT(IFNULL(`u`.`rating` / `u`.`rating_count`, 0), 2) AS `trademan_rating`, `available_to`,`available_from`, COUNT(`uc`.`user_id`) AS `certificate_count`
         FROM `users` AS `u`
         INNER JOIN `user_certifications` AS `uc` ON (`u`.`id` = `uc`.`user_id`) 
-        WHERE `u`.`city` = '{$data['city']}' 
-        AND `u`.`trade_id` = '{$data['trade_id']}'
+        $where
         GROUP BY `uc`.`user_id`
-        ORDER BY `trademan_rating` DESC";
+        ORDER BY `certificate_count` DESC";
 
         $response = $db->query($sql);
         $result = $response->fetch_all(MYSQLI_ASSOC);
 
-        foreach ($result as $res) {
-            if ($res['available_to'] >= $data['date'] && $res['available_from'] <= $data['date']) {
-                array_push($array, $res);
+        if (isset($data['date']) && !empty($data['date'])) {
+            foreach ($result as $res) {
+                if ($res['available_to'] >= $data['date'] && $res['available_from'] <= $data['date']) {
+                    array_push($array, $res);
+                }
             }
+        } else {
+            $array = $result;
         }
 
         return $array;

@@ -126,7 +126,7 @@ $(document).ready(function () {
 
                     <div class="col">
                         <label for="skill_time">Time Since Skill Acquired</label>
-                        <input class="form-control" type="date" name="skills[` + count + `][skill_time]" size="50">
+                        <input class="form-control time_acquired" type="date" name="skills[` + count + `][skill_time]" size="50">
                     </div>
                 </div>
             </div>
@@ -135,14 +135,25 @@ $(document).ready(function () {
 
     function checkDate(SelectedDate) {
         var CurrentDate = (new Date()).toISOString().split('T')[0];
-        if (CurrentDate >= SelectedDate) {
+        console.log(CurrentDate);
+        console.log(SelectedDate);
+        if (CurrentDate > SelectedDate) {
             return true;
         } else {
             return false;
         }
     }
 
-    $("#time_acquired, #valid_from").on("change", function (e) {
+    $(".time_acquired").on("change", function (e) {
+        e.preventDefault();
+
+        if (!checkDate($(this).val())) {
+            alert("Selected Date Must Be Less Than Today's Date");
+            $(this).val(null);
+        }
+    });
+    
+    $("#valid_from").on("change", function (e) {
         e.preventDefault();
 
         if (!checkDate($(this).val())) {

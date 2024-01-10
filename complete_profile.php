@@ -151,7 +151,7 @@ $user_certifications = $user->getUserCertifications($db, $_GET['id']);
 
 							<div class="col">
 								<label for="code">Time Acquired</label>
-								<input class="form-control" id="time_acquired" type="date" name="skills[<?= $skill['id'] ?>][time_acquired]" value="<?php if (isset($skill['time_acquired'])) echo $skill['time_acquired']; ?>">
+								<input class="form-control time_acquired" id="time_acquired" type="date" name="skills[<?= $skill['id'] ?>][time_acquired]" value="<?php if (isset($skill['time_acquired'])) echo $skill['time_acquired']; ?>">
 							</div>
 						</div>
 					</div>
