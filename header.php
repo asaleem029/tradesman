@@ -46,6 +46,7 @@ session_start();
 								<li><a href="view_users.php">Users</a></li>
 								<li><a href="view_roles.php">User Types</a></li>
 								<li><a href="trades_list.php">Trades</a></li>
+								<li><a href="add_tradesman_availability.php?id=<?= $_SESSION['user']['id'] ?>">Add Availablity</a></li>
 							<?php } ?>
 
 							<li><a href="view_profile.php?id=<?= $_SESSION['user']['id'] ?>">Profile</a></li>

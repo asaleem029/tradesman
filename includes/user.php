@@ -172,3 +172,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action_type']) && $_PO
     }
     exit;
 }
+
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action_type']) && $_POST['action_type'] == 'ADD_AVAILABILITY') {
+
+    if (isset($_POST['available_from']) && !empty($_POST['available_from']) && isset($_POST['available_to']) && !empty($_POST['available_to'])) {
+        $user_obj = new User();
+        $result = $user_obj->addAvailability($db, $_POST);
+
+        if ($result) {
+            myAlert($result, '../index.php');
+        }
+    } else {
+        myAlert("Please Add Dates", '../add_tradesman_availability.php?id=' . $_SESSION['user']['id']);
+    }
+    exit;
+}

@@ -302,6 +302,17 @@ class User
         }
     }
 
+    function addAvailability($db, $data)
+    {
+        $sql = "UPDATE `users` SET `available_from` = '{$data['available_from']}', `available_to` = '{$data['available_to']}' WHERE `id` = '{$data['id']}'";
+
+        if ($db->query($sql) === TRUE) {
+            return "Availability Updated";
+        } else {
+            return "Error updating record: " . $db->error;
+        }
+    }
+
     function getTradesman($db, $data)
     {
         $where = '';
