@@ -216,7 +216,7 @@ $(document).ready(function () {
         `);
     }
 
-    if (!user_work_history) {
+    if (!user_certifications) {
         addCertificationDiv()
     }
 
@@ -261,8 +261,6 @@ $(document).ready(function () {
 
     function checkDate(SelectedDate) {
         var CurrentDate = (new Date()).toISOString().split('T')[0];
-        console.log(CurrentDate);
-        console.log(SelectedDate);
         if (CurrentDate > SelectedDate) {
             return true;
         } else {

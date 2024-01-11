@@ -160,6 +160,11 @@ class User
             }
 
             $this->uploadWorkImages($_FILES['work_history'], 'work_images', $data['id']);
+
+            foreach ($work_images as $key => $image) {
+                $sql3 = "UPDATE `user_work_history` SET `images` = '{$image['images']}' WHERE `id` = '{$key}'";
+                $db->query($sql3);
+            }
         }
         // USER WORK HOSTORY SECTION ENDS
 
@@ -174,7 +179,7 @@ class User
                     $user_certification = $this->getUserCertificationsById($db, $cert['certificate_id']);
                 }
 
-                if ($user_certification['id'] == $cert['certificate_id']) {
+                if (isset($user_certification['id']) && !empty($user_certification['id']) && $user_certification['id'] == $cert['certificate_id']) {
 
                     $sql4 = "UPDATE `user_certifications` SET `certification_name` = '{$cert['certification_name']}', `valid_till` = '{$cert['valid_till']}', `valid_from` = '{$cert['valid_from']}', `user_id` = '{$data['id']}' WHERE `id` = '{$user_certification['id']}'";
                     $db->query($sql4);

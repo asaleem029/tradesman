@@ -12,8 +12,6 @@ class VerifyOTP
 {
     function getOTP($id, $email, $mail_for)
     {
-        require '../vendor/autoload.php';
-
         $mail = new PHPMailer(true);
 
         try {
