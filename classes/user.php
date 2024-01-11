@@ -130,12 +130,6 @@ class User
         // USER SKILLS SECTON ENDS
 
         // USER WORK HOSTORY SECTION STARTS
-        // if (isset($_FILES['work_images']) && !empty($_FILES['work_images'])) {
-        //     $work_images = implode(',', $_FILES['work_images']['name']);
-        //     $this->uploadWorkImages($_FILES['work_images'], 'work_images');
-        // }
-
-
         if (isset($data['work_history']) && !empty($data['work_history'])) {
             foreach ($data['work_history'] as $key => $work_history) {
 
@@ -154,6 +148,18 @@ class User
                     $db->query($query2);
                 }
             }
+        }
+
+        if (isset($_FILES['work_history']) && !empty($_FILES['work_history'])) {
+            $work_images = array();
+
+            foreach ($_FILES['work_history']['name'] as $key => $image) {
+                if (!array_key_exists($key, $work_images)) {
+                    $work_images[$key]['images'] = implode(',', $image['work_images']);
+                }
+            }
+
+            $this->uploadWorkImages($_FILES['work_history'], 'work_images', $data['id']);
         }
         // USER WORK HOSTORY SECTION ENDS
 
@@ -262,29 +268,28 @@ class User
         return $result;
     }
 
-    function uploadWorkImages($files, $type)
+    function uploadWorkImages($files, $type, $user_id)
     {
-        // Count # of uploaded files in array
-        $total = count($files['name']);
-
         // Loop through each file
-        for ($i = 0; $i < $total; $i++) {
+        foreach ($files['tmp_name'] as $key => $tmp_name) {
+            foreach ($tmp_name['work_images'] as $key1 => $img) {
+                //Get the temp file path
+                $tmpFilePath = $img;
+                $file_name = $files['name'][$key]['work_images'][$key1];
 
-            //Get the temp file path
-            $tmpFilePath = $files['tmp_name'][$i];
+                //Make sure we have a file path
+                if ($tmpFilePath != "") {
+                    //Setup our new file path
+                    $newFilePath = "../uploads/" . $user_id . "/" . $type . "/" . $key . "/" . $file_name;
 
-            //Make sure we have a file path
-            if ($tmpFilePath != "") {
-                //Setup our new file path
-                $newFilePath = "../uploads/" . $_SESSION['user']['id'] . "/" . $type . "/" . $files['name'][$i];
+                    if (!file_exists("../uploads/" . $user_id . "/" . $type . "/" . $key)) {
+                        mkdir("../uploads/" . $user_id . "/" . $type . "/" . $key, 0777, true);
+                    }
 
-                if (!file_exists("../uploads/" . $_SESSION['user']['id'] . "/" . $type)) {
-                    mkdir("../uploads/" . $_SESSION['user']['id'] . "/" . $type, 0777, true);
-                }
-
-                if (!file_exists($newFilePath)) {
-                    //Upload the file into the temp dir
-                    move_uploaded_file($tmpFilePath, $newFilePath);
+                    if (!file_exists($newFilePath)) {
+                        //Upload the file into the temp dir
+                        move_uploaded_file($tmpFilePath, $newFilePath);
+                    }
                 }
             }
         }

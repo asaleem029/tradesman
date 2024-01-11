@@ -233,7 +233,7 @@ $work_images = '';
 						<div class="row">
 							<div class="field" align="left">
 								<h3>Upload Images</h3>
-								<input type="file" class="work_images" name="work_history[<?= $his['id'] ?>][work_images[]]" multiple />
+								<input type="file" class="work_images" name="work_history[<?= $his['id'] ?>][work_images][]" accept="image/png, image/jpg, image/jpeg" multiple />
 
 								<div class="old_work_images">
 									<?php
@@ -241,9 +241,7 @@ $work_images = '';
 
 									if (isset($his['images']) && !empty($his['images'])) {
 										foreach ($work_images as $image) { ?>
-
-											<img class="imageThumb" src="uploads/<?= $his['id'] ?>/work_images/<?= $image ?>">
-
+											<img class="imageThumb" src="uploads/<?= $his['user_id'] ?>/work_images/<?= $his['id'] ?>/<?= $image ?>">
 									<?php }
 									} ?>
 								</div>
@@ -318,7 +316,7 @@ $work_images = '';
 						<div class="row">
 							<div class="field" align="left">
 								<h3>Upload Images</h3>
-								<input type="file" id="certificate_images" name="certifications[<?= $cert['id'] ?>][certificates_images[]]" multiple />
+								<input type="file" id="certificate_images" name="certifications[<?= $cert['id'] ?>][certificates_images][]" multiple accept="image/png, image/jpg, image/jpeg" />
 
 								<div class="old_certifications_images">
 									<?php

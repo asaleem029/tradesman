@@ -209,7 +209,7 @@ $(document).ready(function () {
             <div class="row">
                 <div class="field" align="left">
                     <h3>Upload Images</h3>
-                    <input type="file" class="work_images" name="work_history[`+ count + `][work_images[]]" multiple />
+                    <input type="file" class="work_images" name="work_history[`+ count + `][work_images][]" multiple accept="image/png, image/jpg, image/jpeg" />
                 </div>
             </div>
         </div>
@@ -252,7 +252,7 @@ $(document).ready(function () {
                 <div class="row">
                     <div class="field" align="left">
                         <h3>Upload Images</h3>
-                        <input type="file" id="certificate_images" name="certifications[`+ count + `][certificates_images[]]" multiple />
+                        <input type="file" id="certificate_images" name="certifications[`+ count + `][certificates_images][]" multiple accept="image/png, image/jpg, image/jpeg" />
                     </div>
                 </div>
             </div>
