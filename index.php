@@ -7,7 +7,7 @@
     <?php } else { ?>
         <h3>Welcome To Tradesman Finder</h3>
     <?php } ?>
-    <img src="img/innovation.jpg" />
+    <img src="img/innovation.jpeg" style="width: 100%;height: 80vh;"/>
 </div>
 
 <?php include("footer.php") ?>
