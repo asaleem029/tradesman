@@ -21,13 +21,13 @@ class VerifyOTP
             $mail->isSMTP();
             $mail->Host       = 'smtp.gmail.com';
             $mail->SMTPAuth   = true;
-            $mail->Username   = 'asaleem029@gmail.com';
-            $mail->Password   = 'euykovwrlhaacfgf';
+            $mail->Username   = 'abdullah201897@gmail.com';
+            $mail->Password   = 'fhycuklspjcxenxi';
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
             $mail->Port       = 465;
 
             //Recipients
-            $mail->setFrom('asaleem029@gmail.com', 'Tradesman Admin');
+            $mail->setFrom('abdullah201897@gmail.com', 'Tradesman Admin');
             $mail->addAddress($email);
             $mail->addReplyTo('info@tradesman.com', 'Tradesman');
 
@@ -62,7 +62,7 @@ class VerifyOTP
                 } else {
                     $message = "Error updating record: " . $db->error;
                 }
-                
+
                 myAlert($message, '../login.php');
             } else {
                 $reset_password_obj = new ResetPassword();
