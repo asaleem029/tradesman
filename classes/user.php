@@ -164,6 +164,7 @@ class User
             $this->uploadWorkImages($_FILES['work_history'], 'work_images', $data['id']);
 
             if ($flag) {
+                $flag = false;
                 foreach ($work_images as $key => $image) {
                     $sql3 = "UPDATE `user_work_history` SET `images` = '{$image['images']}' WHERE `id` = '{$key}'";
                     $db->query($sql3);
@@ -195,18 +196,23 @@ class User
 
         if (isset($_FILES['certifications']) && !empty($_FILES['certifications'])) {
             $certificates_images = array();
+            $flag = false;
 
             foreach ($_FILES['certifications']['name'] as $key => $image) {
                 if (!array_key_exists($key, $certificates_images)) {
                     $certificates_images[$key]['images'] = implode(',', $image['certificates_images']);
+                    $flag = true;
                 }
             }
 
             $this->uploadWorkImages($_FILES['certifications'], 'certificates_images', $data['id']);
 
-            foreach ($certificates_images as $key => $image) {
-                $sql3 = "UPDATE `user_certifications` SET `images` = '{$image['images']}' WHERE `id` = '{$key}'";
-                $db->query($sql3);
+            if ($flag) {
+                $flag = false;
+                foreach ($certificates_images as $key => $image) {
+                    $sql3 = "UPDATE `user_certifications` SET `images` = '{$image['images']}' WHERE `id` = '{$key}'";
+                    $db->query($sql3);
+                }
             }
         }
         // USER CERTIFICATES SECTON ENDS

@@ -147,9 +147,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action_type']) && $_PO
     $user_obj = new User();
     $result = $user_obj->updateProfile($db, $_POST);
 
-    // if ($result) {
-    //     myAlert($result, "../view_profile.php?id={$_POST['id']}");
-    // }
+    if ($result) {
+        myAlert($result, "../view_profile.php?id={$_POST['id']}");
+    }
     exit;
 }
 
