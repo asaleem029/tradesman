@@ -6,10 +6,22 @@ $(document).ready(function () {
 
     $("#nextToSkillsForm").click(function (e) {
         e.preventDefault();
-        $("#profile-form").hide();
-        $("#work-history-form").hide();
-        $("#certification-form").hide();
-        $("#skills-form").show();
+
+        var name = $("#name").val()
+        var phone = $("#phone").val()
+        var trade_id = $("#trade_id").val()
+        var city = $("#city").val()
+        var country = $("#country").val()
+        var hourly_rate = $("#hourly_rate").val()
+
+        if (!name || !phone || !trade_id || !city || !country || !hourly_rate) {
+            alert("Please Enter Required Fields");
+        } else {
+            $("#profile-form").hide();
+            $("#work-history-form").hide();
+            $("#certification-form").hide();
+            $("#skills-form").show();
+        }
     });
 
     $("#backToProfileSection").click(function (e) {
@@ -46,10 +58,19 @@ $(document).ready(function () {
     $("#nextToCertificationForm").click(function (e) {
         e.preventDefault();
 
-        $("#profile-form").hide();
-        $("#work-history-form").hide();
-        $("#skills-form").hide();
-        $("#certification-form").show();
+        var work_type = $("#work_type").val()
+        var employer_name = $("#employer_name").val()
+        var work_details = $("#work_details").val()
+
+        if (!work_type || !employer_name || !work_details) {
+            alert("Please Enter Required Fields");
+        } else {
+            $("#profile-form").hide();
+            $("#work-history-form").hide();
+            $("#skills-form").hide();
+            $("#certification-form").show();
+        }
+
     });
 
     $("#backToWorkHistoryForm").click(function (e) {
@@ -152,7 +173,7 @@ $(document).ready(function () {
             $(this).val(null);
         }
     });
-    
+
     $("#valid_from").on("change", function (e) {
         e.preventDefault();
 

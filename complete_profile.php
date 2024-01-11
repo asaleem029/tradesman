@@ -55,7 +55,8 @@ $user_certifications = $user->getUserCertifications($db, $_GET['id']);
 				<div class="row">
 					<div class="col">
 						<label for="name">Name</label>
-						<input class="form-control" type="text" name="name" size="20" value="<?php if (isset($user_detail['name'])) echo $user_detail['name']; ?>" placeholder="Enter Name">
+						<i class="fa fa-asterisk" style="font-size:10px;color:red"></i>
+						<input class="form-control" type="text" name="name" id="name" size="20" value="<?php if (isset($user_detail['name'])) echo $user_detail['name']; ?>" placeholder="Enter Name">
 					</div>
 
 					<div class="col">
@@ -69,12 +70,14 @@ $user_certifications = $user->getUserCertifications($db, $_GET['id']);
 				<div class="row">
 					<div class="col">
 						<label for="user_type_id">Phone No.</label>
-						<input class="form-control" type="text" name="phone" size="50" value="<?php if (isset($user_detail['phone'])) echo $user_detail['phone']; ?>" placeholder="Enter Phone No.">
+						<i class="fa fa-asterisk" style="font-size:10px;color:red"></i>
+						<input class="form-control" type="text" name="phone" id="phone" size="50" value="<?php if (isset($user_detail['phone'])) echo $user_detail['phone']; ?>" placeholder="Enter Phone No.">
 					</div>
 
 					<div class="col">
 						<label for="user_type_id">Trades</label>
-						<select class="form-select" name="trade_id" aria-label="Default select example">
+						<i class="fa fa-asterisk" style="font-size:10px;color:red"></i>
+						<select class="form-select" name="trade_id" id="trade_id" aria-label="Default select example">
 							<option>-- Select Trade --</option>
 							<?php foreach ($trades_list as $trade) { ?>
 								<option <?= $user_detail['trade_id'] == $trade['id'] ? 'selected="selected"' : ''  ?> value="<?= $trade['id'] ?>"><?= $trade['name'] ?></option>
@@ -88,12 +91,14 @@ $user_certifications = $user->getUserCertifications($db, $_GET['id']);
 				<div class="row">
 					<div class="col">
 						<label for="city">Service City</label>
-						<input class="form-control" type="text" name="city" size="50" value="<?php if (isset($user_detail['city'])) echo $user_detail['city']; ?>" placeholder="Enter Service City">
+						<i class="fa fa-asterisk" style="font-size:10px;color:red"></i>
+						<input class="form-control" type="text" name="city" id="city" size="50" value="<?php if (isset($user_detail['city'])) echo $user_detail['city']; ?>" placeholder="Enter Service City">
 					</div>
 
 					<div class="col">
 						<label for="country">Service Country</label>
-						<input class="form-control" type="text" name="country" size="50" value="<?php if (isset($user_detail['country'])) echo $user_detail['country']; ?>" placeholder="Enter Service Country">
+						<i class="fa fa-asterisk" style="font-size:10px;color:red"></i>
+						<input class="form-control" type="text" name="country" id="country" size="50" value="<?php if (isset($user_detail['country'])) echo $user_detail['country']; ?>" placeholder="Enter Service Country">
 					</div>
 				</div>
 			</div>
@@ -102,7 +107,8 @@ $user_certifications = $user->getUserCertifications($db, $_GET['id']);
 				<div class="row">
 					<div class="col">
 						<label for="hourly_rate">Hourly Rate</label>
-						<input class="form-control" type="number" name="hourly_rate" size="50" value="<?php if (isset($user_detail['hourly_rate'])) echo $user_detail['hourly_rate']; ?>" placeholder="Enter Hourly Rate">
+						<i class="fa fa-asterisk" style="font-size:10px;color:red"></i>
+						<input class="form-control" type="number" name="hourly_rate" id="hourly_rate" size="50" value="<?php if (isset($user_detail['hourly_rate'])) echo $user_detail['hourly_rate']; ?>" placeholder="Enter Hourly Rate">
 					</div>
 				</div>
 			</div>
@@ -187,7 +193,8 @@ $user_certifications = $user->getUserCertifications($db, $_GET['id']);
 				<div class="row">
 					<div class="col">
 						<label for="work_type">Employement Type</label>
-						<select class="form-select" name="work_type" aria-label="Default select example">
+						<i class="fa fa-asterisk" style="font-size:10px;color:red"></i>
+						<select class="form-select" name="work_type" id="work_type" aria-label="Default select example">
 							<option>-- Please Select --</option>
 							<option value="part_time" <?= isset($user_work_history['work_type']) && !empty($user_work_history['work_type']) == "part_time" ? "selected=selected" : "" ?>>Part Time</option>
 							<option value="full_time" <?= isset($user_work_history['work_type']) && !empty($user_work_history['work_type']) == "full_time" ? "selected=selected" : "" ?>>Full Time</option>
@@ -196,6 +203,7 @@ $user_certifications = $user->getUserCertifications($db, $_GET['id']);
 
 					<div class="col">
 						<label for="employer_name">Employer Name</label>
+						<i class="fa fa-asterisk" style="font-size:10px;color:red"></i>
 						<input type="text" name="employer_name" id="employer_name" placeholder="Enter Employer Name" value="<?php if (isset($user_work_history['employer_name'])) echo $user_work_history['employer_name']; ?>">
 					</div>
 				</div>
@@ -203,6 +211,7 @@ $user_certifications = $user->getUserCertifications($db, $_GET['id']);
 
 			<div class="form-group">
 				<label for="work_details">Work Details</label>
+				<i class="fa fa-asterisk" style="font-size:10px;color:red"></i>
 				<textarea class="form-control" name="work_details" id="work_details" cols="30" rows="10" placeholder="Write Work Details"><?php if (isset($user_work_history['work_details'])) echo $user_work_history['work_details']; ?></textarea>
 			</div>
 
