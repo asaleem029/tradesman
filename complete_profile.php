@@ -26,6 +26,7 @@ $user_work_history = $user->getUserWorkHistory($db, $_GET['id']);
 
 // USER CERTIFICATIONS
 $user_certifications = $user->getUserCertifications($db, $_GET['id']);
+$work_images = '';
 ?>
 <link rel="stylesheet" href="css/complete_profile.css">
 
@@ -220,6 +221,19 @@ $user_certifications = $user->getUserCertifications($db, $_GET['id']);
 					<div class="field" align="left">
 						<h3>Upload Images</h3>
 						<input type="file" id="work_images" name="work_images[]" multiple />
+
+						<div class="old_work_images">
+							<?php
+							$work_images = explode(",", $user_work_history['images']);
+
+							if (isset($user_work_history['images']) && !empty($user_work_history['images'])) {
+								foreach ($work_images as $image) { ?>
+
+									<img class="imageThumb" src="uploads/<?= $user_work_history['id'] ?>/work_images/<?= $image ?>">
+
+							<?php }
+							} ?>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -274,6 +288,20 @@ $user_certifications = $user->getUserCertifications($db, $_GET['id']);
 					<div class="field" align="left">
 						<h3>Upload Images</h3>
 						<input type="file" id="certificate_images" name="certificates_images[]" multiple />
+
+						<div class="old_certifications_images">
+							<?php
+							if (isset($user_certifications['images']) && !empty($user_certifications['images'])) {
+
+								$user_certifications_images = explode(",", $user_certifications['images']);
+
+								foreach ($user_certifications_images as $image) { ?>
+
+									<img class="imageThumb" src="uploads/<?= $user_detail['id'] ?>/certificates_images/<?= $image ?>">
+
+							<?php }
+							} ?>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -299,7 +327,7 @@ $user_certifications = $user->getUserCertifications($db, $_GET['id']);
 
 <script>
 	var user_skills =
-		<?= count($user_skills) ?>
+		<?= count($user_skills) ?>;
 </script>
 <script src="js/complete_profile.js"></script>
 

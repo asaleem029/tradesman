@@ -83,6 +83,7 @@ $(document).ready(function () {
     });
 
     $("#work_images").on("change", function (e) {
+        $(".old_work_images").hide();
         var files = e.target.files,
             filesLength = files.length;
 
@@ -106,7 +107,12 @@ $(document).ready(function () {
         }
     });
 
+    $(".remove").click(function () {
+        $(this).parent(".pip").remove();
+    });
+
     $("#certificate_images").on("change", function (e) {
+        $(".old_certifications_images").hide();
         var files = e.target.files,
             filesLength = files.length;
 
