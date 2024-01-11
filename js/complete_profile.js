@@ -42,6 +42,11 @@ $(document).ready(function () {
         addWorkHostoryDiv();
     });
 
+    $("#add_new_certification").click(function (e) {
+        e.preventDefault();
+        addCertificationDiv();
+    });
+
     $("#nextToWorkHistoryForm").click(function (e) {
         e.preventDefault();
 
@@ -208,6 +213,49 @@ $(document).ready(function () {
                 </div>
             </div>
         </div>
+        `);
+    }
+
+    if (!user_work_history) {
+        addCertificationDiv()
+    }
+
+    function addCertificationDiv() {
+        let divCount = $(".certification-div").find(".form-group").length
+        let count = divCount + 1;
+
+        $(".certification-div").append(`
+            <div class="form-group">
+                <div class="row">
+                    <div class="col">
+                        <label for="certification_name">Name of Certification</label>
+                        <input type="text" name="certifications[`+ count + `][certification_name]" class="form-control" placeholder="Enter Certificate Name">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col">
+                        <label for="valid_from">Valid From</label>
+                        <input type="date" name="certifications[`+ count + `][valid_from]" id="valid_from">
+                    </div>
+
+                    <div class="col">
+                        <label for="valid_till">Valid Till</label>
+                        <input type="date" class="form-control" name="certifications[`+ count + `][valid_till]" id="valid_till">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="field" align="left">
+                        <h3>Upload Images</h3>
+                        <input type="file" id="certificate_images" name="certifications[`+ count + `][certificates_images[]]" multiple />
+                    </div>
+                </div>
+            </div>
         `);
     }
 

@@ -117,7 +117,7 @@ class User
 
                 if (isset($user_skill['id']) && !empty($user_skill['id'])) {
 
-                    $sql2 = "UPDATE `user_skills` SET `name` = '{$skill['name']}', `time_acquired` = '{$skill['time_acquired']}' WHERE `id` = '{$skill['id']}'";
+                    $sql2 = "UPDATE `user_skills` SET `name` = '{$skill['name']}', `time_acquired` = '{$skill['time_acquired']}', `user_id` = '{$data['id']}' WHERE `id` = '{$skill['id']}'";
                     $db->query($sql2);
                 } else if (isset($skill['name']) && !empty($skill['name']) && isset($skill['skill_time']) && !empty($skill['skill_time'])) {
 
@@ -144,13 +144,13 @@ class User
                 }
 
                 if (isset($user_work_history['id']) && !empty($user_work_history['id'])) {
-                    
-                    $sql3 = "UPDATE `user_work_history` SET `work_type` = '{$work_history['work_type']}', `employer_name` = '{$work_history['employer_name']}', `work_details` = '{$work_history['work_details']}', `user_id` = '{$user_work_history['user_id']}' WHERE `id` = '{$user_work_history['id']}'";
+
+                    $sql3 = "UPDATE `user_work_history` SET `work_type` = '{$work_history['work_type']}', `employer_name` = '{$work_history['employer_name']}', `work_details` = '{$work_history['work_details']}', `user_id` = '{$data['id']}' WHERE `id` = '{$user_work_history['id']}'";
                     $db->query($sql3);
                 } else if (isset($work_history['work_type']) && isset($work_history['employer_name']) && isset($work_history['work_details']) && !empty($work_history['work_type']) && !empty($work_history['employer_name']) && !empty($work_history['work_details'])) {
 
                     $query2 = "INSERT INTO `user_work_history` (`work_type`, `employer_name`, `work_details`, `user_id`) 
-                    VALUES ('{$work_history['work_type']}', '{$work_history['employer_name']}', '{$work_history['work_details']}', '{$_SESSION['user']['id']}')";
+                    VALUES ('{$work_history['work_type']}', '{$work_history['employer_name']}', '{$work_history['work_details']}', '{$data['id']}')";
                     $db->query($query2);
                 }
             }
@@ -161,17 +161,24 @@ class User
         // $certificates_images = implode(',', $_FILES['certificates_images']['name']);
         // $this->uploadWorkImages($_FILES['certificates_images'], 'certificates_images');
 
-        $user_certification = $this->getUserCertificationsById($db, $data['certificate_id']);
+        if (isset($data['certifications']) && !empty($data['certifications'])) {
+            foreach ($data['certifications'] as $cert) {
 
-        if (isset($user_certification) && !empty($user_certification)) {
+                if (isset($cert['certificate_id']) && !empty($cert['certificate_id'])) {
+                    $user_certification = $this->getUserCertificationsById($db, $cert['certificate_id']);
+                }
 
-            $sql4 = "UPDATE `user_certifications` SET `certification_name` = '{$data['certification_name']}', `valid_till` = '{$data['valid_till']}', `valid_from` = '{$data['valid_from']}', `user_id` = '{$data['id']}' WHERE `id` = '{$data['certificate_id']}'";
-            $db->query($sql4);
-        } else if (isset($data['certification_name']) && isset($data['valid_till']) && isset($data['valid_from']) && !empty($data['certification_name']) && !empty($data['valid_till']) && !empty($data['valid_from'])) {
+                if ($user_certification['id'] == $cert['certificate_id']) {
 
-            $query3 = "INSERT INTO `user_certifications` (`certification_name`, `valid_till`, `valid_from`, `user_id`) 
-                VALUES ('{$data['certification_name']}', '{$data['valid_till']}', '{$data['valid_from']}', '{$data['id']}')";
-            $db->query($query3);
+                    $sql4 = "UPDATE `user_certifications` SET `certification_name` = '{$cert['certification_name']}', `valid_till` = '{$cert['valid_till']}', `valid_from` = '{$cert['valid_from']}', `user_id` = '{$data['id']}' WHERE `id` = '{$user_certification['id']}'";
+                    $db->query($sql4);
+                } else {
+
+                    $query3 = "INSERT INTO `user_certifications` (`certification_name`, `valid_till`, `valid_from`, `user_id`) 
+                    VALUES ('{$cert['certification_name']}', '{$cert['valid_till']}', '{$cert['valid_from']}', '{$data['id']}')";
+                    $db->query($query3);
+                }
+            }
         }
         // USER CERTIFICATES SECTON ENDS
 
@@ -241,7 +248,7 @@ class User
     {
         $query = "SELECT * FROM `user_certifications` WHERE `user_id` = '{$id}'";
         $response = $db->query($query);
-        $result = $response->fetch_assoc();
+        $result = $response->fetch_all(MYSQLI_ASSOC);
 
         return $result;
     }

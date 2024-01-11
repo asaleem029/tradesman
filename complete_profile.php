@@ -250,7 +250,9 @@ $work_images = '';
 							</div>
 						</div>
 					</div>
+					<br>
 				<?php } ?>
+				<br>
 			</div>
 
 			<br>
@@ -272,53 +274,68 @@ $work_images = '';
 		</div>
 
 		<div id="certification-form">
-			<h3 class="form-signin-heading">Cerification</h3>
-			<input type="hidden" name="certificate_id" value="<?= isset($user_certifications['id']) && !empty($user_certifications['id']) ? $user_certifications['id'] : '' ?>">
+			<div class="row">
+				<div class="col">
+					<h3 class="form-signin-heading">Cerification</h3>
+				</div>
 
-			<div class="form-group">
-				<div class="row">
-					<div class="col">
-						<label for="certification_name">Name of Certification</label>
-						<input type="text" name="certification_name" class="form-control" placeholder="Enter Certificate Name" value="<?php if (isset($user_certifications['certification_name'])) echo $user_certifications['certification_name']; ?>">
-					</div>
+				<div class="col">
+					<button class="btn btn-primary" id="add_new_certification" style="float: right;">
+						<i class="fa-solid fa-plus"></i>
+					</button>
 				</div>
 			</div>
 
-			<div class="form-group">
-				<div class="row">
-					<div class="col">
-						<label for="valid_from">Valid From</label>
-						<input type="date" name="valid_from" id="valid_from" value="<?php if (isset($user_certifications['valid_from'])) echo $user_certifications['valid_from']; ?>">
-					</div>
+			<div class="certification-div">
+				<?php foreach ($user_certifications as $cert) { ?>
 
-					<div class="col">
-						<label for="valid_till">Valid Till</label>
-						<input type="date" class="form-control" name="valid_till" id="valid_till" value="<?php if (isset($user_certifications['valid_till'])) echo $user_certifications['valid_till']; ?>">
-					</div>
-				</div>
-			</div>
+					<input type="hidden" name="certifications[<?= $cert['id'] ?>][certificate_id]" value="<?= isset($cert['id']) && !empty($cert['id']) ? $cert['id'] : '' ?>">
 
-			<div class="form-group">
-				<div class="row">
-					<div class="field" align="left">
-						<h3>Upload Images</h3>
-						<input type="file" id="certificate_images" name="certificates_images[]" multiple />
-
-						<div class="old_certifications_images">
-							<?php
-							if (isset($user_certifications['images']) && !empty($user_certifications['images'])) {
-
-								$user_certifications_images = explode(",", $user_certifications['images']);
-
-								foreach ($user_certifications_images as $image) { ?>
-
-									<img class="imageThumb" src="uploads/<?= $user_detail['id'] ?>/certificates_images/<?= $image ?>">
-
-							<?php }
-							} ?>
+					<div class="form-group">
+						<div class="row">
+							<div class="col">
+								<label for="certification_name">Name of Certification</label>
+								<input type="text" name="certifications[<?= $cert['id'] ?>][certification_name]" class="form-control" placeholder="Enter Certificate Name" value="<?php if (isset($cert['certification_name'])) echo $cert['certification_name']; ?>">
+							</div>
 						</div>
 					</div>
-				</div>
+
+					<div class="form-group">
+						<div class="row">
+							<div class="col">
+								<label for="valid_from">Valid From</label>
+								<input type="date" name="certifications[<?= $cert['id'] ?>][valid_from]" id="valid_from" value="<?php if (isset($cert['valid_from'])) echo $cert['valid_from']; ?>">
+							</div>
+
+							<div class="col">
+								<label for="valid_till">Valid Till</label>
+								<input type="date" class="form-control" name="certifications[<?= $cert['id'] ?>][valid_till]" id="valid_till" value="<?php if (isset($cert['valid_till'])) echo $cert['valid_till']; ?>">
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="row">
+							<div class="field" align="left">
+								<h3>Upload Images</h3>
+								<input type="file" id="certificate_images" name="certifications[<?= $cert['id'] ?>][certificates_images[]]" multiple />
+
+								<div class="old_certifications_images">
+									<?php
+									if (isset($cert['images']) && !empty($cert['images'])) {
+										$user_certifications_images = explode(",", $cert['images']);
+
+										foreach ($user_certifications_images as $image) { ?>
+											<img class="imageThumb" src="uploads/<?= $user_detail['id'] ?>/certificates_images/<?= $image ?>">
+									<?php }
+									} ?>
+								</div>
+							</div>
+						</div>
+					</div>
+					<br>
+				<?php } ?>
+				<br>
 			</div>
 
 			<br>
@@ -341,6 +358,8 @@ $work_images = '';
 </div>
 
 <script>
+	var user_certifications =
+		<?= count($user_certifications) ?>;
 	var user_work_history =
 		<?= count($user_work_history) ?>;
 	var user_skills =
