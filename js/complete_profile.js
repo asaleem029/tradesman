@@ -37,6 +37,11 @@ $(document).ready(function () {
         addSkillDiv();
     });
 
+    $("#add_new_work_history").click(function (e) {
+        e.preventDefault();
+        addWorkHostoryDiv();
+    });
+
     $("#nextToWorkHistoryForm").click(function (e) {
         e.preventDefault();
 
@@ -82,7 +87,7 @@ $(document).ready(function () {
         $("#work-history-form").show();
     });
 
-    $("#work_images").on("change", function (e) {
+    $(".work_images").on("change", function (e) {
         $(".old_work_images").hide();
         var files = e.target.files,
             filesLength = files.length;
@@ -96,7 +101,7 @@ $(document).ready(function () {
                 $("<span class=\"pip\">" +
                     "<br/><span class=\"remove\">x</span>" +
                     "<img class=\"imageThumb\" src=\"" + e.target.result + "\" title=\"" + file.name + "\"/>" +
-                    "</span>").insertAfter("#work_images");
+                    "</span>").insertAfter(".work_images");
 
                 $(".remove").click(function () {
                     $(this).parent(".pip").remove();
@@ -157,6 +162,52 @@ $(document).ready(function () {
                     </div>
                 </div>
             </div>
+        `);
+    }
+
+    if (!user_work_history) {
+        addWorkHostoryDiv()
+    }
+
+    function addWorkHostoryDiv() {
+        let divCount = $(".work-history-div").find(".form-group").length
+        let count = divCount + 1;
+
+        $(".work-history-div").append(`
+            <div class="form-group">
+            <div class="row">
+                <div class="col">
+                    <label for="work_type">Employement Type</label>
+                    <i class="fa fa-asterisk" style="font-size:10px;color:red"></i>
+                    <select class="form-select" name="work_history[`+ count + `][work_type]" id="work_type" aria-label="Default select example">
+                        <option>-- Please Select --</option>
+                        <option value="part_time">Part Time</option>
+                        <option value="full_time">Full Time</option>
+                    </select>
+                </div>
+
+                <div class="col">
+                    <label for="employer_name">Employer Name</label>
+                    <i class="fa fa-asterisk" style="font-size:10px;color:red"></i>
+                    <input type="text" name="work_history[`+ count + `][employer_name]" id="employer_name" placeholder="Enter Employer Name">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="work_details">Work Details</label>
+            <i class="fa fa-asterisk" style="font-size:10px;color:red"></i>
+            <textarea class="form-control" name="work_history[`+ count + `][work_details]" id="work_details" cols="30" rows="10" placeholder="Write Work Details"></textarea>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                <div class="field" align="left">
+                    <h3>Upload Images</h3>
+                    <input type="file" class="work_images" name="work_history[`+ count + `][work_images[]]" multiple />
+                </div>
+            </div>
+        </div>
         `);
     }
 

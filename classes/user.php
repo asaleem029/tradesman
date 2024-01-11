@@ -130,22 +130,34 @@ class User
         // USER SKILLS SECTON ENDS
 
         // USER WORK HOSTORY SECTION STARTS
-        if (isset($_FILES['work_images']) && !empty($_FILES['work_images'])) {
-            $work_images = implode(',', $_FILES['work_images']['name']);
-            $this->uploadWorkImages($_FILES['work_images'], 'work_images');
-        }
+        // if (isset($_FILES['work_images']) && !empty($_FILES['work_images'])) {
+        //     $work_images = implode(',', $_FILES['work_images']['name']);
+        //     $this->uploadWorkImages($_FILES['work_images'], 'work_images');
+        // }
 
-        $user_work_history = $this->getUserWorkHistoryById($db, $data['work_id']);
 
-        if (isset($user_work_history) && !empty($user_work_history)) {
+        if (isset($data['work_history']) && !empty($data['work_history'])) {
+            foreach ($data['work_history'] as $key => $work_history) {
 
-            $sql3 = "UPDATE `user_work_history` SET `work_type` = '{$data['work_type']}', `employer_name` = '{$data['employer_name']}', `work_details` = '{$data['work_details']}', `user_id` = '{$data['id']}', `images` = '{$work_images}' WHERE `id` = '{$data['work_id']}'";
-            $db->query($sql3);
-        } else if (isset($data['work_type']) && isset($data['employer_name']) && isset($data['work_details']) && !empty($data['work_type']) && !empty($data['employer_name']) && !empty($data['work_details'])) {
+                echo '<pre>' . print_r($work_history, true) . '</pre>';
 
-            $query2 = "INSERT INTO `user_work_history` (`work_type`, `employer_name`, `work_details`, `user_id`, `images`) 
-            VALUES ('{$data['work_type']}', '{$data['employer_name']}', '{$data['work_details']}', '{$_SESSION['user']['id']}', '{$work_images}')";
-            $db->query($query2);
+                if (isset($work_history['work_id']) && !empty($work_history['work_id'])) {
+                    $user_work_history = $this->getUserWorkHistoryById($db, $work_history['work_id']);
+
+                    echo '<pre>' . print_r($user_work_history, true) . '</pre>';
+                }
+
+                if (isset($user_work_history['id']) && !empty($user_work_history['id'])) {
+                    
+                    $sql3 = "UPDATE `user_work_history` SET `work_type` = '{$work_history['work_type']}', `employer_name` = '{$work_history['employer_name']}', `work_details` = '{$work_history['work_details']}', `user_id` = '{$user_work_history['user_id']}' WHERE `id` = '{$user_work_history['id']}'";
+                    $db->query($sql3);
+                } else if (isset($work_history['work_type']) && isset($work_history['employer_name']) && isset($work_history['work_details']) && !empty($work_history['work_type']) && !empty($work_history['employer_name']) && !empty($work_history['work_details'])) {
+
+                    $query2 = "INSERT INTO `user_work_history` (`work_type`, `employer_name`, `work_details`, `user_id`) 
+                    VALUES ('{$work_history['work_type']}', '{$work_history['employer_name']}', '{$work_history['work_details']}', '{$_SESSION['user']['id']}')";
+                    $db->query($query2);
+                }
+            }
         }
         // USER WORK HOSTORY SECTION ENDS
 
@@ -224,7 +236,7 @@ class User
     {
         $query = "SELECT * FROM `user_work_history` WHERE `user_id` = '{$id}'";
         $response = $db->query($query);
-        $result = $response->fetch_assoc();
+        $result = $response->fetch_all(MYSQLI_ASSOC);
 
         return $result;
     }

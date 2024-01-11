@@ -186,56 +186,71 @@ $work_images = '';
 		<br>
 
 		<div id="work-history-form">
-			<h3 class="form-signin-heading">Work History</h3>
+			<div class="row">
+				<div class="col">
+					<h3 class="form-signin-heading">Work History</h3>
+				</div>
 
-			<input type="hidden" name="work_id" value="<?= isset($user_work_history['id']) && !empty($user_work_history['id']) ? $user_work_history['id'] : '' ?>">
-
-			<div class="form-group">
-				<div class="row">
-					<div class="col">
-						<label for="work_type">Employement Type</label>
-						<i class="fa fa-asterisk" style="font-size:10px;color:red"></i>
-						<select class="form-select" name="work_type" id="work_type" aria-label="Default select example">
-							<option>-- Please Select --</option>
-							<option value="part_time" <?= isset($user_work_history['work_type']) && !empty($user_work_history['work_type']) == "part_time" ? "selected=selected" : "" ?>>Part Time</option>
-							<option value="full_time" <?= isset($user_work_history['work_type']) && !empty($user_work_history['work_type']) == "full_time" ? "selected=selected" : "" ?>>Full Time</option>
-						</select>
-					</div>
-
-					<div class="col">
-						<label for="employer_name">Employer Name</label>
-						<i class="fa fa-asterisk" style="font-size:10px;color:red"></i>
-						<input type="text" name="employer_name" id="employer_name" placeholder="Enter Employer Name" value="<?php if (isset($user_work_history['employer_name'])) echo $user_work_history['employer_name']; ?>">
-					</div>
+				<div class="col">
+					<button class="btn btn-primary" id="add_new_work_history" style="float: right;">
+						<i class="fa-solid fa-plus"></i>
+					</button>
 				</div>
 			</div>
 
-			<div class="form-group">
-				<label for="work_details">Work Details</label>
-				<i class="fa fa-asterisk" style="font-size:10px;color:red"></i>
-				<textarea class="form-control" name="work_details" id="work_details" cols="30" rows="10" placeholder="Write Work Details"><?php if (isset($user_work_history['work_details'])) echo $user_work_history['work_details']; ?></textarea>
-			</div>
 
-			<div class="form-group">
-				<div class="row">
-					<div class="field" align="left">
-						<h3>Upload Images</h3>
-						<input type="file" id="work_images" name="work_images[]" multiple />
+			<div class="work-history-div">
+				<?php foreach ($user_work_history as $his) { ?>
+					<input type="hidden" name="work_history[<?= $his['id'] ?>][work_id]" value="<?= isset($his['id']) && !empty($his['id']) ? $his['id'] : '' ?>">
 
-						<div class="old_work_images">
-							<?php
-							$work_images = explode(",", $user_work_history['images']);
+					<div class="form-group">
+						<div class="row">
+							<div class="col">
+								<label for="work_type">Employement Type</label>
+								<i class="fa fa-asterisk" style="font-size:10px;color:red"></i>
+								<select class="form-select" name="work_history[<?= $his['id'] ?>][work_type]" id="work_type" aria-label="Default select example">
+									<option>-- Please Select --</option>
+									<option value="part_time" <?= isset($his['work_type']) && !empty($his['work_type']) && $his['work_type'] == "part_time" ? "selected=selected" : "" ?>>Part Time</option>
+									<option value="full_time" <?= isset($his['work_type']) && !empty($his['work_type']) && $his['work_type'] == "full_time" ? "selected=selected" : "" ?>>Full Time</option>
+								</select>
+							</div>
 
-							if (isset($user_work_history['images']) && !empty($user_work_history['images'])) {
-								foreach ($work_images as $image) { ?>
-
-									<img class="imageThumb" src="uploads/<?= $user_work_history['id'] ?>/work_images/<?= $image ?>">
-
-							<?php }
-							} ?>
+							<div class="col">
+								<label for="employer_name">Employer Name</label>
+								<i class="fa fa-asterisk" style="font-size:10px;color:red"></i>
+								<input type="text" name="work_history[<?= $his['id'] ?>][employer_name]" id="employer_name" placeholder="Enter Employer Name" value="<?php if (isset($his['employer_name'])) echo $his['employer_name']; ?>">
+							</div>
 						</div>
 					</div>
-				</div>
+
+					<div class="form-group">
+						<label for="work_details">Work Details</label>
+						<i class="fa fa-asterisk" style="font-size:10px;color:red"></i>
+						<textarea class="form-control" name="work_history[<?= $his['id'] ?>][work_details]" id="work_details" cols="30" rows="10" placeholder="Write Work Details"><?php if (isset($his['work_details'])) echo $his['work_details']; ?></textarea>
+					</div>
+
+					<div class="form-group">
+						<div class="row">
+							<div class="field" align="left">
+								<h3>Upload Images</h3>
+								<input type="file" class="work_images" name="work_history[<?= $his['id'] ?>][work_images[]]" multiple />
+
+								<div class="old_work_images">
+									<?php
+									$work_images = explode(",", $his['images']);
+
+									if (isset($his['images']) && !empty($his['images'])) {
+										foreach ($work_images as $image) { ?>
+
+											<img class="imageThumb" src="uploads/<?= $his['id'] ?>/work_images/<?= $image ?>">
+
+									<?php }
+									} ?>
+								</div>
+							</div>
+						</div>
+					</div>
+				<?php } ?>
 			</div>
 
 			<br>
@@ -326,6 +341,8 @@ $work_images = '';
 </div>
 
 <script>
+	var user_work_history =
+		<?= count($user_work_history) ?>;
 	var user_skills =
 		<?= count($user_skills) ?>;
 </script>
