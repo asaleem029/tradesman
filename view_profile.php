@@ -193,7 +193,7 @@ $user_certifications = $user->getUserCertifications($db, $_GET['id']);
 								<div style="display: flex;">
 									<?php foreach ($work_images as $img) { ?>
 										<div style="margin: 5px;">
-											<img style="marign: 5px;" src="uploads/<?= $user_detail['id'] ?>/work_images/<?= $img ?>" width="200" height="200">
+											<img style="marign: 5px;" src="uploads/<?= $user_detail['id'] ?>/work_images/<?= $his['id'] ?>/<?= $img ?>" width="200" height="200">
 										</div>
 									<?php } ?>
 								</div>
@@ -244,7 +244,7 @@ $user_certifications = $user->getUserCertifications($db, $_GET['id']);
 								<div style="display: flex;">
 									<?php foreach ($certifications_images as $img) { ?>
 										<div style="margin: 5px;">
-											<img style="marign: 5px;" src="uploads/<?= $user_detail['id'] ?>/certificates_images/<?= $img ?>" width="200" height="200">
+											<img style="marign: 5px;" src="uploads/<?= $user_detail['id'] ?>/certificates_images/<?= $cert['id'] ?>/<?= $img ?>" width="200" height="200">
 										</div>
 									<?php } ?>
 								</div>
