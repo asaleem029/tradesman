@@ -139,12 +139,8 @@ class User
         if (isset($data['work_history']) && !empty($data['work_history'])) {
             foreach ($data['work_history'] as $key => $work_history) {
 
-                echo '<pre>' . print_r($work_history, true) . '</pre>';
-
                 if (isset($work_history['work_id']) && !empty($work_history['work_id'])) {
                     $user_work_history = $this->getUserWorkHistoryById($db, $work_history['work_id']);
-
-                    echo '<pre>' . print_r($user_work_history, true) . '</pre>';
                 }
 
                 if (isset($user_work_history['id']) && !empty($user_work_history['id'])) {
@@ -162,19 +158,19 @@ class User
         // USER WORK HOSTORY SECTION ENDS
 
         // USER CERTIFICATES SECTON STARTS
-        $certificates_images = implode(',', $_FILES['certificates_images']['name']);
-        $this->uploadWorkImages($_FILES['certificates_images'], 'certificates_images');
+        // $certificates_images = implode(',', $_FILES['certificates_images']['name']);
+        // $this->uploadWorkImages($_FILES['certificates_images'], 'certificates_images');
 
         $user_certification = $this->getUserCertificationsById($db, $data['certificate_id']);
 
         if (isset($user_certification) && !empty($user_certification)) {
 
-            $sql4 = "UPDATE `user_certifications` SET `certification_name` = '{$data['certification_name']}', `valid_till` = '{$data['valid_till']}', `valid_from` = '{$data['valid_from']}', `user_id` = '{$data['id']}', `images` = '{$certificates_images}' WHERE `id` = '{$data['certificate_id']}'";
+            $sql4 = "UPDATE `user_certifications` SET `certification_name` = '{$data['certification_name']}', `valid_till` = '{$data['valid_till']}', `valid_from` = '{$data['valid_from']}', `user_id` = '{$data['id']}' WHERE `id` = '{$data['certificate_id']}'";
             $db->query($sql4);
         } else if (isset($data['certification_name']) && isset($data['valid_till']) && isset($data['valid_from']) && !empty($data['certification_name']) && !empty($data['valid_till']) && !empty($data['valid_from'])) {
 
-            $query3 = "INSERT INTO `user_certifications` (`certification_name`, `valid_till`, `valid_from`, `user_id`, `images`) 
-                VALUES ('{$data['certification_name']}', '{$data['valid_till']}', '{$data['valid_from']}', '{$data['id']}', '{$certificates_images}')";
+            $query3 = "INSERT INTO `user_certifications` (`certification_name`, `valid_till`, `valid_from`, `user_id`) 
+                VALUES ('{$data['certification_name']}', '{$data['valid_till']}', '{$data['valid_from']}', '{$data['id']}')";
             $db->query($query3);
         }
         // USER CERTIFICATES SECTON ENDS
