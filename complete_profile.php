@@ -324,7 +324,7 @@ $work_images = '';
 										$user_certifications_images = explode(",", $cert['images']);
 
 										foreach ($user_certifications_images as $image) { ?>
-											<img class="imageThumb" src="uploads/<?= $user_detail['id'] ?>/certificates_images/<?= $image ?>">
+											<img class="imageThumb" src="uploads/<?= $user_detail['id'] ?>/certificates_images/<?= $cert['id'] ?>/<?= $image ?>">
 									<?php }
 									} ?>
 								</div>

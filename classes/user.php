@@ -152,26 +152,27 @@ class User
 
         if (isset($_FILES['work_history']) && !empty($_FILES['work_history'])) {
             $work_images = array();
+            $flag = false;
 
             foreach ($_FILES['work_history']['name'] as $key => $image) {
                 if (!array_key_exists($key, $work_images)) {
                     $work_images[$key]['images'] = implode(',', $image['work_images']);
+                    $flag = true;
                 }
             }
 
             $this->uploadWorkImages($_FILES['work_history'], 'work_images', $data['id']);
 
-            foreach ($work_images as $key => $image) {
-                $sql3 = "UPDATE `user_work_history` SET `images` = '{$image['images']}' WHERE `id` = '{$key}'";
-                $db->query($sql3);
+            if ($flag) {
+                foreach ($work_images as $key => $image) {
+                    $sql3 = "UPDATE `user_work_history` SET `images` = '{$image['images']}' WHERE `id` = '{$key}'";
+                    $db->query($sql3);
+                }
             }
         }
         // USER WORK HOSTORY SECTION ENDS
 
         // USER CERTIFICATES SECTON STARTS
-        // $certificates_images = implode(',', $_FILES['certificates_images']['name']);
-        // $this->uploadWorkImages($_FILES['certificates_images'], 'certificates_images');
-
         if (isset($data['certifications']) && !empty($data['certifications'])) {
             foreach ($data['certifications'] as $cert) {
 
@@ -189,6 +190,23 @@ class User
                     VALUES ('{$cert['certification_name']}', '{$cert['valid_till']}', '{$cert['valid_from']}', '{$data['id']}')";
                     $db->query($query3);
                 }
+            }
+        }
+
+        if (isset($_FILES['certifications']) && !empty($_FILES['certifications'])) {
+            $certificates_images = array();
+
+            foreach ($_FILES['certifications']['name'] as $key => $image) {
+                if (!array_key_exists($key, $certificates_images)) {
+                    $certificates_images[$key]['images'] = implode(',', $image['certificates_images']);
+                }
+            }
+
+            $this->uploadWorkImages($_FILES['certifications'], 'certificates_images', $data['id']);
+
+            foreach ($certificates_images as $key => $image) {
+                $sql3 = "UPDATE `user_certifications` SET `images` = '{$image['images']}' WHERE `id` = '{$key}'";
+                $db->query($sql3);
             }
         }
         // USER CERTIFICATES SECTON ENDS
@@ -277,10 +295,10 @@ class User
     {
         // Loop through each file
         foreach ($files['tmp_name'] as $key => $tmp_name) {
-            foreach ($tmp_name['work_images'] as $key1 => $img) {
+            foreach ($tmp_name[$type] as $key1 => $img) {
                 //Get the temp file path
                 $tmpFilePath = $img;
-                $file_name = $files['name'][$key]['work_images'][$key1];
+                $file_name = $files['name'][$key][$type][$key1];
 
                 //Make sure we have a file path
                 if ($tmpFilePath != "") {
