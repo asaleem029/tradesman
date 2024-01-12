@@ -1,22 +1,51 @@
-<?php include('header.php'); ?>
+<?php
+include('header.php');
+include('includes/helper.php');
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+require_once 'PHPMailer/src/PHPMailer.php';
+require_once 'PHPMailer/src/SMTP.php';
+require_once 'PHPMailer/src/Exception.php';
+?>
 
 <div class="form">
-	<h3>Contact Innovation Centre</h3>
+	<h3>Contact Tradesman Finder</h3>
 
 	<?php
 	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-		error_reporting(0);
 		if (!empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['comments'])) {
-			$body = "Name: {$_POST['name']}\n\nComments: {$_POST['comments']}";
-			$body = wordwrap($body, 70);
-			mail('c3043125@shu.ac.uk', 'Contact Form Submission', $body, "From: {$_POST['email']}");
-			echo '<p><em>Thank you for contacting Innovation Centre. We will respond to your enquiry in 48 hours.</em></p>';
-			$_POST = array();
+			$mail = new PHPMailer(true);
+
+			try {
+				//Server settings
+				$mail->isSMTP();
+				$mail->Host       = 'smtp.gmail.com';
+				$mail->SMTPAuth   = true;
+				$mail->Username   = 'abdullah201897@gmail.com';
+				$mail->Password   = 'fhycuklspjcxenxi';
+				$mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+				$mail->Port       = 465;
+
+				//Recipients
+				$mail->setFrom($_POST['email'], $_POST['name']);
+				$mail->addAddress('abdullah201897@gmail.com');
+
+				//Content
+				$mail->Subject = 'Contact Us Alert';
+				$mail->Body = "Name: {$_POST['name']}\n\nComments: {$_POST['comments']}";
+
+				if ($mail->send()) {
+					myAlert("Thank you for contacting Tradesman Finder. We will respond to your enquiry in 48 hours", 'contact-us.php');
+				}
+			} catch (Exception $e) {
+				return "Mail could not be sent. Mailer Error: {$mail->ErrorInfo}";
+			}
+			unset($_POST);
 		} else {
-			echo 	'<p style="font-weight: bold; color: red">
-						Please fill out the form completely.
-					</p>';
+			myAlert("Please fill out the form completely", 'contact-us.php');
 		}
 	}
 	?>

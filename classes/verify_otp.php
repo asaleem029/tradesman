@@ -45,7 +45,7 @@ class VerifyOTP
         }
     }
 
-    function verifyOTP($db, $data)
+    function verify_OTP($db, $data)
     {
         if ($data['otp'] == $_SESSION['session_otp']) {
             unset($_SESSION['session_otp']);
