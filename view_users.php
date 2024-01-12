@@ -63,7 +63,6 @@ if (isset($_POST['search']) && !empty($_POST['search'])) {
 	<tbody>
 		<?php foreach ($users as $user) { ?>
 			<tr>
-				<input type="hidden" name="user_id" id="user_id" value="<?= $user['id'] ?>">
 				<td>
 					<?= $user['id']; ?>
 				</td>
@@ -74,7 +73,7 @@ if (isset($_POST['search']) && !empty($_POST['search'])) {
 					<?= $user['email']; ?>
 				</td>
 				<td>
-					<select id="user-status" class="form-select" name="status" aria-label="Default select example">
+					<select class="form-select user-status" data-id="<?= $user['id'] ?>" name="status" aria-label="Default select example">
 						<option <?= $user['status'] == 1 ? "selected=selected" : ""; ?> value="1">Un-Block</option>
 						<option <?= $user['status'] == 2 ? "selected=selected" : ""; ?> value="2">Block</option>
 					</select>
@@ -102,17 +101,22 @@ if (isset($_POST['search']) && !empty($_POST['search'])) {
 	</tbody>
 </table>
 
+<?php include 'footer.php' ?>
+
 <script>
-	$("#user-status").on("change", function(e) {
+	$(".user-status").on("change", function(e) {
 		e.preventDefault();
+		
+		let id = $(this).data("id");
+		let status = $(this).val();
 
 		$.ajax({
 			url: "includes/user.php",
 			type: "post",
 			data: {
 				action_type: "UPDATE_USER_STATUS",
-				id: $("#user_id").val(),
-				status: $("#user-status").val(),
+				id: id,
+				status: status,
 			},
 			success: function(d) {
 				alert(d);
@@ -120,5 +124,3 @@ if (isset($_POST['search']) && !empty($_POST['search'])) {
 		});
 	})
 </script>
-
-<?php include 'footer.php' ?>
