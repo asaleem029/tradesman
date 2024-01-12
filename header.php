@@ -47,7 +47,8 @@ session_start();
 								<li><a href="view_roles.php">User Types</a></li>
 								<li><a href="trades_list.php">Trades</a></li>
 
-							<?php } else { ?>
+							<?php }
+							if ($_SESSION['user']['user_type_id'] == 2) { ?>
 
 								<li><a href="add_tradesman_availability.php?id=<?= $_SESSION['user']['id'] ?>">Add Availablity</a></li>
 
