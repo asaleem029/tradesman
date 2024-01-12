@@ -97,23 +97,27 @@ $(document).ready(function () {
         var files = e.target.files,
             filesLength = files.length;
 
-        for (var i = 0; i < filesLength; i++) {
-            var f = files[i]
-            var fileReader = new FileReader();
+        if (filesLength > 0) {
+            for (var i = 0; i < filesLength; i++) {
+                var f = files[i]
+                var fileReader = new FileReader();
 
-            fileReader.onload = (function (e) {
-                var file = e.target;
-                $("<span class=\"pip\">" +
-                    "<br/><span class=\"remove\">x</span>" +
-                    "<img class=\"imageThumb\" src=\"" + e.target.result + "\" title=\"" + file.name + "\"/>" +
-                    "</span>").insertAfter(".work_images");
+                fileReader.onload = (function (e) {
+                    var file = e.target;
+                    $("<span class=\"pip\">" +
+                        "<br/><span class=\"remove\">x</span>" +
+                        "<img class=\"imageThumb\" src=\"" + e.target.result + "\" title=\"" + file.name + "\"/>" +
+                        "</span>").appendTo(".work-images");
 
-                $(".remove").click(function () {
-                    $(this).parent(".pip").remove();
-                    filesLength = files.length;
+                    $(".remove").click(function () {
+                        $(this).parent(".pip").remove();
+                        filesLength = files.length;
+                    });
                 });
-            });
-            fileReader.readAsDataURL(f);
+                fileReader.readAsDataURL(f);
+            }
+        } else {
+            $(this).next().children(".pip").remove()
         }
     });
 
@@ -126,22 +130,26 @@ $(document).ready(function () {
         var files = e.target.files,
             filesLength = files.length;
 
-        for (var i = 0; i < filesLength; i++) {
-            var f = files[i]
-            var fileReader = new FileReader();
+        if (filesLength > 0) {
+            for (var i = 0; i < filesLength; i++) {
+                var f = files[i]
+                var fileReader = new FileReader();
 
-            fileReader.onload = (function (e) {
-                var file = e.target;
-                $("<span class=\"pip\">" +
-                    "<br/><span class=\"remove\">x</span>" +
-                    "<img class=\"imageThumb\" src=\"" + e.target.result + "\" title=\"" + file.name + "\"/>" +
-                    "</span>").insertAfter("#certificate_images");
+                fileReader.onload = (function (e) {
+                    var file = e.target;
+                    $("<span class=\"pip\">" +
+                        "<br/><span class=\"remove\">x</span>" +
+                        "<img class=\"imageThumb\" src=\"" + e.target.result + "\" title=\"" + file.name + "\"/>" +
+                        "</span>").appendTo(".certificate-images");
 
-                $(".remove").click(function () {
-                    $(this).parent(".pip").remove();
+                    $(".remove").click(function () {
+                        $(this).parent(".pip").remove();
+                    });
                 });
-            });
-            fileReader.readAsDataURL(f);
+                fileReader.readAsDataURL(f);
+            }
+        } else {
+            $(this).next().children(".pip").remove()
         }
     });
 
@@ -163,7 +171,7 @@ $(document).ready(function () {
 
                     <div class="col">
                         <label for="skill_time">Time Since Skill Acquired</label>
-                        <input class="form-control time_acquired" type="date" name="skills[` + count + `][skill_time]" size="50">
+                        <input class="form-control time_acquired" type="date" name="skills[` + count + `][time_acquired]" size="50">
                     </div>
                 </div>
             </div>

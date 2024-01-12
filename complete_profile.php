@@ -198,9 +198,8 @@ $work_images = '';
 				</div>
 			</div>
 
-
 			<div class="work-history-div">
-				<?php foreach ($user_work_history as $his) { ?>
+				<?php foreach ($user_work_history as $key => $his) { ?>
 					<input type="hidden" name="work_history[<?= $his['id'] ?>][work_id]" value="<?= isset($his['id']) && !empty($his['id']) ? $his['id'] : '' ?>">
 
 					<div class="form-group">
@@ -234,6 +233,7 @@ $work_images = '';
 							<div class="field" align="left">
 								<h3>Upload Images</h3>
 								<input type="file" class="work_images" name="work_history[<?= $his['id'] ?>][work_images][]" accept="image/png, image/jpg, image/jpeg" multiple />
+								<div class="work-images"></div>
 
 								<div class="old_work_images">
 									<?php
@@ -317,6 +317,7 @@ $work_images = '';
 							<div class="field" align="left">
 								<h3>Upload Images</h3>
 								<input type="file" id="certificate_images" name="certifications[<?= $cert['id'] ?>][certificates_images][]" multiple accept="image/png, image/jpg, image/jpeg" />
+								<div class="certificate-images"></div>
 
 								<div class="old_certifications_images">
 									<?php
