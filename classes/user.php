@@ -111,18 +111,20 @@ class User
         if (isset($data['skills']) && !empty($data['skills'])) {
             foreach ($data['skills'] as $key => $skill) {
 
+                echo '<pre>' . print_r($skill, true) . '</pre>';
+
                 if (isset($skill['id']) && !empty($skill['id'])) {
                     $user_skill = $this->getUserSkillById($db, $skill['id']);
                 }
 
-                if (isset($user_skill['id']) && !empty($user_skill['id'])) {
+                if (isset($user_skill['id']) && !empty($user_skill['id']) && isset($skill['id']) && !empty($skill['id']) && $skill['id'] == $user_skill['id']) {
 
-                    $sql2 = "UPDATE `user_skills` SET `name` = '{$skill['name']}', `time_acquired` = '{$skill['time_acquired']}', `user_id` = '{$data['id']}' WHERE `id` = '{$skill['id']}'";
+                    $sql2 = "UPDATE `user_skills` SET `name` = '{$skill['name']}', `time_acquired` = '{$skill['time_acquired']}', `user_id` = '{$data['id']}' WHERE `id` = '{$user_skill['id']}'";
                     $db->query($sql2);
-                } else if (isset($skill['name']) && !empty($skill['name']) && isset($skill['skill_time']) && !empty($skill['skill_time'])) {
+                } else if (isset($skill['name']) && !empty($skill['name']) && isset($skill['time_acquired']) && !empty($skill['time_acquired'])) {
 
                     $query1 = "INSERT INTO `user_skills` (`name`, `time_acquired`, `user_id`) 
-                    VALUES ('{$skill['name']}', '{$skill['skill_time']}', '{$data['id']}')";
+                    VALUES ('{$skill['name']}', '{$skill['time_acquired']}', '{$data['id']}')";
                     $db->query($query1);
                 }
             }
@@ -137,7 +139,9 @@ class User
                     $user_work_history = $this->getUserWorkHistoryById($db, $work_history['work_id']);
                 }
 
-                if (isset($user_work_history['id']) && !empty($user_work_history['id'])) {
+                if (
+                    isset($user_work_history['id']) && !empty($user_work_history['id']) && $user_work_history['id'] == $work_history['work_id']
+                ) {
 
                     $sql3 = "UPDATE `user_work_history` SET `work_type` = '{$work_history['work_type']}', `employer_name` = '{$work_history['employer_name']}', `work_details` = '{$work_history['work_details']}', `user_id` = '{$data['id']}' WHERE `id` = '{$user_work_history['id']}'";
                     $db->query($sql3);
