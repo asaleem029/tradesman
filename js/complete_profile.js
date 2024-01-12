@@ -39,7 +39,7 @@ $(document).ready(function () {
 
     $("#add_new_work_history").click(function (e) {
         e.preventDefault();
-        addWorkHostoryDiv();
+        addWorkHistoryDiv();
     });
 
     $("#add_new_certification").click(function (e) {
@@ -92,67 +92,6 @@ $(document).ready(function () {
         $("#work-history-form").show();
     });
 
-    $(".work_images").on("change", function (e) {
-        $(".old_work_images").hide();
-        var files = e.target.files,
-            filesLength = files.length;
-
-        if (filesLength > 0) {
-            for (var i = 0; i < filesLength; i++) {
-                var f = files[i]
-                var fileReader = new FileReader();
-
-                fileReader.onload = (function (e) {
-                    var file = e.target;
-                    $("<span class=\"pip\">" +
-                        "<br/><span class=\"remove\">x</span>" +
-                        "<img class=\"imageThumb\" src=\"" + e.target.result + "\" title=\"" + file.name + "\"/>" +
-                        "</span>").appendTo(".work-images");
-
-                    $(".remove").click(function () {
-                        $(this).parent(".pip").remove();
-                        filesLength = files.length;
-                    });
-                });
-                fileReader.readAsDataURL(f);
-            }
-        } else {
-            $(this).next().children(".pip").remove()
-        }
-    });
-
-    $(".remove").click(function () {
-        $(this).parent(".pip").remove();
-    });
-
-    $("#certificate_images").on("change", function (e) {
-        $(".old_certifications_images").hide();
-        var files = e.target.files,
-            filesLength = files.length;
-
-        if (filesLength > 0) {
-            for (var i = 0; i < filesLength; i++) {
-                var f = files[i]
-                var fileReader = new FileReader();
-
-                fileReader.onload = (function (e) {
-                    var file = e.target;
-                    $("<span class=\"pip\">" +
-                        "<br/><span class=\"remove\">x</span>" +
-                        "<img class=\"imageThumb\" src=\"" + e.target.result + "\" title=\"" + file.name + "\"/>" +
-                        "</span>").appendTo(".certificate-images");
-
-                    $(".remove").click(function () {
-                        $(this).parent(".pip").remove();
-                    });
-                });
-                fileReader.readAsDataURL(f);
-            }
-        } else {
-            $(this).next().children(".pip").remove()
-        }
-    });
-
     if (!user_skills) {
         addSkillDiv();
     }
@@ -179,45 +118,47 @@ $(document).ready(function () {
     }
 
     if (!user_work_history) {
-        addWorkHostoryDiv()
+        addWorkHistoryDiv()
     }
 
-    function addWorkHostoryDiv() {
-        let divCount = $(".work-history-div").find(".form-group").length
+    function addWorkHistoryDiv() {
+        let divCount = $(".work-history-div").find(".wk-div").length
         let count = divCount + 1;
 
         $(".work-history-div").append(`
-            <div class="form-group">
-            <div class="row">
-                <div class="col">
-                    <label for="work_type">Employement Type</label>
-                    <i class="fa fa-asterisk" style="font-size:10px;color:red"></i>
-                    <select class="form-select" name="work_history[`+ count + `][work_type]" id="work_type" aria-label="Default select example">
-                        <option>-- Please Select --</option>
-                        <option value="part_time">Part Time</option>
-                        <option value="full_time">Full Time</option>
-                    </select>
-                </div>
+        <div class="wk-div">
+            <div class="form-group wk-div">
+                <div class="row">
+                    <div class="col">
+                        <label for="work_type">Employement Type</label>
+                        <i class="fa fa-asterisk" style="font-size:10px;color:red"></i>
+                        <select class="form-select" name="work_history[`+ count + `][work_type]" id="work_type" aria-label="Default select example">
+                            <option>-- Please Select --</option>
+                            <option value="part_time">Part Time</option>
+                            <option value="full_time">Full Time</option>
+                        </select>
+                    </div>
 
-                <div class="col">
-                    <label for="employer_name">Employer Name</label>
-                    <i class="fa fa-asterisk" style="font-size:10px;color:red"></i>
-                    <input type="text" name="work_history[`+ count + `][employer_name]" id="employer_name" placeholder="Enter Employer Name">
+                    <div class="col">
+                        <label for="employer_name">Employer Name</label>
+                        <i class="fa fa-asterisk" style="font-size:10px;color:red"></i>
+                        <input type="text" name="work_history[`+ count + `][employer_name]" id="employer_name" placeholder="Enter Employer Name">
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <label for="work_details">Work Details</label>
-            <i class="fa fa-asterisk" style="font-size:10px;color:red"></i>
-            <textarea class="form-control" name="work_history[`+ count + `][work_details]" id="work_details" cols="30" rows="10" placeholder="Write Work Details"></textarea>
-        </div>
+            <div class="form-group">
+                <label for="work_details">Work Details</label>
+                <i class="fa fa-asterisk" style="font-size:10px;color:red"></i>
+                <textarea class="form-control" name="work_history[`+ count + `][work_details]" id="work_details" cols="30" rows="10" placeholder="Write Work Details"></textarea>
+            </div>
 
-        <div class="form-group">
-            <div class="row">
-                <div class="field" align="left">
-                    <h3>Upload Images</h3>
-                    <input type="file" class="work_images" name="work_history[`+ count + `][work_images][]" multiple accept="image/png, image/jpg, image/jpeg" />
+            <div class="form-group">
+                <div class="row">
+                    <div class="field" align="left">
+                        <h3>Upload Images</h3>
+                        <input type="file" class="work_images" data-id="`+ count + `" name="work_history[` + count + `][work_images][]" multiple accept="image/png, image/jpg, image/jpeg" />
+                    </div>
                 </div>
             </div>
         </div>
@@ -229,10 +170,11 @@ $(document).ready(function () {
     }
 
     function addCertificationDiv() {
-        let divCount = $(".certification-div").find(".form-group").length
+        let divCount = $(".certification-div").find(".ct-div").length
         let count = divCount + 1;
 
         $(".certification-div").append(`
+        <div class="ct-div">    
             <div class="form-group">
                 <div class="row">
                     <div class="col">
@@ -260,10 +202,11 @@ $(document).ready(function () {
                 <div class="row">
                     <div class="field" align="left">
                         <h3>Upload Images</h3>
-                        <input type="file" id="certificate_images" name="certifications[`+ count + `][certificates_images][]" multiple accept="image/png, image/jpg, image/jpeg" />
+                        <input type="file" class="certificate_images" name="certifications[`+ count + `][certificates_images][]" multiple accept="image/png, image/jpg, image/jpeg" />
                     </div>
                 </div>
             </div>
+        </div>
         `);
     }
 
@@ -300,6 +243,100 @@ $(document).ready(function () {
         if ($(this).val() <= $("#valid_from").val()) {
             alert("Valid Till Date Must Be Greater Than Valid From Date");
             $(this).val(null);
+        }
+    });
+
+    $(document).on("change", ".work_images", function (e) {
+        var input_id = e.target.getAttribute("data-id");
+        var old_work_images = $(this).next("div")
+
+        if (input_id == old_work_images.data("id")) {
+            old_work_images.hide();
+        }
+
+        var files = e.target.files,
+            filesLength = files.length;
+
+        if (filesLength > 0) {
+            var div = jQuery('<div>', {
+                class: 'work-images',
+            });
+            div.attr('data-id', input_id);
+
+            if (div.data("id") == input_id) {
+                div.insertAfter(e.target);
+            }
+
+            for (var i = 0; i < filesLength; i++) {
+                var f = files[i];
+                var fileReader = new FileReader(f);
+                fileReader.fileName = f.name;
+
+                fileReader.onload = (function (event) {
+                    let result = event.target.result
+                    let fileName = event.target.fileName
+
+                    $("<span class=\"pip\">" +
+                        "<br/><span class=\"remove\">x</span>" +
+                        "<img class=\"imageThumb\" src=\"" + result + "\" title=\"" + fileName + "\"/>" +
+                        "</span>").appendTo(div);
+
+                    $(".remove").click(function (e) {
+                        $(this).parent(".pip").remove();
+                        filesLength = files.length;
+                    });
+                });
+                fileReader.readAsDataURL(f);
+            }
+
+        } else {
+            $(this).next().children(".pip").remove()
+        }
+    });
+
+    $(document).on("change", ".certificate_images", function (e) {
+        var input_id = e.target.getAttribute("data-id");
+        var old_certifications_images = $(this).next("div");
+
+        if (input_id == old_certifications_images.data("id")) {
+            old_certifications_images.hide();
+        }
+
+        var files = e.target.files,
+            filesLength = files.length;
+
+        if (filesLength > 0) {
+            var div = jQuery('<div>', {
+                class: 'certificate-images',
+            });
+            div.attr('data-id', input_id);
+
+            if (div.data("id") == input_id) {
+                div.insertAfter(e.target)
+            }
+
+            for (var i = 0; i < filesLength; i++) {
+                var f = files[i]
+                var fileReader = new FileReader();
+                fileReader.fileName = f.name;
+
+                fileReader.onload = (function (event) {
+                    let result = event.target.result;
+                    let fileName = event.target.fileName;
+
+                    $("<span class=\"pip\">" +
+                        "<br/><span class=\"remove\">x</span>" +
+                        "<img class=\"imageThumb\" src=\"" + result + "\" title=\"" + fileName + "\"/>" +
+                        "</span>").appendTo(div)
+
+                    $(".remove").click(function () {
+                        $(this).parent(".pip").remove();
+                    });
+                });
+                fileReader.readAsDataURL(f);
+            }
+        } else {
+            $(this).next().children(".pip").remove()
         }
     });
 });

@@ -111,8 +111,6 @@ class User
         if (isset($data['skills']) && !empty($data['skills'])) {
             foreach ($data['skills'] as $key => $skill) {
 
-                echo '<pre>' . print_r($skill, true) . '</pre>';
-
                 if (isset($skill['id']) && !empty($skill['id'])) {
                     $user_skill = $this->getUserSkillById($db, $skill['id']);
                 }

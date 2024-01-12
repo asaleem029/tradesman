@@ -199,51 +199,52 @@ $work_images = '';
 			</div>
 
 			<div class="work-history-div">
-				<?php foreach ($user_work_history as $key => $his) { ?>
-					<input type="hidden" name="work_history[<?= $his['id'] ?>][work_id]" value="<?= isset($his['id']) && !empty($his['id']) ? $his['id'] : '' ?>">
+				<?php foreach ($user_work_history as $his_key => $his) { ?>
+					<div class="wk-div">
+						<input type="hidden" name="work_history[<?= $his['id'] ?>][work_id]" value="<?= isset($his['id']) && !empty($his['id']) ? $his['id'] : '' ?>">
 
-					<div class="form-group">
-						<div class="row">
-							<div class="col">
-								<label for="work_type">Employement Type</label>
-								<i class="fa fa-asterisk" style="font-size:10px;color:red"></i>
-								<select class="form-select" name="work_history[<?= $his['id'] ?>][work_type]" id="work_type" aria-label="Default select example">
-									<option>-- Please Select --</option>
-									<option value="part_time" <?= isset($his['work_type']) && !empty($his['work_type']) && $his['work_type'] == "part_time" ? "selected=selected" : "" ?>>Part Time</option>
-									<option value="full_time" <?= isset($his['work_type']) && !empty($his['work_type']) && $his['work_type'] == "full_time" ? "selected=selected" : "" ?>>Full Time</option>
-								</select>
-							</div>
+						<div class="form-group">
+							<div class="row">
+								<div class="col">
+									<label for="work_type">Employement Type</label>
+									<i class="fa fa-asterisk" style="font-size:10px;color:red"></i>
+									<select class="form-select" name="work_history[<?= $his['id'] ?>][work_type]" id="work_type" aria-label="Default select example">
+										<option>-- Please Select --</option>
+										<option value="part_time" <?= isset($his['work_type']) && !empty($his['work_type']) && $his['work_type'] == "part_time" ? "selected=selected" : "" ?>>Part Time</option>
+										<option value="full_time" <?= isset($his['work_type']) && !empty($his['work_type']) && $his['work_type'] == "full_time" ? "selected=selected" : "" ?>>Full Time</option>
+									</select>
+								</div>
 
-							<div class="col">
-								<label for="employer_name">Employer Name</label>
-								<i class="fa fa-asterisk" style="font-size:10px;color:red"></i>
-								<input type="text" name="work_history[<?= $his['id'] ?>][employer_name]" id="employer_name" placeholder="Enter Employer Name" value="<?php if (isset($his['employer_name'])) echo $his['employer_name']; ?>">
+								<div class="col">
+									<label for="employer_name">Employer Name</label>
+									<i class="fa fa-asterisk" style="font-size:10px;color:red"></i>
+									<input type="text" name="work_history[<?= $his['id'] ?>][employer_name]" id="employer_name" placeholder="Enter Employer Name" value="<?php if (isset($his['employer_name'])) echo $his['employer_name']; ?>">
+								</div>
 							</div>
 						</div>
-					</div>
 
-					<div class="form-group">
-						<label for="work_details">Work Details</label>
-						<i class="fa fa-asterisk" style="font-size:10px;color:red"></i>
-						<textarea class="form-control" name="work_history[<?= $his['id'] ?>][work_details]" id="work_details" cols="30" rows="10" placeholder="Write Work Details"><?php if (isset($his['work_details'])) echo $his['work_details']; ?></textarea>
-					</div>
+						<div class="form-group">
+							<label for="work_details">Work Details</label>
+							<i class="fa fa-asterisk" style="font-size:10px;color:red"></i>
+							<textarea class="form-control" name="work_history[<?= $his['id'] ?>][work_details]" id="work_details" cols="30" rows="10" placeholder="Write Work Details"><?php if (isset($his['work_details'])) echo $his['work_details']; ?></textarea>
+						</div>
 
-					<div class="form-group">
-						<div class="row">
-							<div class="field" align="left">
-								<h3>Upload Images</h3>
-								<input type="file" class="work_images" name="work_history[<?= $his['id'] ?>][work_images][]" accept="image/png, image/jpg, image/jpeg" multiple />
-								<div class="work-images"></div>
+						<div class="form-group">
+							<div class="row">
+								<div class="field" align="left">
+									<h3>Upload Images</h3>
+									<input type="file" class="work_images" data-id="<?= $his_key + 1 ?>" name="work_history[<?= $his['id'] ?>][work_images][]" accept="image/png, image/jpg, image/jpeg" multiple />
 
-								<div class="old_work_images">
-									<?php
-									$work_images = explode(",", $his['images']);
+									<div class="old_work_images" data-id="<?= $his_key + 1 ?>">
+										<?php
+										$work_images = explode(",", $his['images']);
 
-									if (isset($his['images']) && !empty($his['images'])) {
-										foreach ($work_images as $image) { ?>
-											<img class="imageThumb" src="uploads/<?= $his['user_id'] ?>/work_images/<?= $his['id'] ?>/<?= $image ?>">
-									<?php }
-									} ?>
+										if (isset($his['images']) && !empty($his['images'])) {
+											foreach ($work_images as $image) { ?>
+												<img class="imageThumb" src="uploads/<?= $his['user_id'] ?>/work_images/<?= $his['id'] ?>/<?= $image ?>">
+										<?php }
+										} ?>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -285,49 +286,50 @@ $work_images = '';
 			</div>
 
 			<div class="certification-div">
-				<?php foreach ($user_certifications as $cert) { ?>
+				<?php foreach ($user_certifications as $cert_key => $cert) { ?>
+					<div class="ct-div">
 
-					<input type="hidden" name="certifications[<?= $cert['id'] ?>][certificate_id]" value="<?= isset($cert['id']) && !empty($cert['id']) ? $cert['id'] : '' ?>">
+						<input type="hidden" name="certifications[<?= $cert['id'] ?>][certificate_id]" value="<?= isset($cert['id']) && !empty($cert['id']) ? $cert['id'] : '' ?>">
 
-					<div class="form-group">
-						<div class="row">
-							<div class="col">
-								<label for="certification_name">Name of Certification</label>
-								<input type="text" name="certifications[<?= $cert['id'] ?>][certification_name]" class="form-control" placeholder="Enter Certificate Name" value="<?php if (isset($cert['certification_name'])) echo $cert['certification_name']; ?>">
+						<div class="form-group">
+							<div class="row">
+								<div class="col">
+									<label for="certification_name">Name of Certification</label>
+									<input type="text" name="certifications[<?= $cert['id'] ?>][certification_name]" class="form-control" placeholder="Enter Certificate Name" value="<?php if (isset($cert['certification_name'])) echo $cert['certification_name']; ?>">
+								</div>
 							</div>
 						</div>
-					</div>
 
-					<div class="form-group">
-						<div class="row">
-							<div class="col">
-								<label for="valid_from">Valid From</label>
-								<input type="date" name="certifications[<?= $cert['id'] ?>][valid_from]" id="valid_from" value="<?php if (isset($cert['valid_from'])) echo $cert['valid_from']; ?>">
-							</div>
+						<div class="form-group">
+							<div class="row">
+								<div class="col">
+									<label for="valid_from">Valid From</label>
+									<input type="date" name="certifications[<?= $cert['id'] ?>][valid_from]" id="valid_from" value="<?php if (isset($cert['valid_from'])) echo $cert['valid_from']; ?>">
+								</div>
 
-							<div class="col">
-								<label for="valid_till">Valid Till</label>
-								<input type="date" class="form-control" name="certifications[<?= $cert['id'] ?>][valid_till]" id="valid_till" value="<?php if (isset($cert['valid_till'])) echo $cert['valid_till']; ?>">
+								<div class="col">
+									<label for="valid_till">Valid Till</label>
+									<input type="date" class="form-control" name="certifications[<?= $cert['id'] ?>][valid_till]" id="valid_till" value="<?php if (isset($cert['valid_till'])) echo $cert['valid_till']; ?>">
+								</div>
 							</div>
 						</div>
-					</div>
 
-					<div class="form-group">
-						<div class="row">
-							<div class="field" align="left">
-								<h3>Upload Images</h3>
-								<input type="file" id="certificate_images" name="certifications[<?= $cert['id'] ?>][certificates_images][]" multiple accept="image/png, image/jpg, image/jpeg" />
-								<div class="certificate-images"></div>
+						<div class="form-group">
+							<div class="row">
+								<div class="field" align="left">
+									<h3>Upload Images</h3>
+									<input type="file" class="certificate_images" data-id="<?= $cert_key + 1 ?>" name="certifications[<?= $cert['id'] ?>][certificates_images][]" multiple accept="image/png, image/jpg, image/jpeg" />
 
-								<div class="old_certifications_images">
-									<?php
-									if (isset($cert['images']) && !empty($cert['images'])) {
-										$user_certifications_images = explode(",", $cert['images']);
+									<div class="old_certifications_images" data-id="<?= $cert_key + 1 ?>">
+										<?php
+										if (isset($cert['images']) && !empty($cert['images'])) {
+											$user_certifications_images = explode(",", $cert['images']);
 
-										foreach ($user_certifications_images as $image) { ?>
-											<img class="imageThumb" src="uploads/<?= $user_detail['id'] ?>/certificates_images/<?= $cert['id'] ?>/<?= $image ?>">
-									<?php }
-									} ?>
+											foreach ($user_certifications_images as $image) { ?>
+												<img class="imageThumb" src="uploads/<?= $user_detail['id'] ?>/certificates_images/<?= $cert['id'] ?>/<?= $image ?>">
+										<?php }
+										} ?>
+									</div>
 								</div>
 							</div>
 						</div>
