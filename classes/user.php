@@ -157,7 +157,7 @@ class User
             $work_flag = false;
 
             foreach ($_FILES['work_history']['name'] as $key => $image) {
-                if (!array_key_exists($key, $work_images)) {
+                if (isset($image['work_images'][0]) && !empty($image['work_images'][0]) && !array_key_exists($key, $work_images)) {
                     $work_images[$key]['images'] = implode(',', $image['work_images']);
 
                     if (count($image['work_images']) >= 1) {
@@ -170,9 +170,11 @@ class User
 
             if ($work_flag) {
                 $work_flag = false;
-                foreach ($work_images as $key => $image) {
-                    $sql3 = "UPDATE `user_work_history` SET `images` = '{$image['images']}' WHERE `id` = '{$key}'";
-                    $db->query($sql3);
+                if (isset($work_images) && !empty($work_images) && count($work_images) > 0) {
+                    foreach ($work_images as $key => $image) {
+                        $sql3 = "UPDATE `user_work_history` SET `images` = '{$image['images']}' WHERE `id` = '{$key}'";
+                        $db->query($sql3);
+                    }
                 }
             }
         }
@@ -204,7 +206,7 @@ class User
             $cert_flag = false;
 
             foreach ($_FILES['certifications']['name'] as $key => $image) {
-                if (!array_key_exists($key, $certificates_images)) {
+                if (isset($image['certificates_images'][0]) && !empty($image['certificates_images'][0]) && !array_key_exists($key, $certificates_images)) {
                     $certificates_images[$key]['images'] = implode(',', $image['certificates_images']);
                     if (count($image['certificates_images']) >= 1) {
                         $cert_flag = true;
@@ -216,9 +218,11 @@ class User
 
             if ($cert_flag) {
                 $cert_flag = false;
-                foreach ($certificates_images as $key => $image) {
-                    $sql3 = "UPDATE `user_certifications` SET `images` = '{$image['images']}' WHERE `id` = '{$key}'";
-                    $db->query($sql3);
+                if (isset($certificates_images) && !empty($certificates_images) && count($certificates_images) > 0) {
+                    foreach ($certificates_images as $key => $image) {
+                        $sql3 = "UPDATE `user_certifications` SET `images` = '{$image['images']}' WHERE `id` = '{$key}'";
+                        $db->query($sql3);
+                    }
                 }
             }
         }
