@@ -173,7 +173,6 @@ class User
 
             if ($work_flag) {
                 $work_flag = false;
-                echo '<pre>' . print_r($last_work_id, true) . '</pre>';
                 if (isset($work_images) && !empty($work_images) && count($work_images) > 0) {
                     foreach ($work_images as $key => $image) {
                         $sql3 = "UPDATE `user_work_history` SET `images` = '{$image['images']}' WHERE `id` = '{$last_work_id}'";
@@ -228,7 +227,6 @@ class User
                 $cert_flag = false;
                 if (isset($certificates_images) && !empty($certificates_images) && count($certificates_images) > 0) {
                     foreach ($certificates_images as $key => $image) {
-                        echo '<pre>' . print_r($last_cert_id, true) . '</pre>';
                         $sql3 = "UPDATE `user_certifications` SET `images` = '{$image['images']}' WHERE `id` = '{$last_cert_id}'";
                         $db->query($sql3);
                     }
