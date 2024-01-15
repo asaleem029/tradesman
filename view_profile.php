@@ -130,131 +130,137 @@ $user_certifications = $user->getUserCertifications($db, $_GET['id']);
 		</div>
 
 		<br>
-
-		<div id="skills-form">
-			<div class="row">
-				<div class="col">
-					<h3 class="form-signin-heading">Skills Details</h3>
+		
+		<?php if (isset($user_skills) && !empty($user_skills)) { ?>
+			<div id="skills-form">
+				<div class="row">
+					<div class="col">
+						<h3 class="form-signin-heading">Skills Details</h3>
+					</div>
 				</div>
-			</div>
 
-			<div class="skills-div">
-				<?php foreach ($user_skills as $skill) { ?>
-					<div class="form-group">
-						<div class="row">
-							<div class="col">
-								<label for="id">Name</label>
-								<input class="form-control" value="<?php if (isset($skill['name'])) echo $skill['name']; ?>" disabled>
-							</div>
+				<div class="skills-div">
+					<?php foreach ($user_skills as $skill) { ?>
+						<div class="form-group">
+							<div class="row">
+								<div class="col">
+									<label for="id">Name</label>
+									<input class="form-control" value="<?php if (isset($skill['name'])) echo $skill['name']; ?>" disabled>
+								</div>
 
-							<div class="col">
-								<label for="code">Time Acquired</label>
-								<input class="form-control" value="<?php if (isset($skill['time_acquired'])) echo $skill['time_acquired']; ?>" disabled>
+								<div class="col">
+									<label for="code">Time Acquired</label>
+									<input class="form-control" value="<?php if (isset($skill['time_acquired'])) echo $skill['time_acquired']; ?>" disabled>
+								</div>
 							</div>
 						</div>
-					</div>
-				<?php } ?>
+					<?php } ?>
+				</div>
 			</div>
-		</div>
+		<?php } ?>
 
 		<br>
 
-		<div id="work-history-form">
-			<h3 class="form-signin-heading">Work History Details</h3>
+		<?php if (isset($user_work_history) && !empty($user_work_history)) { ?>
+			<div id="work-history-form">
+				<h3 class="form-signin-heading">Work History Details</h3>
 
-			<?php foreach ($user_work_history as $his) { ?>
-				<div class="form-group">
-					<div class="row">
-						<div class="col">
-							<label for="work_type">Employement Type</label>
-							<input class="form-control" value="<?php if (isset($his['work_type'])) echo $his['work_type']; ?>" disabled>
-						</div>
+				<?php foreach ($user_work_history as $his) { ?>
+					<div class="form-group">
+						<div class="row">
+							<div class="col">
+								<label for="work_type">Employement Type</label>
+								<input class="form-control" value="<?php if (isset($his['work_type'])) echo $his['work_type']; ?>" disabled>
+							</div>
 
-						<div class="col">
-							<label for="employer_name">Employer Name</label>
-							<input class="form-control" value="<?php if (isset($his['employer_name'])) echo $his['employer_name']; ?>" disabled>
+							<div class="col">
+								<label for="employer_name">Employer Name</label>
+								<input class="form-control" value="<?php if (isset($his['employer_name'])) echo $his['employer_name']; ?>" disabled>
+							</div>
 						</div>
 					</div>
-				</div>
 
-				<div class="form-group">
-					<label for="work_details">Work Details</label>
-					<textarea class="form-control" disabled>
+					<div class="form-group">
+						<label for="work_details">Work Details</label>
+						<textarea class="form-control" disabled>
 						<?php if (isset($his['work_details'])) echo $his['work_details']; ?>
 					</textarea>
-				</div>
+					</div>
 
-				<?php if (isset($his['images']) && !empty($his['images'])) {
-					$work_images = explode(",", $his['images']); ?>
-					<div class="form-group">
-						<div class="row">
-							<div class="field" align="left">
-								<h3>Work Images</h3>
-								<div style="display: flex;">
-									<?php foreach ($work_images as $img) { ?>
-										<div style="margin: 5px;">
-											<img style="marign: 5px;" src="uploads/<?= $user_detail['id'] ?>/work_images/<?= $his['id'] ?>/<?= $img ?>" width="200" height="200">
-										</div>
-									<?php } ?>
+					<?php if (isset($his['images']) && !empty($his['images'])) {
+						$work_images = explode(",", $his['images']); ?>
+						<div class="form-group">
+							<div class="row">
+								<div class="field" align="left">
+									<h3>Work Images</h3>
+									<div style="display: flex;">
+										<?php foreach ($work_images as $img) { ?>
+											<div style="margin: 5px;">
+												<img style="marign: 5px;" src="uploads/<?= $user_detail['id'] ?>/work_images/<?= $his['id'] ?>/<?= $img ?>" width="200" height="200">
+											</div>
+										<?php } ?>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
+					<?php } ?>
+					<br>
 				<?php } ?>
-				<br>
-			<?php } ?>
-		</div>
+			</div>
+		<?php } ?>
 
 		<br>
 
-		<div id="certification-form">
-			<h3 class="form-signin-heading">Cerification Details</h3>
+		<?php if (isset($user_certifications) && !empty($user_certifications)) { ?>
+			<div id="certification-form">
+				<h3 class="form-signin-heading">Cerification Details</h3>
 
-			<?php foreach ($user_certifications as $cert) { ?>
-				<div class="form-group">
-					<div class="row">
-						<div class="col">
-							<label for="certification_name">Name of Certification</label>
-							<input class="form-control" value="<?php if (isset($cert['certification_name'])) echo $cert['certification_name']; ?>" disabled>
-						</div>
-					</div>
-				</div>
-
-				<div class="form-group">
-					<div class="row">
-						<div class="col">
-							<label for="valid_till">Valid Till</label>
-							<input class="form-control" value="<?php if (isset($cert['valid_till'])) echo $cert['valid_till']; ?>" disabled>
-						</div>
-
-						<div class="col">
-							<label for="valid_from">Valid From</label>
-							<input class="form-control" value="<?php if (isset($cert['valid_from'])) echo $cert['valid_from']; ?>" disabled>
-						</div>
-					</div>
-				</div>
-
-				<?php if (isset($cert['images']) && !empty($cert['images'])) {
-					$certifications_images = explode(",", $cert['images']);
-				?>
+				<?php foreach ($user_certifications as $cert) { ?>
 					<div class="form-group">
 						<div class="row">
-							<div class="field" align="left">
-								<h3>Certificate's Images</h3>
-								<div style="display: flex;">
-									<?php foreach ($certifications_images as $img) { ?>
-										<div style="margin: 5px;">
-											<img style="marign: 5px;" src="uploads/<?= $user_detail['id'] ?>/certificates_images/<?= $cert['id'] ?>/<?= $img ?>" width="200" height="200">
-										</div>
-									<?php } ?>
-								</div>
+							<div class="col">
+								<label for="certification_name">Name of Certification</label>
+								<input class="form-control" value="<?php if (isset($cert['certification_name'])) echo $cert['certification_name']; ?>" disabled>
 							</div>
 						</div>
 					</div>
+
+					<div class="form-group">
+						<div class="row">
+							<div class="col">
+								<label for="valid_till">Valid Till</label>
+								<input class="form-control" value="<?php if (isset($cert['valid_till'])) echo $cert['valid_till']; ?>" disabled>
+							</div>
+
+							<div class="col">
+								<label for="valid_from">Valid From</label>
+								<input class="form-control" value="<?php if (isset($cert['valid_from'])) echo $cert['valid_from']; ?>" disabled>
+							</div>
+						</div>
+					</div>
+
+					<?php if (isset($cert['images']) && !empty($cert['images'])) {
+						$certifications_images = explode(",", $cert['images']);
+					?>
+						<div class="form-group">
+							<div class="row">
+								<div class="field" align="left">
+									<h3>Certificate's Images</h3>
+									<div style="display: flex;">
+										<?php foreach ($certifications_images as $img) { ?>
+											<div style="margin: 5px;">
+												<img style="marign: 5px;" src="uploads/<?= $user_detail['id'] ?>/certificates_images/<?= $cert['id'] ?>/<?= $img ?>" width="200" height="200">
+											</div>
+										<?php } ?>
+									</div>
+								</div>
+							</div>
+						</div>
+					<?php } ?>
+					<br>
 				<?php } ?>
-				<br>
-			<?php } ?>
-		</div>
+			</div>
+		<?php } ?>
 	</div>
 
 	<br>

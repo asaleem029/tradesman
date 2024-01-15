@@ -131,6 +131,7 @@ class User
 
         // USER WORK HOSTORY SECTION STARTS
         if (isset($data['work_history']) && !empty($data['work_history'])) {
+            $last_work_id = '';
             foreach ($data['work_history'] as $key => $work_history) {
 
                 if (isset($work_history['work_id']) && !empty($work_history['work_id'])) {
@@ -143,37 +144,39 @@ class User
 
                     $sql3 = "UPDATE `user_work_history` SET `work_type` = '{$work_history['work_type']}', `employer_name` = '{$work_history['employer_name']}', `work_details` = '{$work_history['work_details']}', `user_id` = '{$data['id']}' WHERE `id` = '{$user_work_history['id']}'";
                     $db->query($sql3);
+                    $last_work_id = $user_work_history['id'];
                 } else if (isset($work_history['work_type']) && isset($work_history['employer_name']) && isset($work_history['work_details']) && !empty($work_history['work_type']) && !empty($work_history['employer_name']) && !empty($work_history['work_details'])) {
 
                     $query2 = "INSERT INTO `user_work_history` (`work_type`, `employer_name`, `work_details`, `user_id`) 
                     VALUES ('{$work_history['work_type']}', '{$work_history['employer_name']}', '{$work_history['work_details']}', '{$data['id']}')";
                     $db->query($query2);
+                    $last_work_id = $db->insert_id;
                 }
             }
-        }
 
-        if (isset($_FILES['work_history']) && !empty($_FILES['work_history'])) {
-            $work_images = array();
-            $work_flag = false;
+            if (isset($_FILES['work_history']) && !empty($_FILES['work_history'])) {
+                $work_images = array();
+                $work_flag = false;
 
-            foreach ($_FILES['work_history']['name'] as $key => $image) {
-                if (isset($image['work_images'][0]) && !empty($image['work_images'][0]) && !array_key_exists($key, $work_images)) {
-                    $work_images[$key]['images'] = implode(',', $image['work_images']);
+                foreach ($_FILES['work_history']['name'] as $key => $image) {
+                    if (isset($image['work_images'][0]) && !empty($image['work_images'][0]) && !array_key_exists($key, $work_images)) {
+                        $work_images[$key]['images'] = implode(',', $image['work_images']);
 
-                    if (count($image['work_images']) >= 1) {
-                        $work_flag = true;
+                        if (count($image['work_images']) >= 1) {
+                            $work_flag = true;
+                        }
                     }
                 }
-            }
 
-            $this->uploadWorkImages($_FILES['work_history'], 'work_images', $data['id']);
+                $this->uploadWorkImages($_FILES['work_history'], 'work_images', $data['id'], $last_work_id);
 
-            if ($work_flag) {
-                $work_flag = false;
-                if (isset($work_images) && !empty($work_images) && count($work_images) > 0) {
-                    foreach ($work_images as $key => $image) {
-                        $sql3 = "UPDATE `user_work_history` SET `images` = '{$image['images']}' WHERE `id` = '{$key}'";
-                        $db->query($sql3);
+                if ($work_flag) {
+                    $work_flag = false;
+                    if (isset($work_images) && !empty($work_images) && count($work_images) > 0) {
+                        foreach ($work_images as $key => $image) {
+                            $sql3 = "UPDATE `user_work_history` SET `images` = '{$image['images']}' WHERE `id` = '{$last_work_id}'";
+                            $db->query($sql3);
+                        }
                     }
                 }
             }
@@ -182,6 +185,7 @@ class User
 
         // USER CERTIFICATES SECTON STARTS
         if (isset($data['certifications']) && !empty($data['certifications'])) {
+            $last_cert_id = '';
             foreach ($data['certifications'] as $cert) {
 
                 if (isset($cert['certificate_id']) && !empty($cert['certificate_id'])) {
@@ -192,36 +196,38 @@ class User
 
                     $sql4 = "UPDATE `user_certifications` SET `certification_name` = '{$cert['certification_name']}', `valid_till` = '{$cert['valid_till']}', `valid_from` = '{$cert['valid_from']}', `user_id` = '{$data['id']}' WHERE `id` = '{$user_certification['id']}'";
                     $db->query($sql4);
-                } else {
+                    $last_cert_id = $user_certification['id'];
+                } else if (isset($cert['certification_name']) && !empty($cert['certification_name']) || isset($cert['valid_till']) && !empty($cert['valid_till']) || isset($cert['valid_from']) && !empty($cert['valid_from'])) {
 
                     $query3 = "INSERT INTO `user_certifications` (`certification_name`, `valid_till`, `valid_from`, `user_id`) 
                     VALUES ('{$cert['certification_name']}', '{$cert['valid_till']}', '{$cert['valid_from']}', '{$data['id']}')";
                     $db->query($query3);
+                    $last_cert_id = $db->insert_id;
                 }
             }
-        }
 
-        if (isset($_FILES['certifications']) && !empty($_FILES['certifications'])) {
-            $certificates_images = array();
-            $cert_flag = false;
+            if (isset($_FILES['certifications']) && !empty($_FILES['certifications'])) {
+                $certificates_images = array();
+                $cert_flag = false;
 
-            foreach ($_FILES['certifications']['name'] as $key => $image) {
-                if (isset($image['certificates_images'][0]) && !empty($image['certificates_images'][0]) && !array_key_exists($key, $certificates_images)) {
-                    $certificates_images[$key]['images'] = implode(',', $image['certificates_images']);
-                    if (count($image['certificates_images']) >= 1) {
-                        $cert_flag = true;
+                foreach ($_FILES['certifications']['name'] as $key => $image) {
+                    if (isset($image['certificates_images'][0]) && !empty($image['certificates_images'][0]) && !array_key_exists($key, $certificates_images)) {
+                        $certificates_images[$key]['images'] = implode(',', $image['certificates_images']);
+                        if (count($image['certificates_images']) >= 1) {
+                            $cert_flag = true;
+                        }
                     }
                 }
-            }
 
-            $this->uploadWorkImages($_FILES['certifications'], 'certificates_images', $data['id']);
+                $this->uploadWorkImages($_FILES['certifications'], 'certificates_images', $data['id'], $last_cert_id);
 
-            if ($cert_flag) {
-                $cert_flag = false;
-                if (isset($certificates_images) && !empty($certificates_images) && count($certificates_images) > 0) {
-                    foreach ($certificates_images as $key => $image) {
-                        $sql3 = "UPDATE `user_certifications` SET `images` = '{$image['images']}' WHERE `id` = '{$key}'";
-                        $db->query($sql3);
+                if ($cert_flag) {
+                    $cert_flag = false;
+                    if (isset($certificates_images) && !empty($certificates_images) && count($certificates_images) > 0) {
+                        foreach ($certificates_images as $key => $image) {
+                            $sql3 = "UPDATE `user_certifications` SET `images` = '{$image['images']}' WHERE `id` = '{$last_cert_id}'";
+                            $db->query($sql3);
+                        }
                     }
                 }
             }
@@ -308,7 +314,7 @@ class User
         return $result;
     }
 
-    function uploadWorkImages($files, $type, $user_id)
+    function uploadWorkImages($files, $type, $user_id, $type_id)
     {
         // Loop through each file
         foreach ($files['tmp_name'] as $key => $tmp_name) {
@@ -320,10 +326,10 @@ class User
                 //Make sure we have a file path
                 if ($tmpFilePath != "") {
                     //Setup our new file path
-                    $newFilePath = "../uploads/" . $user_id . "/" . $type . "/" . $key . "/" . $file_name;
+                    $newFilePath = "../uploads/" . $user_id . "/" . $type . "/" . $type_id . "/" . $file_name;
 
-                    if (!file_exists("../uploads/" . $user_id . "/" . $type . "/" . $key)) {
-                        mkdir("../uploads/" . $user_id . "/" . $type . "/" . $key, 0777, true);
+                    if (!file_exists("../uploads/" . $user_id . "/" . $type . "/" . $type_id)) {
+                        mkdir("../uploads/" . $user_id . "/" . $type . "/" . $type_id, 0777, true);
                     }
 
                     if (!file_exists($newFilePath)) {
