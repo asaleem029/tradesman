@@ -138,7 +138,7 @@ class User
                 }
 
                 if (
-                    isset($user_work_history['id']) && !empty($user_work_history['id']) && $user_work_history['id'] == $work_history['work_id']
+                    isset($user_work_history['id']) && !empty($user_work_history['id']) && isset($work_history['work_id']) && !empty($work_history['work_id']) && $user_work_history['id'] == $work_history['work_id']
                 ) {
 
                     $sql3 = "UPDATE `user_work_history` SET `work_type` = '{$work_history['work_type']}', `employer_name` = '{$work_history['employer_name']}', `work_details` = '{$work_history['work_details']}', `user_id` = '{$data['id']}' WHERE `id` = '{$user_work_history['id']}'";
@@ -188,7 +188,7 @@ class User
                     $user_certification = $this->getUserCertificationsById($db, $cert['certificate_id']);
                 }
 
-                if (isset($user_certification['id']) && !empty($user_certification['id']) && $user_certification['id'] == $cert['certificate_id']) {
+                if (isset($user_certification['id']) && !empty($user_certification['id']) && isset($cert['certificate_id']) && !empty($cert['certificate_id']) && $user_certification['id'] == $cert['certificate_id']) {
 
                     $sql4 = "UPDATE `user_certifications` SET `certification_name` = '{$cert['certification_name']}', `valid_till` = '{$cert['valid_till']}', `valid_from` = '{$cert['valid_from']}', `user_id` = '{$data['id']}' WHERE `id` = '{$user_certification['id']}'";
                     $db->query($sql4);
