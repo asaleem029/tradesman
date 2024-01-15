@@ -159,9 +159,9 @@ class User
 
                     foreach ($_FILES['work_history']['name'] as $key1 => $image) {
                         if ($key == $key1) {
-                            foreach ($image as $val) {
-                                if (isset($val) && !empty($val) && !array_key_exists($last_work_id, $work_images)) {
-                                    $work_images[$last_work_id]['images'] = implode(',', $val);
+                            foreach ($image as $img) {
+                                if (isset($img) && !empty($img) && count($img) > 1 && !array_key_exists($last_work_id, $work_images)) {
+                                    $work_images[$last_work_id]['images'] = implode(',', $img);
 
                                     if (count($image['work_images']) >= 1) {
                                         $work_flag = true;
@@ -191,7 +191,6 @@ class User
         $last_cert_id = '';
         if (isset($data['certifications']) && !empty($data['certifications'])) {
             foreach ($data['certifications'] as $key => $cert) {
-
                 if (isset($cert['certificate_id']) && !empty($cert['certificate_id'])) {
                     $user_certification = $this->getUserCertificationsById($db, $cert['certificate_id']);
                 }
@@ -216,13 +215,10 @@ class User
                     foreach ($_FILES['certifications']['name'] as $key1 => $image) {
                         if ($key == $key1) {
                             foreach ($image as $img) {
-
-                                if (isset($img) && !empty($img) && count($img) > 1) {
-                                    if (!array_key_exists($key1, $certificates_images)) {
-                                        $certificates_images[$last_cert_id]['images'] = implode(',', $img);
-                                        if (count($image['certificates_images']) >= 1) {
-                                            $cert_flag = true;
-                                        }
+                                if (isset($img) && !empty($img) && count($img) > 1 && !array_key_exists($key1, $certificates_images)) {
+                                    $certificates_images[$last_cert_id]['images'] = implode(',', $img);
+                                    if (count($image['certificates_images']) >= 1) {
+                                        $cert_flag = true;
                                     }
                                 }
                             }
