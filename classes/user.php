@@ -190,7 +190,7 @@ class User
         // USER CERTIFICATES SECTON STARTS
         $last_cert_id = '';
         if (isset($data['certifications']) && !empty($data['certifications'])) {
-            foreach ($data['certifications'] as $cert) {
+            foreach ($data['certifications'] as $key => $cert) {
 
                 if (isset($cert['certificate_id']) && !empty($cert['certificate_id'])) {
                     $user_certification = $this->getUserCertificationsById($db, $cert['certificate_id']);
@@ -213,11 +213,18 @@ class User
                     $certificates_images = array();
                     $cert_flag = false;
 
-                    foreach ($_FILES['certifications']['name'] as $key => $image) {
-                        if (isset($image['certificates_images'][0]) && !empty($image['certificates_images'][0]) && !array_key_exists($key, $certificates_images)) {
-                            $certificates_images[$key]['images'] = implode(',', $image['certificates_images']);
-                            if (count($image['certificates_images']) >= 1) {
-                                $cert_flag = true;
+                    foreach ($_FILES['certifications']['name'] as $key1 => $image) {
+                        if ($key == $key1) {
+                            foreach ($image as $img) {
+
+                                if (isset($img) && !empty($img) && count($img) > 1) {
+                                    if (!array_key_exists($key1, $certificates_images)) {
+                                        $certificates_images[$last_cert_id]['images'] = implode(',', $img);
+                                        if (count($image['certificates_images']) >= 1) {
+                                            $cert_flag = true;
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -226,10 +233,12 @@ class User
 
                     if ($cert_flag) {
                         $cert_flag = false;
-                        if (isset($certificates_images) && !empty($certificates_images) && count($certificates_images) > 0) {
+                        if (isset($certificates_images) && !empty($certificates_images)) {
                             foreach ($certificates_images as $key => $image) {
-                                $sql3 = "UPDATE `user_certifications` SET `images` = '{$image['images']}' WHERE `id` = '{$last_cert_id}'";
-                                $db->query($sql3);
+                                if (isset($image) && !empty($image)) {
+                                    $sql3 = "UPDATE `user_certifications` SET `images` = '{$image['images']}' WHERE `id` = '{$last_cert_id}'";
+                                    $db->query($sql3);
+                                }
                             }
                         }
                     }
