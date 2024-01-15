@@ -153,34 +153,35 @@ class User
                     $last_work_id = $db->insert_id;
                 }
             }
+        }
 
-            if (isset($_FILES['work_history']) && !empty($_FILES['work_history'])) {
-                $work_images = array();
-                $work_flag = false;
+        if (isset($_FILES['work_history']) && !empty($_FILES['work_history'])) {
+            $work_images = array();
+            $work_flag = false;
 
-                foreach ($_FILES['work_history']['name'] as $key => $image) {
-                    if (isset($image['work_images'][0]) && !empty($image['work_images'][0]) && !array_key_exists($key, $work_images)) {
-                        $work_images[$key]['images'] = implode(',', $image['work_images']);
+            foreach ($_FILES['work_history']['name'] as $key => $image) {
+                if (isset($image['work_images'][0]) && !empty($image['work_images'][0]) && !array_key_exists($key, $work_images)) {
+                    $work_images[$key]['images'] = implode(',', $image['work_images']);
 
-                        if (count($image['work_images']) >= 1) {
-                            $work_flag = true;
-                        }
+                    if (count($image['work_images']) >= 1) {
+                        $work_flag = true;
                     }
                 }
+            }
 
-                $this->uploadWorkImages($_FILES['work_history'], 'work_images', $data['id'], $last_work_id);
+            $this->uploadWorkImages($_FILES['work_history'], 'work_images', $data['id'], $last_work_id);
 
-                if ($work_flag) {
-                    $work_flag = false;
-                    if (isset($work_images) && !empty($work_images) && count($work_images) > 0) {
-                        foreach ($work_images as $key => $image) {
-                            $sql3 = "UPDATE `user_work_history` SET `images` = '{$image['images']}' WHERE `id` = '{$last_work_id}'";
-                            $db->query($sql3);
-                        }
+            if ($work_flag) {
+                $work_flag = false;
+                if (isset($work_images) && !empty($work_images) && count($work_images) > 0) {
+                    foreach ($work_images as $key => $image) {
+                        $sql3 = "UPDATE `user_work_history` SET `images` = '{$image['images']}' WHERE `id` = '{$last_work_id}'";
+                        $db->query($sql3);
                     }
                 }
             }
         }
+
         // USER WORK HOSTORY SECTION ENDS
 
         // USER CERTIFICATES SECTON STARTS
@@ -205,33 +206,34 @@ class User
                     $last_cert_id = $db->insert_id;
                 }
             }
+        }
 
-            if (isset($_FILES['certifications']) && !empty($_FILES['certifications'])) {
-                $certificates_images = array();
-                $cert_flag = false;
+        if (isset($_FILES['certifications']) && !empty($_FILES['certifications'])) {
+            $certificates_images = array();
+            $cert_flag = false;
 
-                foreach ($_FILES['certifications']['name'] as $key => $image) {
-                    if (isset($image['certificates_images'][0]) && !empty($image['certificates_images'][0]) && !array_key_exists($key, $certificates_images)) {
-                        $certificates_images[$key]['images'] = implode(',', $image['certificates_images']);
-                        if (count($image['certificates_images']) >= 1) {
-                            $cert_flag = true;
-                        }
+            foreach ($_FILES['certifications']['name'] as $key => $image) {
+                if (isset($image['certificates_images'][0]) && !empty($image['certificates_images'][0]) && !array_key_exists($key, $certificates_images)) {
+                    $certificates_images[$key]['images'] = implode(',', $image['certificates_images']);
+                    if (count($image['certificates_images']) >= 1) {
+                        $cert_flag = true;
                     }
                 }
+            }
 
-                $this->uploadWorkImages($_FILES['certifications'], 'certificates_images', $data['id'], $last_cert_id);
+            $this->uploadWorkImages($_FILES['certifications'], 'certificates_images', $data['id'], $last_cert_id);
 
-                if ($cert_flag) {
-                    $cert_flag = false;
-                    if (isset($certificates_images) && !empty($certificates_images) && count($certificates_images) > 0) {
-                        foreach ($certificates_images as $key => $image) {
-                            $sql3 = "UPDATE `user_certifications` SET `images` = '{$image['images']}' WHERE `id` = '{$last_cert_id}'";
-                            $db->query($sql3);
-                        }
+            if ($cert_flag) {
+                $cert_flag = false;
+                if (isset($certificates_images) && !empty($certificates_images) && count($certificates_images) > 0) {
+                    foreach ($certificates_images as $key => $image) {
+                        $sql3 = "UPDATE `user_certifications` SET `images` = '{$image['images']}' WHERE `id` = '{$last_cert_id}'";
+                        $db->query($sql3);
                     }
                 }
             }
         }
+
         // USER CERTIFICATES SECTON ENDS
 
         if ($db->query($sql1) === TRUE) {
